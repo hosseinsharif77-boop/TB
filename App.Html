@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>TechBridge · B2B Digital Intermediary</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#F6F9FC', surface: '#FFFFFF', ink: '#0B1A33', muted: '#64748B', faint: '#CBD5E1',
+                        line: '#E9EDF4', accent: '#2463EB', accentHover: '#1A4FC7', accentLight: '#EFF4FF',
+                        success: '#0B8B5E', successLight: '#E6F5EF', warning: '#EAA300', warningLight: '#FFF8E6',
+                        danger: '#D43B3B', dangerLight: '#FEF0F0'
+                    },
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    boxShadow: {
+                        'card': '0 1px 3px 0 rgba(11, 26, 51, 0.04), 0 1px 2px 0 rgba(11, 26, 51, 0.02)',
+                        'card-hover': '0 12px 24px -8px rgba(11, 26, 51, 0.08), 0 4px 8px -2px rgba(11, 26, 51, 0.04)',
+                        'glow': '0 0 40px -8px rgba(36, 99, 235, 0.15)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #F6F9FC; color: #0B1A33; font-family: 'Inter', system-ui, sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #F1F4F9; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 12px; }
+        ::selection { background: #2463EB; color: #FFFFFF; }
+
+        .text-gradient-warm { background: linear-gradient(135deg, #2463EB 0%, #8B5CF6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .btn-primary { transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); background: #2463EB; color: #FFFFFF; box-shadow: 0 1px 2px 0 rgba(36, 99, 235, 0.25); }
+        .btn-primary:hover { background: #1A4FC7; transform: translateY(-2px); box-shadow: 0 8px 16px -4px rgba(36, 99, 235, 0.3); }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-secondary { transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); background: #FFFFFF; border: 1px solid #E9EDF4; color: #0B1A33; }
+        .btn-secondary:hover { border-color: #2463EB; background: #F8FAFE; transform: translateY(-2px); box-shadow: 0 4px 12px -4px rgba(11, 26, 51, 0.06); }
+        .btn-danger { transition: all 0.2s ease; background: transparent; border: 1px solid #E9EDF4; color: #D43B3B; }
+        .btn-danger:hover { background: #FEF0F0; border-color: #D43B3B; }
+        .btn-full { width: 100%; justify-content: center; }
+        
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+        .match-bar-fill { width: 0%; transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .saas-card { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .saas-card:hover { transform: translateY(-6px); box-shadow: 0 12px 24px -8px rgba(11, 26, 51, 0.08), 0 4px 8px -2px rgba(11, 26, 51, 0.04); }
+        .chip { transition: all 0.2s ease; cursor: pointer; }
+        .chip:hover { transform: translateY(-1px); }
+        .nav-link { position: relative; transition: color 0.2s ease; }
+        .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #2463EB; transition: width 0.25s ease; border-radius: 2px; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        .hero-fade { background: linear-gradient(to bottom, rgba(246, 249, 252, 0) 0%, rgba(246, 249, 252, 0.7) 65%, rgba(246, 249, 252, 1) 100%); position: absolute; bottom: 0; left: 0; width: 100%; height: 120px; z-index: 1; }
+        .glass-nav { background: rgba(255, 255, 255, 0.72); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); border-bottom: 1px solid rgba(233, 237, 244, 0.6); }
+        
+        .badge-pulse { animation: pulse-badge 2s ease-in-out infinite; }
+        @keyframes pulse-badge { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        .stat-number { font-feature-settings: "tnum"; }
+        .message-bubble { animation: message-in 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes message-in { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+        .status-dot.online { background: #0B8B5E; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useMemo } = React;
+
+        const Icon = ({ name, size = 18, className = "" }) => {
+            const svgProps = { xmlns: "http://www.w3.org/2000/svg", width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", className: `inline-block ${className}` };
+            const paths = {
+                ArrowRight: <path d="M5 12h14M12 5l7 7-7 7" />, ArrowLeft: <path d="M19 12H5M12 19l-7-7 7-7" />,
+                Search: <><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></>,
+                MessageSquare: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />,
+                ShieldCheck: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />,
+                Check: <path d="M20 6 9 17l-5-5" />, X: <path d="M18 6 6 18M6 6l12 12" />,
+                Building2: <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18M6 12H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2M18 9h2a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-2M6 18h12" />,
+                Briefcase: <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16M8 10H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-2" />,
+                LayoutDashboard: <><rect width="7" height="9" x="3" y="3" rx="1" /><rect width="7" height="5" x="14" y="3" rx="1" /><rect width="7" height="9" x="14" y="12" rx="1" /><rect width="7" height="5" x="3" y="16" rx="1" /></>,
+                Send: <path d="m22 2-7 20-4-9-9-4ZM22 2 11 13" />, Plus: <path d="M5 12h14M12 5v14" />,
+                Sparkles: <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />,
+                ClipboardCheck: <><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M9 14l2 2 4-4" /></>,
+                Globe: <><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20" /></>,
+                LogOut: <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />,
+                Menu: <path d="M4 12h16M4 6h16M4 18h16" />
+            };
+            return <svg {...svgProps}>{paths[name]}</svg>;
+        };
+
+        const Btn = ({ children, onClick, variant = "primary", className = "", size = "md", full = false }) => {
+            const base = "inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed";
+            const sizes = { sm: "px-3.5 py-2 text-sm", md: "px-5 py-2.5 text-sm", lg: "px-6 py-3.5 text-base" };
+            const variants = { primary: "btn-primary", secondary: "btn-secondary", danger: "btn-danger" };
+            return <button onClick={onClick} className={`${base} ${sizes[size]} ${variants[variant]} ${full ? 'btn-full' : ''} ${className}`}>{children}</button>;
+        };
+
+        const Chip = ({ label, active, onClick }) => (
+            <button onClick={onClick} className={`chip px-4 py-2 text-sm font-medium rounded-xl border transition-all duration-200 ${active ? 'bg-accent text-white border-accent shadow-sm' : 'bg-white text-muted border-line hover:border-faint hover:text-ink hover:bg-slate-50/80'}`}>{label}</button>
+        );
+
+        const Tag = ({ children, tone = "muted", size = "sm" }) => {
+            const sizes = { sm: "text-xs px-2.5 py-1", md: "text-sm px-3 py-1.5" };
+            const tones = { muted: "bg-slate-50 text-muted border-line", accent: "bg-accentLight text-accent border-accentLight", success: "bg-successLight text-success border-successLight", warning: "bg-warningLight text-warning border-warningLight" };
+            return <span className={`inline-flex items-center ${sizes[size]} font-medium rounded-lg border ${tones[tone]}`}>{children}</span>;
+        };
+
+        const SectionLabel = ({ children }) => (
+            <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-accent bg-accentLight px-3.5 py-1.5 rounded-full mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>{children}
+            </div>
+        );
+
+        const PageHeader = ({ title, subtitle, actions }) => (
+            <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+                <div>
+                    {subtitle && <SectionLabel>{subtitle}</SectionLabel>}
+                    <h2 className="text-3xl md:text-4xl font-extrabold text-ink tracking-tight leading-[1.1]">{title}</h2>
+                </div>
+                {actions && <div className="flex gap-2 flex-wrap">{actions}</div>}
+            </div>
+        );
+
+        const useReveal = () => {
+            const ref = useRef(null);
+            useEffect(() => {
+                const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }, { threshold: 0.1 });
+                if (ref.current) observer.observe(ref.current);
+                return () => { if (ref.current) observer.unobserve(ref.current); };
+            }, []);
+            return ref;
+        };
+
+        const CAPABILITIES = ["Artificial Intelligence", "Machine Learning", "Data Analytics", "Cloud", "Cybersecurity", "FinTech", "ERP/CRM", "IoT", "Software Development", "Digital Transformation", "Blockchain", "Robotics"];
+        const INDUSTRIES = ["Healthcare", "Finance", "Retail", "Government", "Energy", "Telecom", "Logistics", "Manufacturing"];
+        const GCC_COUNTRIES = ["Saudi Arabia", "UAE", "Qatar", "Kuwait", "Bahrain", "Oman"];
+        const PARTNERSHIP_TYPES = ["Strategic Partnership", "Technology Partnership", "Joint Venture", "Reseller", "Subcontracting"];
+        const COMPANY_SIZES = ["1–10", "11–50", "51–200", "200+", "500+"];
+
+        const UK_COMPANIES = [
+            { id: "uk1", name: "TechVision UK", flag: "🇬🇧", size: "11–50", founded: 2018, capabilities: ["Artificial Intelligence", "Machine Learning", "Data Analytics", "Cloud"], industries: ["Healthcare", "Finance", "Retail"], targetMarkets: ["Saudi Arabia", "UAE", "Qatar"], partnershipTypes: ["Strategic Partnership", "Technology Partnership", "Joint Venture", "Reseller"], verification: "Business Verified", blurb: "AI and analytics for regulated industries — healthcare and financial services." },
+            { id: "uk2", name: "CyberSecure UK Ltd", flag: "🇬🇧", size: "51–200", founded: 2015, capabilities: ["Cybersecurity"], industries: ["Finance", "Government"], targetMarkets: ["UAE", "Saudi Arabia"], partnershipTypes: ["Strategic Partnership"], verification: "Platform Verified", blurb: "Cloud security and SOC services for banking and government clients." },
+            { id: "uk3", name: "CloudForge Systems", flag: "🇬🇧", size: "11–50", founded: 2019, capabilities: ["Cloud", "Digital Transformation"], industries: ["Logistics", "Retail"], targetMarkets: ["Qatar", "Kuwait"], partnershipTypes: ["Technology Partnership", "Reseller"], verification: "Business Verified", blurb: "Cloud migration and ERP integration for supply chain operators." },
+            { id: "uk4", name: "NorthStar Fintech", flag: "🇬🇧", size: "1–10", founded: 2021, capabilities: ["FinTech", "Software Development"], industries: ["Finance"], targetMarkets: ["Bahrain", "UAE"], partnershipTypes: ["Joint Venture", "Strategic Partnership"], verification: "Email Verified", blurb: "Payments infrastructure and compliance tooling for challenger banks." },
+            { id: "uk5", name: "Nexus Data Labs", flag: "🇬🇧", size: "11–50", founded: 2020, capabilities: ["Data Analytics", "Machine Learning", "Cloud"], industries: ["Healthcare", "Energy"], targetMarkets: ["Saudi Arabia", "Qatar"], partnershipTypes: ["Strategic Partnership", "Technology Partnership"], verification: "Business Verified", blurb: "Data science and ML ops for energy and healthcare sectors." },
+        ];
+
+        const GCC_COMPANIES = [
+            { id: "gcc1", name: "Al Faisal Analytics", flag: "🇸🇦", size: "51–200", capabilities: ["Artificial Intelligence", "Data Analytics"], industries: ["Healthcare"], partnershipTypes: ["Strategic Partnership", "Joint Venture"], verification: "Business Verified", blurb: "Healthcare data platform seeking an international AI partner." },
+            { id: "gcc2", name: "Gulf Fintech Horizon", flag: "🇦🇪", size: "51–200", capabilities: ["Cybersecurity", "Cloud"], industries: ["Finance"], partnershipTypes: ["Strategic Partnership"], verification: "Platform Verified", blurb: "Digital banking group upgrading platform security ahead of launch." },
+            { id: "gcc3", name: "Doha Logistics Group", flag: "🇶🇦", size: "200+", capabilities: ["Cloud", "ERP/CRM"], industries: ["Logistics"], partnershipTypes: ["Technology Partnership"], verification: "Business Verified", blurb: "Regional logistics operator modernising its core systems." },
+            { id: "gcc4", name: "Manama Capital", flag: "🇧🇭", size: "11–50", capabilities: ["FinTech"], industries: ["Finance"], partnershipTypes: ["Joint Venture"], verification: "Email Verified", blurb: "Investment group building a payments infrastructure JV." },
+            { id: "gcc5", name: "Riyadh Digital Hub", flag: "🇸🇦", size: "51–200", capabilities: ["Cloud", "Digital Transformation", "ERP/CRM"], industries: ["Government", "Energy"], partnershipTypes: ["Strategic Partnership", "Technology Partnership"], verification: "Platform Verified", blurb: "Smart city and government digital services provider." },
+        ];
+
+        const INITIAL_OPPORTUNITIES = [
+            { id: "opp1", title: "AI Partner for Healthcare", postedBy: "gcc1", country: "Saudi Arabia", flag: "🇸🇦", lookingFor: ["Artificial Intelligence", "Data Analytics"], industry: "Healthcare", partnershipType: "Strategic Partnership", budget: "Not disclosed", deadline: "30 Sept 2026", description: "Seeking a UK AI/analytics company with healthcare experience to co-develop a patient-data platform." },
+            { id: "opp2", title: "Cybersecurity for Banking", postedBy: "gcc2", country: "UAE", flag: "🇦🇪", lookingFor: ["Cybersecurity", "Cloud"], industry: "Finance", partnershipType: "Strategic Partnership", budget: "£50k – £100k", deadline: "30 Sept 2026", description: "Looking for a UK SME with banking and cloud-security experience to secure a new digital banking platform." },
+            { id: "opp3", title: "Cloud & ERP Integration", postedBy: "gcc3", country: "Qatar", flag: "🇶🇦", lookingFor: ["Cloud", "ERP/CRM"], industry: "Logistics", partnershipType: "Technology Partnership", budget: "Not disclosed", deadline: "15 Oct 2026", description: "Regional logistics operator modernising core systems; open to a long-term technology partnership." },
+            { id: "opp4", title: "FinTech JV — Payments", postedBy: "gcc4", country: "Bahrain", flag: "🇧🇭", lookingFor: ["FinTech"], industry: "Finance", partnershipType: "Joint Venture", budget: "Not disclosed", deadline: "1 Nov 2026", description: "Investment group seeking a UK payments-technology company for a joint venture." },
+            { id: "opp5", title: "Smart City Data Platform", postedBy: "gcc5", country: "Saudi Arabia", flag: "🇸🇦", lookingFor: ["Cloud", "Digital Transformation", "Data Analytics"], industry: "Government", partnershipType: "Strategic Partnership", budget: "£200k+", deadline: "20 Dec 2026", description: "Riyadh-based smart city initiative looking for UK data and cloud partners." },
+        ];
+
+        const MATCH_WEIGHTS = [{ label: "Technology", pct: 30 }, { label: "Industry", pct: 20 }, { label: "Geography", pct: 20 }, { label: "Partnership Objective", pct: 20 }, { label: "Company Size", pct: 10 }];
+
+        function overlapPct(a = [], b = []) { if (!a.length || !b.length) return 40; const setB = new Set(b); const inter = a.filter(x => setB.has(x)).length; const pct = Math.round((inter / Math.min(a.length, b.length)) * 100); return Math.max(35, Math.min(100, pct || 35)); }
+        function seededSize(id) { let h = 0; for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) % 97; return 68 + (h % 24); }
+        function scoreAgainstOpportunity(p, o) { const t = overlapPct(p.capabilities, o.lookingFor); const i = p.industries.includes(o.industry) ? 92 : 52; const g = (p.targetMarkets || []).includes(o.country) ? 95 : 58; const ob = p.partnershipTypes.includes(o.partnershipType) ? 90 : 56; const s = seededSize(o.id); const sc = Math.round(t * 0.3 + i * 0.2 + g * 0.2 + ob * 0.2 + s * 0.1); return { score: Math.min(100, sc), breakdown: { Technology: t, Industry: i, Geography: g, "Partnership objective": ob, "Company size": s } }; }
+        function scoreAgainstCompany(p, c) { const t = overlapPct(p.capabilities, c.capabilities); const i = overlapPct(p.industries, c.industries); const g = (c.targetMarkets || []).includes(p.country) ? 93 : 57; const ob = overlapPct(p.partnershipTypes, c.partnershipTypes); const s = seededSize(c.id); const sc = Math.round(t * 0.3 + i * 0.2 + g * 0.2 + ob * 0.2 + s * 0.1); return { score: Math.min(100, sc), breakdown: { Technology: t, Industry: i, Geography: g, "Partnership objective": ob, "Company size": s } }; }
+
+        function App() {
+            const [mode, setMode] = useState("public");
+            const [publicView, setPublicView] = useState("home");
+            const [platformView, setPlatformView] = useState("dashboard");
+            const [role, setRole] = useState(null);
+            const [onboardStep, setOnboardStep] = useState(0);
+            const [profile, setProfile] = useState(null);
+            const [matches, setMatches] = useState([]);
+            const [detailCompany, setDetailCompany] = useState(null);
+            const [detailOpportunity, setDetailOpportunity] = useState(null);
+            const [detailMatch, setDetailMatch] = useState(null);
+            const [opportunities, setOpportunities] = useState(INITIAL_OPPORTUNITIES);
+            const [threads, setThreads] = useState({});
+            const [activeThread, setActiveThread] = useState(null);
+            const [requests, setRequests] = useState([]);
+            const [pendingCompanies, setPendingCompanies] = useState([{ id: "p1", name: "Meridian Data Ltd", country: "UK", flag: "🇬🇧", submitted: "2d" }, { id: "p2", name: "Riyadh Cloud Works", country: "SA", flag: "🇸🇦", submitted: "1d" }]);
+            const [pendingOpportunities, setPendingOpportunities] = useState([{ id: "po1", title: "IoT Partner for Smart Warehousing", country: "AE", flag: "🇦🇪", submitted: "6h" }]);
+            const [form, setForm] = useState({ name: "", country: "United Kingdom", size: "11–50", description: "", capabilities: [], industries: [], targetMarkets: [], partnershipTypes: [] });
+            const [searchQuery, setSearchQuery] = useState("");
+            const [filterCapability, setFilterCapability] = useState("");
+            const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+            const toggleChip = (field, value) => setForm(f => ({ ...f, [field]: f[field].includes(value) ? f[field].filter(v => v !== value) : [...f[field], value] }));
+            const startOnboarding = (r) => { setRole(r); setForm({ name: "", country: r === "uk" ? "United Kingdom" : "Saudi Arabia", size: "11–50", description: "", capabilities: [], industries: [], targetMarkets: [], partnershipTypes: [] }); setOnboardStep(1); setMode("platform"); setPlatformView("onboarding"); };
+            const completeOnboarding = () => { const np = { id: "you", ...form, verification: "Email Verified" }; setProfile(np); let m = []; if (role === "uk") { m = opportunities.map(o => ({ kind: "opportunity", target: o, ...scoreAgainstOpportunity(np, o) })); } else { m = UK_COMPANIES.map(c => ({ kind: "company", target: c, ...scoreAgainstCompany(np, c) })); } m.sort((a, b) => b.score - a.score); setMatches(m); setPlatformView("dashboard"); };
+            const postOpportunity = (opp) => setOpportunities(prev => [{ ...opp, id: "opp" + (prev.length + 1), postedBy: "you" }, ...prev]);
+            const openThread = (name) => { setThreads(prev => (prev[name] ? prev : { ...prev, [name]: [{ from: "them", text: `Hi — thanks for the introduction. Happy to arrange a short call.` }] })); setActiveThread(name); setPlatformView("messages"); };
+            const sendMessage = (name, text) => { if (!text.trim()) return; setThreads(prev => ({ ...prev, [name]: [...(prev[name] || []), { from: "you", text }] })); };
+            const sendRequest = (name, kind) => setRequests(prev => prev.some(r => r.withName === name) ? prev : [{ id: "req" + prev.length, withName: name, kind, status: "Pending" }, ...prev]);
+            const goCompanyDetail = (c, from) => { setDetailCompany(c); from === "public" ? setPublicView("companyDetail") : setPlatformView("companyDetail"); };
+            const goOpportunityDetail = (o, from) => { setDetailOpportunity(o); from === "public" ? setPublicView("opportunityDetail") : setPlatformView("opportunityDetail"); };
+            const signOut = () => { setMode("public"); setPublicView("home"); setRole(null); setProfile(null); setMobileNavOpen(false); };
+
+            const PublicNav = () => {
+                const [scrolled, setScrolled] = useState(false);
+                useEffect(() => {
+                    const handleScroll = () => setScrolled(window.scrollY > 10);
+                    window.addEventListener('scroll', handleScroll);
+                    return () => window.removeEventListener('scroll', handleScroll);
+                }, []);
+
+                const navItems = [{ id: "how", label: "Mechanism" }, { id: "browseCompanies", label: "Directory" }, { id: "browseOpportunities", label: "Opportunities" }, { id: "academic", label: "Research" }];
+
+                return (
+                    <>
+                        {/* Optimized Mobile/Desktop Header Height */}
+                        <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass-nav py-2 md:py-4' : 'bg-transparent py-3 md:py-6'}`}>
+                            <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
+                                <button onClick={() => setPublicView("home")} className="text-lg md:text-xl font-extrabold tracking-tight text-ink flex items-center gap-2">
+                                    <div className="w-8 h-8 bg-accent rounded-lg md:rounded-xl flex items-center justify-center text-white text-xs md:text-sm font-bold shadow-glow">TB</div>
+                                    <span className="hidden sm:inline">TechBridge</span>
+                                </button>
+                                <div className="hidden md:flex gap-1 text-sm font-medium">
+                                    {navItems.map(item => (
+                                        <button key={item.id} onClick={() => setPublicView(item.id)} className={`nav-link px-3 py-1.5 rounded-lg transition-colors ${publicView === item.id ? 'text-accent font-semibold active' : 'text-muted hover:text-ink'}`}>{item.label}</button>
+                                    ))}
+                                </div>
+                                <div className="flex gap-3 items-center">
+                                    <button className="hidden md:flex text-sm font-medium text-muted hover:text-ink transition-colors px-3 py-1.5 rounded-lg hover:bg-slate-50" onClick={() => setMode("admin")}>Governance</button>
+                                    <Btn variant="primary" onClick={() => startOnboarding("uk")} size="sm" className="hidden sm:flex">Enter Prototype <Icon name="ArrowRight" size={14} /></Btn>
+                                    <button className="md:hidden p-2 text-ink" onClick={() => setMobileNavOpen(true)}>
+                                        <Icon name="Menu" size={24} />
+                                    </button>
+                                </div>
+                            </div>
+                        </nav>
+
+                        {mobileNavOpen && (
+                            <div className="fixed inset-0 z-[60] md:hidden">
+                                <div className="absolute inset-0 bg-ink/30 backdrop-blur-sm" onClick={() => setMobileNavOpen(false)}></div>
+                                <div className="absolute right-0 top-0 h-full w-64 bg-white shadow-xl flex flex-col p-6">
+                                    <div className="flex justify-between items-center mb-8">
+                                        <span className="font-extrabold text-lg">Menu</span>
+                                        <button onClick={() => setMobileNavOpen(false)} className="p-2 text-muted hover:bg-slate-100 rounded-lg"><Icon name="X" size={20} /></button>
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        {navItems.map(item => (
+                                            <button key={item.id} onClick={() => { setPublicView(item.id); setMobileNavOpen(false); }} className={`text-left px-4 py-3 rounded-lg font-medium ${publicView === item.id ? 'bg-accentLight text-accent' : 'text-ink hover:bg-slate-50'}`}>{item.label}</button>
+                                        ))}
+                                        <button onClick={() => { setMode("admin"); setMobileNavOpen(false); }} className="text-left px-4 py-3 rounded-lg font-medium text-muted hover:bg-slate-50">Governance</button>
+                                    </div>
+                                    <div className="mt-auto">
+                                        <Btn variant="primary" full onClick={() => { startOnboarding("uk"); setMobileNavOpen(false); }}>Enter Prototype <Icon name="ArrowRight" size={14} /></Btn>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </>
+                );
+            };
+
+            const PLATFORM_NAV = [
+                { id: "dashboard", label: "Overview", icon: "LayoutDashboard" },
+                { id: "browseCompanies", label: "Entities", icon: "Building2" },
+                { id: "browseOpportunities", label: "Opps", icon: "Briefcase" },
+                { id: "matches", label: "Matches", icon: "Sparkles" },
+                { id: "messages", label: "Messages", icon: "MessageSquare" },
+            ];
+
+            const MobileBottomNav = () => (
+                <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 glass-nav border-t border-line flex justify-around py-2 pb-[env(safe-area-inset-bottom)]">
+                    {PLATFORM_NAV.map(item => (
+                        <button key={item.id} onClick={() => setPlatformView(item.id)} className={`flex flex-col items-center gap-1 px-3 py-1.5 rounded-lg transition-colors ${platformView === item.id ? 'text-accent' : 'text-muted'}`}>
+                            <Icon name={item.icon} size={20} />
+                            <span className="text-[10px] font-medium">{item.label}</span>
+                        </button>
+                    ))}
+                </nav>
+            );
+
+            const PlatformShell = ({ children }) => (
+                <div className="min-h-screen flex bg-bg">
+                    <aside className="w-64 fixed h-screen border-r border-line p-5 flex-col justify-between bg-white/80 backdrop-blur-sm z-40 hidden md:flex">
+                        <div>
+                            <button onClick={() => signOut()} className="text-xl font-extrabold mb-8 text-ink flex items-center gap-2.5 px-2">
+                                <div className="w-8 h-8 bg-accent rounded-xl flex items-center justify-center text-white text-sm">TB</div>
+                                <span>TechBridge</span>
+                            </button>
+                            {profile && 
+                                <div className="text-xs font-medium mb-6 border border-line p-3.5 rounded-xl bg-bg/80 backdrop-blur-sm">
+                                    <div className="text-muted text-[10px] uppercase tracking-wider mb-1">Signed in as</div>
+                                    <div className="text-ink font-semibold">{profile.name || "Your Entity"}</div>
+                                    <div className="text-accent mt-0.5 text-[11px]">{role === "uk" ? "UK SME" : "GCC Entity"}</div>
+                                </div>
+                            }
+                            <nav className="flex flex-col gap-1">
+                                {PLATFORM_NAV.map(item => (
+                                    <button key={item.id} onClick={() => setPlatformView(item.id)} className={`flex items-center gap-3 px-3.5 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 ${platformView === item.id ? 'bg-accent text-white shadow-sm' : 'text-muted hover:text-ink hover:bg-slate-50'}`}>
+                                        <Icon name={item.icon} size={16} /> {item.label}
+                                    </button>
+                                ))}
+                            </nav>
+                        </div>
+                        <button onClick={signOut} className="flex items-center gap-2 text-sm text-danger hover:bg-dangerLight transition px-3.5 py-2.5 rounded-xl border border-transparent hover:border-line">
+                            <Icon name="LogOut" size={14} /> Exit
+                        </button>
+                    </aside>
+
+                    <main className="flex-1 md:ml-64 p-4 md:p-8 pb-24 md:pb-8 min-h-screen bg-bg/50">
+                        <div className="md:hidden flex justify-between items-center mb-6 pb-4 border-b border-line">
+                            <button onClick={signOut} className="text-lg font-extrabold text-ink flex items-center gap-2">
+                                <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center text-white text-xs">TB</div>
+                                TechBridge
+                            </button>
+                            <button onClick={signOut} className="text-xs font-medium text-danger flex items-center gap-1">
+                                <Icon name="LogOut" size={14} /> Exit
+                            </button>
+                        </div>
+                        {children}
+                    </main>
+                    <MobileBottomNav />
+                </div>
+            );
+
+            const Home = () => {
+                const ref1 = useReveal(); const ref2 = useReveal(); const ref3 = useReveal();
+
+                useEffect(() => {
+                    const canvas = document.getElementById('hero-canvas');
+                    if (!canvas || typeof THREE === 'undefined') return;
+
+                    const scene = new THREE.Scene();
+                    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+                    // Optimize geometry for mobile
+                    const isMobile = window.innerWidth < 768;
+                    const segments = isMobile ? 40 : 80;
+                    const geometry = new THREE.PlaneGeometry(40, 40, segments, segments);
+                    const material = new THREE.MeshBasicMaterial({ color: 0x2463EB, wireframe: true, transparent: true, opacity: 0.12 });
+                    const mesh = new THREE.Mesh(geometry, material);
+                    mesh.rotation.x = -Math.PI / 2.5; 
+                    mesh.position.y = -5;
+                    
+                    // Scale down mesh slightly on mobile to make it visually smaller
+                    if (isMobile) {
+                        mesh.scale.set(0.7, 0.7, 0.7);
+                        camera.position.set(0, 6, 12); // Pull camera back slightly
+                    } else {
+                        camera.position.set(0, 5, 10);
+                    }
+                    
+                    scene.add(mesh);
+
+                    const pointsMaterial = new THREE.PointsMaterial({ color: 0x6C3CE1, size: 0.08, transparent: true, opacity: 0.5, sizeAttenuation: true });
+                    const pointsMesh = new THREE.Points(geometry, pointsMaterial);
+                    mesh.add(pointsMesh);
+
+                    camera.lookAt(0, 0, 0);
+
+                    let time = 0; let animId;
+
+                    function animate() {
+                        animId = requestAnimationFrame(animate);
+                        time += 0.018;
+                        const positions = geometry.attributes.position.array;
+                        for (let i = 0; i < positions.length; i += 3) {
+                            const x = positions[i]; const y = positions[i + 1];
+                            positions[i + 2] = Math.sin(x + time) * 1.6 + Math.cos(y + time * 0.8) * 1.6;
+                        }
+                        geometry.attributes.position.needsUpdate = true;
+                        renderer.render(scene, camera);
+                    }
+                    animate();
+
+                    const handleResize = () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); };
+                    window.addEventListener('resize', handleResize);
+                    return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', handleResize); geometry.dispose(); material.dispose(); pointsMaterial.dispose(); renderer.dispose(); };
+                }, []);
+
+                return (
+                    <div className="pt-20 md:pt-32">
+                        {/* HERO: Reduced min-height and padding for mobile */}
+                        <section className="relative min-h-[60vh] md:min-h-[80vh] flex items-center justify-center overflow-hidden">
+                            <canvas id="hero-canvas"></canvas>
+                            <div className="hero-fade"></div>
+                            <div className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 pb-10 md:pb-24 text-center">
+                                <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-accent bg-accentLight px-4 py-1.5 rounded-full mb-4 md:mb-6 badge-pulse">
+                                    <span className="w-2 h-2 rounded-full bg-accent"></span> Research-Driven Prototype
+                                </div>
+                                <h1 className="text-4xl md:text-7xl leading-[1.1] tracking-tight font-extrabold text-ink mb-4 md:mb-6">
+                                    The architecture of <br />
+                                    <span className="text-gradient-warm">cross-border</span> digital partnerships.
+                                </h1>
+                                <p className="text-base md:text-xl text-muted leading-relaxed mt-4 mb-8 md:mb-10 max-w-2xl mx-auto">
+                                    An interactive proof-of-concept demonstrating how a digital B2B intermediary can facilitate discovery and initial connection between UK and GCC SMEs.
+                                </p>
+                                <div className="flex flex-col sm:flex-row gap-3 justify-center px-4">
+                                    <Btn variant="primary" onClick={() => startOnboarding("uk")} size="lg" full>Enter Prototype <Icon name="ArrowRight" size={16} /></Btn>
+                                    <Btn variant="secondary" onClick={() => setPublicView("how")} size="lg" full>See How It Works</Btn>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section className="max-w-5xl mx-auto px-4 md:px-6 py-8 md:py-12 grid grid-cols-3 gap-4 md:gap-8 border-y border-line bg-white/50 backdrop-blur-sm">
+                            {[{ val: "24+", label: "UK SMEs" }, { val: "18+", label: "GCC Entities" }, { val: "12", label: "Active Opps" }].map(s => (
+                                <div key={s.label} className="text-center">
+                                    <div className="text-2xl md:text-5xl font-extrabold text-ink stat-number mb-1">{s.val}</div>
+                                    <div className="text-[10px] md:text-sm text-muted">{s.label}</div>
+                                </div>
+                            ))}
+                        </section>
+
+                        <section ref={ref1} className="reveal py-16 md:py-24">
+                            <div className="max-w-7xl mx-auto px-4 md:px-6">
+                                <div className="text-center mb-12 md:mb-16">
+                                    <SectionLabel>The Mechanism</SectionLabel>
+                                    <h2 className="text-3xl md:text-5xl font-extrabold text-ink tracking-tight">Three operational layers.</h2>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                                    {[{ n: "01", t: "Discover", d: "Structured capability profiles and a live opportunity board replace a generic company directory.", icon: "Search" }, { n: "02", t: "Connect", d: "Weighted matching surfaces who is actually relevant, with a transparent breakdown.", icon: "Sparkles" }, { n: "03", t: "Collaborate", d: "Verification and a shared record carry the relationship from first chat toward a partnership.", icon: "ShieldCheck" }].map(s => (
+                                        <div key={s.n} className="bg-white border border-line rounded-2xl p-6 md:p-8 shadow-card saas-card">
+                                            <div className="w-12 h-12 md:w-14 md:h-14 bg-accentLight rounded-2xl flex items-center justify-center text-accent mb-6">
+                                                <Icon name={s.icon} size={24} />
+                                            </div>
+                                            <div className="text-xs font-mono font-semibold text-accent mb-2">{s.n}</div>
+                                            <h3 className="text-lg md:text-xl font-bold text-ink mb-3">{s.t}</h3>
+                                            <p className="text-sm md:text-base text-muted leading-relaxed">{s.d}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        <section ref={ref2} className="reveal py-16 md:py-24 bg-white border-y border-line">
+                            <div className="max-w-6xl mx-auto px-4 md:px-6">
+                                <div className="text-center mb-8 md:mb-12">
+                                    <SectionLabel>Live Network</SectionLabel>
+                                    <h2 className="text-3xl md:text-5xl font-extrabold text-ink tracking-tight">Open Opportunities</h2>
+                                </div>
+                                
+                                <div className="hidden md:block bg-bg/70 border border-line rounded-2xl shadow-card overflow-hidden">
+                                    <div className="grid grid-cols-12 border-b border-line bg-white/80 py-3 px-5 text-xs font-semibold text-muted uppercase tracking-wider">
+                                        <div className="col-span-6">Opportunity</div>
+                                        <div className="col-span-2">Region</div>
+                                        <div className="col-span-2">Type</div>
+                                        <div className="col-span-2 text-right">Match</div>
+                                    </div>
+                                    {INITIAL_OPPORTUNITIES.slice(0, 4).map((o, i) => (
+                                        <div key={o.id} className="grid grid-cols-12 border-b border-line last:border-0 py-4 px-5 hover:bg-slate-50/80 transition-colors cursor-pointer items-center" onClick={() => goOpportunityDetail(o, "public")}>
+                                            <div className="col-span-6 text-sm font-medium text-ink flex items-center gap-2"><span>{o.flag}</span> {o.title}</div>
+                                            <div className="col-span-2 text-sm text-muted">{o.country}</div>
+                                            <div className="col-span-2 text-sm text-muted">{o.partnershipType}</div>
+                                            <div className="col-span-2 text-sm text-right"><span className="bg-accentLight text-accent px-2.5 py-1 rounded-lg text-xs font-semibold">{Math.floor(Math.random() * 15) + 80}%</span></div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="md:hidden flex flex-col gap-4">
+                                    {INITIAL_OPPORTUNITIES.slice(0, 4).map((o, i) => (
+                                        <div key={o.id} className="bg-white border border-line rounded-2xl p-5 shadow-card cursor-pointer" onClick={() => goOpportunityDetail(o, "public")}>
+                                            <div className="flex justify-between items-start mb-3">
+                                                <span className="text-sm font-bold text-ink flex items-center gap-2"><span>{o.flag}</span> {o.title}</span>
+                                                <span className="bg-accentLight text-accent px-2 py-0.5 rounded-md text-xs font-semibold">{Math.floor(Math.random() * 15) + 80}%</span>
+                                            </div>
+                                            <div className="text-xs text-muted">{o.partnershipType} · {o.country}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        <section ref={ref3} className="reveal py-16 md:py-24">
+                            <div className="max-w-4xl mx-auto px-4 md:px-6 text-center">
+                                <h2 className="text-3xl md:text-5xl font-extrabold text-ink mb-4">Ready to explore?</h2>
+                                <p className="text-base md:text-lg text-muted mb-10">Step into the prototype and see how matching works for your profile.</p>
+                                {/* Adjusted flex classes for identical button sizes */}
+                                <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch max-w-xl mx-auto">
+                                    <div className="flex-1 text-left">
+                                        <Btn variant="primary" onClick={() => startOnboarding("uk")} size="lg" full>Explore as UK SME <Icon name="ArrowRight" size={16} /></Btn>
+                                        <p className="text-xs text-muted mt-2 ml-1">Match with GCC opportunities</p>
+                                    </div>
+                                    <div className="flex-1 text-left">
+                                        <Btn variant="secondary" onClick={() => startOnboarding("gcc")} size="lg" full>Explore as GCC Entity <Icon name="ArrowRight" size={16} /></Btn>
+                                        <p className="text-xs text-muted mt-2 ml-1">Find UK technology providers</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                );
+            };
+
+            const HowItWorks = () => (
+                <div className="pt-24 md:pt-40 max-w-7xl mx-auto px-4 md:px-6 pb-12 md:pb-20">
+                    <PageHeader title="The Mechanism" subtitle="How It Works" />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-16">
+                        {[{ n: "01", t: "Discover", d: "Structured capability profiles and a live opportunity board replace a generic company directory.", icon: "Search" }, { n: "02", t: "Connect", d: "Weighted matching surfaces who is actually relevant, with a transparent breakdown.", icon: "Sparkles" }, { n: "03", t: "Collaborate", d: "Verification and a shared record carry the relationship from first chat toward a partnership.", icon: "ShieldCheck" }].map(s => (
+                            <div key={s.n} className="bg-white border border-line rounded-2xl p-6 md:p-8 shadow-card saas-card">
+                                <div className="w-12 h-12 md:w-14 md:h-14 bg-accentLight rounded-2xl flex items-center justify-center text-accent mb-6"><Icon name={s.icon} size={24} /></div>
+                                <div className="text-xs font-mono font-semibold text-accent mb-2">{s.n}</div>
+                                <h3 className="text-lg md:text-xl font-bold text-ink mb-3">{s.t}</h3>
+                                <p className="text-sm md:text-base text-muted leading-relaxed">{s.d}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                        <div className="md:col-span-5">
+                            <SectionLabel>Matching Logic</SectionLabel>
+                            <h3 className="text-2xl md:text-3xl font-extrabold text-ink mb-4">Explainable, not a black box.</h3>
+                            <p className="text-muted text-base md:text-lg leading-relaxed">Every match is a weighted comparison across five declared factors. It is a starting point for due diligence, never a guarantee of compatibility.</p>
+                        </div>
+                        <div className="md:col-span-6 md:col-start-7 bg-white border border-line rounded-2xl p-6 shadow-card">
+                            {MATCH_WEIGHTS.map(w => (
+                                <div key={w.label} className="flex justify-between items-center py-4 border-b border-line last:border-0">
+                                    <span className="text-sm md:text-base font-medium text-ink">{w.label}</span>
+                                    <span className="text-sm md:text-base font-mono text-accent font-semibold">{w.pct}%</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const AcademicContext = () => (
+                <div className="pt-24 md:pt-40 max-w-7xl mx-auto px-4 md:px-6 pb-12 md:pb-20">
+                    <PageHeader title="From Literature to Prototype." subtitle="Academic Context" />
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+                        <div className="md:col-span-8">
+                            <div className="space-y-6 text-muted leading-relaxed max-w-2xl text-base md:text-lg">
+                                <p>Existing literature highlights that UK and GCC SMEs face significant barriers to internationalisation. While they may possess relevant expertise, they struggle with limited access to international networks, difficulties in partner identification, and information asymmetry regarding counterpart capabilities.</p>
+                                <p>This interactive prototype demonstrates how the conceptual framework of a <span className="text-ink font-medium">Digital B2B Intermediary</span> can be translated into a digital mechanism. It features capability-based matching and communication tools designed to overcome these initial barriers.</p>
+                            </div>
+                        </div>
+                        <div className="md:col-span-4">
+                            <div className="bg-white border border-line rounded-2xl p-6 shadow-card md:sticky md:top-32">
+                                <div className="text-xs font-semibold uppercase tracking-wider text-accent mb-3">Critical Limitation</div>
+                                <p className="text-sm text-muted leading-relaxed">The platform does not determine genuine compatibility. The matching mechanism facilitates partner identification, not prediction. Trust, due diligence, and governance require further offline assessment.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const BrowseCompanies = ({ within = "public" }) => {
+                const [side, setSide] = useState(role === "gcc" ? "uk" : role === "uk" ? "gcc" : "gcc");
+                const list = side === "uk" ? UK_COMPANIES : GCC_COMPANIES;
+                const label = side === "uk" ? "UK Technology Companies" : "GCC Companies";
+
+                const filtered = useMemo(() => {
+                    if (!searchQuery && !filterCapability) return list;
+                    return list.filter(c => {
+                        const q = searchQuery.toLowerCase();
+                        return (c.name.toLowerCase().includes(q) || c.blurb.toLowerCase().includes(q)) && (filterCapability ? c.capabilities.includes(filterCapability) : true);
+                    });
+                }, [list, searchQuery, filterCapability]);
+
+                const allCaps = useMemo(() => { const set = new Set(); list.forEach(c => c.capabilities.forEach(cap => set.add(cap))); return Array.from(set); }, [list]);
+
+                return (
+                    <div className={`${within === "public" ? "pt-24 md:pt-40 max-w-7xl mx-auto px-4 md:px-6 pb-12 md:pb-20" : ""}`}>
+                        <div className="flex flex-wrap items-start justify-between gap-4 mb-8">
+                            <PageHeader title={label} subtitle="Directory" />
+                            <div className="flex gap-1 bg-slate-100 p-1 rounded-xl">
+                                <button onClick={() => setSide("gcc")} className={`px-4 py-2 text-sm font-medium rounded-lg transition ${side === "gcc" ? "bg-white text-ink shadow-sm" : "text-muted hover:text-ink"}`}>GCC</button>
+                                <button onClick={() => setSide("uk")} className={`px-4 py-2 text-sm font-medium rounded-lg transition ${side === "uk" ? "bg-white text-ink shadow-sm" : "text-muted hover:text-ink"}`}>UK</button>
+                            </div>
+                        </div>
+                        <div className="flex flex-col sm:flex-row gap-3 mb-6">
+                            <div className="relative flex-1">
+                                <Icon name="Search" size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" />
+                                <input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="Search companies..." className="w-full bg-white border border-line rounded-xl pl-10 pr-4 py-2.5 text-sm focus:border-accent focus:ring-1 focus:ring-accent outline-none transition text-ink" />
+                            </div>
+                            <select value={filterCapability} onChange={e => setFilterCapability(e.target.value)} className="bg-white border border-line rounded-xl px-4 py-2.5 text-sm focus:border-accent outline-none transition text-ink w-full sm:w-auto">
+                                <option value="">All Capabilities</option>
+                                {allCaps.map(cap => <option key={cap} value={cap}>{cap}</option>)}
+                            </select>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                            {filtered.length === 0 ? <div className="col-span-full text-center py-12 text-muted">No companies match your filters.</div> :
+                                filtered.map(c => (
+                                    <div key={c.id} className="bg-white border border-line rounded-2xl p-5 md:p-6 shadow-card saas-card cursor-pointer group" onClick={() => goCompanyDetail(c, within)}>
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div className="w-12 h-12 bg-bg rounded-xl flex items-center justify-center text-2xl">{c.flag}</div>
+                                            <Tag>{c.verification}</Tag>
+                                        </div>
+                                        <h3 className="text-lg md:text-xl font-bold text-ink mb-2 group-hover:text-accent transition">{c.name}</h3>
+                                        <p className="text-sm text-muted mb-4 h-10 overflow-hidden">{c.blurb}</p>
+                                        <div className="flex flex-wrap gap-1.5 mb-4">
+                                            {c.capabilities.slice(0, 3).map(x => <Tag key={x}>{x}</Tag>)}
+                                            {c.capabilities.length > 3 && <Tag tone="muted">+{c.capabilities.length - 3}</Tag>}
+                                        </div>
+                                        <button className="text-sm font-medium text-accent flex items-center gap-1 group-hover:gap-2 transition-all">View profile <Icon name="ArrowRight" size={14} /></button>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                );
+            };
+
+            const BrowseOpportunities = ({ within = "public" }) => {
+                const filtered = useMemo(() => {
+                    if (!searchQuery) return opportunities;
+                    const q = searchQuery.toLowerCase();
+                    return opportunities.filter(o => o.title.toLowerCase().includes(q) || o.description.toLowerCase().includes(q) || o.country.toLowerCase().includes(q));
+                }, [opportunities, searchQuery]);
+
+                return (
+                    <div className={`${within === "public" ? "pt-24 md:pt-40 max-w-7xl mx-auto px-4 md:px-6 pb-12 md:pb-20" : ""}`}>
+                        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+                            <PageHeader title="Open Opportunities" subtitle="Opportunity Board" />
+                            {within === "platform" && role === "uk" && <Btn variant="primary" onClick={() => setPlatformView("postOpportunity")} size="sm"><Icon name="Plus" size={14} /> Post Opportunity</Btn>}
+                        </div>
+                        <div className="relative mb-6 max-w-sm">
+                            <Icon name="Search" size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" />
+                            <input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder="Search opportunities..." className="w-full bg-white border border-line rounded-xl pl-10 pr-4 py-2.5 text-sm focus:border-accent outline-none transition text-ink" />
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                            {filtered.length === 0 ? <div className="col-span-full text-center py-12 text-muted">No opportunities match your search.</div> :
+                                filtered.map(o => (
+                                    <div key={o.id} className="bg-white border border-line rounded-2xl p-5 md:p-6 shadow-card saas-card cursor-pointer group" onClick={() => goOpportunityDetail(o, within)}>
+                                        <div className="flex justify-between items-start mb-4">
+                                            <Tag tone="accent">{o.partnershipType}</Tag>
+                                            <span className="text-xs text-muted">🕐 {o.deadline}</span>
+                                        </div>
+                                        <h3 className="text-lg md:text-xl font-bold text-ink mb-2 group-hover:text-accent transition">{o.title}</h3>
+                                        <p className="text-sm text-muted mb-4 h-10 overflow-hidden">{o.description}</p>
+                                        <div className="flex flex-wrap gap-1.5 mb-4">
+                                            {o.lookingFor.slice(0, 3).map(x => <Tag key={x} tone="accent">{x}</Tag>)}
+                                            {o.lookingFor.length > 3 && <Tag tone="muted">+{o.lookingFor.length - 3}</Tag>}
+                                        </div>
+                                        <div className="flex justify-between items-center pt-4 border-t border-line">
+                                            <span className="text-sm text-muted flex items-center gap-1.5"><span>{o.flag}</span> {o.country}</span>
+                                            <button className="text-sm font-medium text-accent flex items-center gap-1 group-hover:gap-2 transition-all">View <Icon name="ArrowRight" size={14} /></button>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                );
+            };
+
+            const DetailView = ({ within, type }) => {
+                const item = type === "company" ? detailCompany : detailOpportunity;
+                if (!item) return null;
+                const backTo = type === "company" ? "browseCompanies" : "browseOpportunities";
+                const backHandler = () => within === "public" ? setPublicView(backTo) : setPlatformView(backTo);
+
+                return (
+                    <div className={`${within === "public" ? "pt-24 md:pt-40 max-w-7xl mx-auto px-4 md:px-6 pb-12 md:pb-20" : ""}`}>
+                        <button onClick={backHandler} className="flex items-center gap-2 text-sm font-medium text-muted hover:text-ink mb-6 transition group">
+                            <Icon name="ArrowLeft" size={14} className="group-hover:-translate-x-0.5 transition" /> Back
+                        </button>
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+                            <div className="md:col-span-8">
+                                <div className="bg-white border border-line rounded-2xl p-6 md:p-8 shadow-card">
+                                    <div className="text-xs font-semibold uppercase tracking-wider text-accent mb-3 flex items-center gap-2"><span>{item.flag}</span> {item.country || "United Kingdom"}</div>
+                                    <h1 className="text-3xl md:text-4xl font-extrabold text-ink mb-4">{item.name || item.title}</h1>
+                                    <p className="text-base md:text-lg text-muted leading-relaxed mb-8">{item.blurb || item.description}</p>
+                                    {type === "company" ? (
+                                        <div className="space-y-6 border-t border-line pt-6">
+                                            <div><div className="text-xs font-semibold uppercase tracking-wider text-muted mb-3">Core Capabilities</div><div className="flex flex-wrap gap-2">{item.capabilities.map(x => <Tag key={x} tone="accent">{x}</Tag>)}</div></div>
+                                            <div><div className="text-xs font-semibold uppercase tracking-wider text-muted mb-3">Industries</div><p className="text-sm text-ink">{item.industries.join(" • ")}</p></div>
+                                            {item.targetMarkets && <div><div className="text-xs font-semibold uppercase tracking-wider text-muted mb-3">Target Markets</div><div className="flex flex-wrap gap-2">{item.targetMarkets.map(x => <Tag key={x}>{x}</Tag>)}</div></div>}
+                                        </div>
+                                    ) : (
+                                        <div className="space-y-6 border-t border-line pt-6">
+                                            <div><div className="text-xs font-semibold uppercase tracking-wider text-muted mb-3">Looking For</div><div className="flex flex-wrap gap-2">{item.lookingFor.map(x => <Tag key={x} tone="accent">{x}</Tag>)}</div></div>
+                                            <div><div className="text-xs font-semibold uppercase tracking-wider text-muted mb-3">Partnership Type</div><p className="text-sm text-ink">{item.partnershipType}</p></div>
+                                            <div><div className="text-xs font-semibold uppercase tracking-wider text-muted mb-3">Industry</div><p className="text-sm text-ink">{item.industry}</p></div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="md:col-span-4">
+                                <div className="bg-white border border-line rounded-2xl p-6 shadow-card md:sticky md:top-32">
+                                    <div className="text-xs font-semibold uppercase tracking-wider text-muted mb-4">Metadata</div>
+                                    <div className="space-y-3 text-sm">
+                                        {type === "company" ? (
+                                            <>
+                                                <div className="flex justify-between border-b border-line pb-3"><span className="text-muted">Size</span><span className="text-ink font-medium">{item.size}</span></div>
+                                                <div className="flex justify-between border-b border-line pb-3"><span className="text-muted">Founded</span><span className="text-ink font-medium">{item.founded}</span></div>
+                                                <div className="flex justify-between border-b border-line pb-3"><span className="text-muted">Verification</span><span className="text-accent font-medium">{item.verification}</span></div>
+                                                <div className="flex justify-between"><span className="text-muted">Partnerships</span><span className="text-ink font-medium text-right">{item.partnershipTypes.join(", ")}</span></div>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <div className="flex justify-between border-b border-line pb-3"><span className="text-muted">Budget</span><span className="text-ink font-medium">{item.budget}</span></div>
+                                                <div className="flex justify-between border-b border-line pb-3"><span className="text-muted">Deadline</span><span className="text-ink font-medium">{item.deadline}</span></div>
+                                                <div className="flex justify-between"><span className="text-muted">Status</span><span className="text-success font-medium flex items-center gap-1.5"><span className="status-dot online"></span> Active</span></div>
+                                            </>
+                                        )}
+                                    </div>
+                                    <div className="mt-6 flex flex-col gap-3">
+                                        {type === "company" ? (
+                                            <>
+                                                <Btn variant="primary" onClick={() => { sendRequest(item.name, "introduction"); if (mode === "public") startOnboarding(role || "uk"); }} full>Request Intro</Btn>
+                                                <Btn variant="secondary" onClick={() => openThread(item.name)} full>Message</Btn>
+                                            </>
+                                        ) : (
+                                            <Btn variant="primary" onClick={() => { sendRequest(item.title, "interest"); if (mode === "public") startOnboarding("uk"); }} full>Express Interest</Btn>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            const PublicFooter = () => (
+                <footer className="border-t border-line bg-white/80 backdrop-blur-sm py-10">
+                    <div className="max-w-7xl mx-auto px-4 md:px-6 flex flex-wrap justify-between gap-4 items-center">
+                        <div>
+                            <div className="text-xl font-extrabold text-ink flex items-center gap-2.5"><div className="w-7 h-7 bg-accent rounded-lg flex items-center justify-center text-white text-xs">TB</div> TechBridge</div>
+                            <p className="text-xs text-muted mt-1">* Conceptual academic prototype for research purposes.</p>
+                        </div>
+                        <button onClick={() => setMode("admin")} className="text-sm font-medium text-muted hover:text-ink transition px-4 py-2 rounded-xl hover:bg-slate-50">Platform Governance →</button>
+                    </div>
+                </footer>
+            );
+
+            const Onboarding = () => {
+                const isUK = role === "uk";
+                const steps = ["Basics", isUK ? "Capabilities" : "Needs", "Market", "Objective"];
+                return (
+                    <div className="min-h-screen flex flex-col justify-center max-w-xl mx-auto px-4 py-16 md:py-20 bg-bg relative">
+                        <button onClick={signOut} className="absolute top-4 right-4 md:top-6 md:right-6 p-2 text-muted hover:text-danger transition rounded-lg hover:bg-dangerLight"><Icon name="X" size={24} /></button>
+                        <div className="mb-2 flex items-center gap-3">
+                            <span className="text-xs font-semibold uppercase tracking-wider text-accent">Step {onboardStep} of {steps.length}</span>
+                            <div className="flex-1 h-1 bg-slate-100 rounded-full overflow-hidden"><div className="h-full bg-accent rounded-full transition-all duration-500" style={{ width: `${(onboardStep / steps.length) * 100}%` }}></div></div>
+                        </div>
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-ink mb-6 md:mb-8">{steps[onboardStep - 1]}</h2>
+
+                        {/* Wrapped Step 1 in a card to match other steps visually */}
+                        {onboardStep === 1 && (
+                            <div className="bg-white border border-line rounded-2xl p-6 shadow-card space-y-5">
+                                <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">Entity Name</label><input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="w-full bg-bg border border-line rounded-xl px-4 py-3 text-base focus:border-accent outline-none transition text-ink" /></div>
+                                <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">{isUK ? "Country" : "GCC Country"}</label>{isUK ? <input value="United Kingdom" disabled className="w-full bg-slate-50 border border-line rounded-xl px-4 py-3 text-base text-muted outline-none" /> : <div className="flex flex-wrap gap-2">{GCC_COUNTRIES.map(x => <Chip key={x} label={x} active={form.country === x} onClick={() => setForm({ ...form, country: x })} />)}</div>}</div>
+                                <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">Company Size</label><div className="flex flex-wrap gap-2">{COMPANY_SIZES.map(x => <Chip key={x} label={x} active={form.size === x} onClick={() => setForm({ ...form, size: x })} />)}</div></div>
+                            </div>
+                        )}
+                        {onboardStep === 2 && <div className="bg-white border border-line rounded-2xl p-6 shadow-card"><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-3">{isUK ? "Select your capabilities" : "What are you looking for?"}</label><div className="flex flex-wrap gap-2">{CAPABILITIES.map(x => <Chip key={x} label={x} active={form.capabilities.includes(x)} onClick={() => toggleChip("capabilities", x)} />)}</div></div>}
+                        {onboardStep === 3 && <div className="space-y-6"><div className="bg-white border border-line rounded-2xl p-6 shadow-card"><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-3">Industries</label><div className="flex flex-wrap gap-2">{INDUSTRIES.map(x => <Chip key={x} label={x} active={form.industries.includes(x)} onClick={() => toggleChip("industries", x)} />)}</div></div>{isUK && <div className="bg-white border border-line rounded-2xl p-6 shadow-card"><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-3">Target GCC Markets</label><div className="flex flex-wrap gap-2">{GCC_COUNTRIES.map(x => <Chip key={x} label={x} active={form.targetMarkets.includes(x)} onClick={() => toggleChip("targetMarkets", x)} />)}</div></div>}</div>}
+                        {onboardStep === 4 && <div className="bg-white border border-line rounded-2xl p-6 shadow-card"><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-3">Partnership Types</label><div className="flex flex-wrap gap-2">{PARTNERSHIP_TYPES.map(x => <Chip key={x} label={x} active={form.partnershipTypes.includes(x)} onClick={() => toggleChip("partnershipTypes", x)} />)}</div></div>}
+
+                        <div className="flex gap-3 mt-8 md:mt-10">
+                            {onboardStep > 1 && <Btn variant="secondary" onClick={() => setOnboardStep(s => s - 1)}>Back</Btn>}
+                            {onboardStep < 4 ? <Btn variant="primary" onClick={() => setOnboardStep(s => s + 1)} full>Continue <Icon name="ArrowRight" size={14} /></Btn> : <Btn variant="primary" onClick={completeOnboarding} full>Finish & Match <Icon name="Sparkles" size={14} /></Btn>}
+                        </div>
+                    </div>
+                );
+            };
+
+            const Dashboard = () => {
+                const profileComplete = Math.min(100, 40 + form.capabilities.length * 5 + form.industries.length * 3);
+                return (
+                    <div>
+                        <PageHeader title={`Welcome, ${profile?.name || "Entity"}`} subtitle="Overview" />
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8">
+                            <div className="bg-white border border-line rounded-2xl p-5 md:p-6 shadow-card"><div className="text-xs font-semibold uppercase tracking-wider text-muted mb-2">Profile Completeness</div><div className="flex items-end gap-3"><span className="text-3xl md:text-4xl font-extrabold text-ink stat-number">{profileComplete}%</span><div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden mb-1"><div className="h-full bg-accent rounded-full transition-all duration-700" style={{ width: `${profileComplete}%` }}></div></div></div></div>
+                            <div className="bg-white border border-line rounded-2xl p-5 md:p-6 shadow-card"><div className="text-xs font-semibold uppercase tracking-wider text-muted mb-2">Potential Matches</div><div className="text-3xl md:text-4xl font-extrabold text-accent stat-number">{matches.length}</div></div>
+                            <div className="bg-white border border-line rounded-2xl p-5 md:p-6 shadow-card"><div className="text-xs font-semibold uppercase tracking-wider text-muted mb-2">Partnership Requests</div><div className="text-3xl md:text-4xl font-extrabold text-ink stat-number">{requests.length}</div></div>
+                        </div>
+                        <div className="bg-white border border-line rounded-2xl shadow-card overflow-hidden">
+                            <div className="p-5 md:p-6 border-b border-line flex justify-between items-center"><h3 className="text-lg md:text-xl font-bold text-ink">Top Matches</h3><button onClick={() => setPlatformView("matches")} className="text-sm font-medium text-accent hover:underline">View all</button></div>
+                            <div>{matches.slice(0, 3).map((m, i) => <MatchRow key={i} m={m} onView={(mm) => { setDetailMatch(mm); setPlatformView("matchDetail"); }} />)}</div>
+                        </div>
+                    </div>
+                );
+            };
+
+            const MatchRow = ({ m, onView }) => {
+                const name = m.kind === "opportunity" ? m.target.title : m.target.name;
+                return (
+                    <div className="flex items-center justify-between py-4 px-5 md:px-6 border-b border-line last:border-0 hover:bg-slate-50/80 transition-colors cursor-pointer group" onClick={() => onView(m)}>
+                        <div><div className="text-xs text-muted mb-0.5 flex items-center gap-1.5"><span>{m.target.flag}</span> {m.target.country}</div><div className="text-sm md:text-base font-medium text-ink">{name}</div></div>
+                        <div className="flex items-center gap-4"><span className="bg-accentLight text-accent px-2.5 py-1 rounded-lg text-xs font-semibold">{m.score}%</span><Icon name="ArrowRight" size={16} className="text-muted group-hover:text-accent transition" /></div>
+                    </div>
+                );
+            };
+
+            const MatchDetail = () => {
+                const m = detailMatch;
+                if (!m) return null;
+                const name = m.kind === "opportunity" ? m.target.title : m.target.name;
+                return (
+                    <div className="max-w-4xl">
+                        <button onClick={() => setPlatformView("matches")} className="flex items-center gap-2 text-sm font-medium text-muted hover:text-ink mb-6 transition group"><Icon name="ArrowLeft" size={14} className="group-hover:-translate-x-0.5 transition" /> Back</button>
+                        <div className="bg-white border border-line rounded-2xl p-6 md:p-8 shadow-card mb-6">
+                            <div className="text-xs font-semibold uppercase tracking-wider text-muted mb-3 flex items-center gap-2"><span>{m.target.flag}</span> {m.target.country}</div>
+                            <div className="flex flex-col md:flex-row justify-between md:items-end mb-8 border-b border-line pb-6 gap-4">
+                                <h1 className="text-2xl md:text-3xl font-extrabold text-ink">{name}</h1>
+                                <div className="text-left md:text-right"><div className="text-4xl md:text-5xl font-extrabold text-accent stat-number">{m.score}%</div><div className="text-xs text-muted mt-1">Potential Match</div></div>
+                            </div>
+                            <div className="space-y-5">{Object.entries(m.breakdown).map(([k, v]) => (<div key={k}><div className="flex justify-between text-sm mb-2"><span className="text-muted">{k}</span><span className="text-ink font-medium">{v}</span></div><div className="h-2 bg-slate-100 w-full rounded-full overflow-hidden"><div className="h-full bg-accent rounded-full match-bar-fill" style={{ width: `${v}%` }}></div></div></div>))}</div>
+                        </div>
+                        <div className="bg-accentLight border border-accentLight rounded-2xl p-5 mb-6 flex items-start gap-3"><Icon name="ShieldCheck" size={22} className="text-accent mt-0.5" /><p className="text-sm text-accent leading-relaxed">Based on declared capabilities. Due diligence is recommended before entering a partnership.</p></div>
+                        <div className="flex flex-col sm:flex-row gap-3"><Btn variant="primary" onClick={() => sendRequest(name, "partnership")} full>{requests.some(r => r.withName === name) ? "Request Sent" : "Send Request"}</Btn><Btn variant="secondary" onClick={() => openThread(name)} full>Message</Btn></div>
+                    </div>
+                );
+            };
+
+            const MessagesView = () => {
+                const [draft, setDraft] = useState("");
+                const names = Object.keys(threads);
+                const messagesEndRef = useRef(null);
+                useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); }, [threads, activeThread]);
+
+                return (
+                    <div>
+                        <PageHeader title="Messages" subtitle="Network Communications" />
+                        {names.length === 0 ? <div className="bg-white border border-line rounded-2xl p-12 text-center text-muted"><Icon name="MessageSquare" size={40} className="text-faint mb-4" /><p>No conversations yet.</p></div> : (
+                            <div className="bg-white border border-line rounded-2xl shadow-card overflow-hidden h-[60vh] flex flex-col md:flex-row">
+                                <div className="md:w-64 border-r border-line overflow-y-auto bg-bg/50 flex-shrink-0 max-h-32 md:max-h-full">
+                                    {names.map(n => <button key={n} onClick={() => setActiveThread(n)} className={`w-full text-left px-4 py-3 border-b border-line text-sm transition ${activeThread === n ? 'bg-white text-accent font-medium border-l-2 border-l-accent' : 'text-muted hover:bg-slate-50'}`}>{n}</button>)}
+                                </div>
+                                <div className="flex-1 flex flex-col min-h-0">
+                                    <div className="flex-1 p-4 md:p-6 space-y-4 overflow-y-auto bg-white">{(threads[activeThread] || []).map((msg, i) => (<div key={i} className={`message-bubble max-w-[80%] p-3.5 rounded-2xl text-sm ${msg.from === "you" ? "ml-auto bg-accent text-white rounded-br-sm" : "bg-bg text-ink border border-line rounded-bl-sm"}`}>{msg.text}</div>))}<div ref={messagesEndRef}></div></div>
+                                    <div className="p-3 border-t border-line flex gap-2 bg-white flex-shrink-0"><input value={draft} onChange={e => setDraft(e.target.value)} placeholder="Type a message..." className="flex-1 bg-bg border border-line rounded-xl px-4 py-2.5 text-sm focus:border-accent outline-none transition text-ink" onKeyDown={e => { if (e.key === "Enter") { sendMessage(activeThread, draft); setDraft(""); } }} /><Btn variant="primary" onClick={() => { sendMessage(activeThread, draft); setDraft(""); }}><Icon name="Send" size={16} /></Btn></div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                );
+            };
+
+            const RequestsView = () => (
+                <div>
+                    <PageHeader title="Partnership Requests" subtitle="Requests" />
+                    {requests.length === 0 ? <div className="bg-white border border-line rounded-2xl p-12 text-center text-muted"><Icon name="ClipboardCheck" size={40} className="text-faint mb-4" /><p>No partnership requests sent yet.</p></div> : <div className="bg-white border border-line rounded-2xl shadow-card overflow-hidden">{requests.map(r => (<div key={r.id} className="flex items-center justify-between py-4 px-6 border-b border-line last:border-0"><div><div className="text-base font-medium text-ink">{r.withName}</div><div className="text-xs text-muted mt-0.5">{r.kind}</div></div><span className={`text-xs font-medium px-3 py-1 rounded-lg ${r.status === "Accepted" ? "bg-successLight text-success" : "bg-warningLight text-warning"}`}>{r.status}</span></div>))}</div>}
+                </div>
+            );
+
+            const PostOpportunity = () => {
+                const [f, setF] = useState({ title: "", lookingFor: [], industry: "", partnershipType: "" });
+                return (
+                    <div className="max-w-2xl">
+                        <PageHeader title="Post an Opportunity" subtitle="Create" />
+                        <div className="bg-white border border-line rounded-2xl p-6 md:p-8 shadow-card space-y-6">
+                            <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">Opportunity Title</label><input value={f.title} onChange={e => setF({ ...f, title: e.target.value })} className="w-full bg-bg border border-line rounded-xl px-4 py-3 text-base focus:border-accent outline-none transition text-ink" placeholder="e.g. AI Partner for Healthcare" /></div>
+                            <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-3">Looking For</label><div className="flex flex-wrap gap-2">{CAPABILITIES.map(x => <Chip key={x} label={x} active={f.lookingFor.includes(x)} onClick={() => setF(prev => ({ ...prev, lookingFor: prev.lookingFor.includes(x) ? prev.lookingFor.filter(v => v !== x) : [...prev.lookingFor, x] }))} />)}</div></div>
+                            <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">Industry</label><select value={f.industry} onChange={e => setF({ ...f, industry: e.target.value })} className="w-full bg-bg border border-line rounded-xl px-4 py-3 text-base focus:border-accent outline-none transition text-ink"><option value="">Select industry...</option>{INDUSTRIES.map(x => <option key={x} value={x}>{x}</option>)}</select></div>
+                            <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">Partnership Type</label><select value={f.partnershipType} onChange={e => setF({ ...f, partnershipType: e.target.value })} className="w-full bg-bg border border-line rounded-xl px-4 py-3 text-base focus:border-accent outline-none transition text-ink"><option value="">Select type...</option>{PARTNERSHIP_TYPES.map(x => <option key={x} value={x}>{x}</option>)}</select></div>
+                        </div>
+                        <Btn variant="primary" className="mt-6" full onClick={() => { if (!f.title.trim() || !f.lookingFor.length || !f.industry || !f.partnershipType) { alert("Please fill in all fields."); return; } postOpportunity({ title: f.title, lookingFor: f.lookingFor, industry: f.industry, partnershipType: f.partnershipType, budget: "Not disclosed", deadline: "Open", country: profile?.country || "Saudi Arabia", flag: "🇸🇦", description: "Posted from dashboard." }); setPlatformView("browseOpportunities"); }}><Icon name="Plus" size={14} /> Publish Opportunity</Btn>
+                    </div>
+                );
+            };
+
+            const GovernanceView = () => (
+                <div className="min-h-screen p-4 md:p-8 max-w-7xl mx-auto bg-bg">
+                    <button onClick={() => { setMode("public"); setPublicView("home"); }} className="flex items-center gap-2 text-sm font-medium text-muted hover:text-ink mb-6 transition group"><Icon name="ArrowLeft" size={14} className="group-hover:-translate-x-0.5 transition" /> Exit Governance</button>
+                    <PageHeader title="Moderation & Verification" subtitle="Platform Governance" />
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8">
+                        <div className="bg-white border border-line rounded-2xl p-5 md:p-6 shadow-card"><div className="text-xs font-semibold uppercase tracking-wider text-muted mb-2">Pending Companies</div><div className="text-3xl md:text-4xl font-extrabold text-ink stat-number">{pendingCompanies.length}</div></div>
+                        <div className="bg-white border border-line rounded-2xl p-5 md:p-6 shadow-card"><div className="text-xs font-semibold uppercase tracking-wider text-muted mb-2">Pending Opportunities</div><div className="text-3xl md:text-4xl font-extrabold text-ink stat-number">{pendingOpportunities.length}</div></div>
+                        <div className="bg-white border border-line rounded-2xl p-5 md:p-6 shadow-card"><div className="text-xs font-semibold uppercase tracking-wider text-muted mb-2">Live Entities</div><div className="text-3xl md:text-4xl font-extrabold text-ink stat-number">{UK_COMPANIES.length + GCC_COMPANIES.length}</div></div>
+                    </div>
+                    <div className="bg-white border border-line rounded-2xl shadow-card overflow-hidden">
+                        <div className="p-5 md:p-6 border-b border-line"><h3 className="text-lg md:text-xl font-bold text-ink">Companies Queue</h3></div>
+                        <div>{pendingCompanies.length === 0 ? <div className="py-8 text-center text-muted">All companies verified.</div> : pendingCompanies.map(c => (<div key={c.id} className="flex items-center justify-between py-4 px-5 md:px-6 border-b border-line last:border-0"><div><div className="text-xs text-muted mb-0.5 flex items-center gap-1.5"><span>{c.flag}</span> {c.country} · {c.submitted}</div><div className="text-base font-medium text-ink">{c.name}</div></div><div className="flex gap-2"><button onClick={() => setPendingCompanies(p => p.filter(x => x.id !== c.id))} className="p-2.5 border border-line rounded-xl hover:bg-success hover:text-white hover:border-success transition text-muted"><Icon name="Check" size={16} /></button><button onClick={() => setPendingCompanies(p => p.filter(x => x.id !== c.id))} className="p-2.5 border border-line rounded-xl hover:bg-danger hover:text-white hover:border-danger transition text-muted"><Icon name="X" size={16} /></button></div></div>))}</div>
+                    </div>
+                </div>
+            );
+
+            if (mode === "admin") return <GovernanceView />;
+            if (mode === "public") {
+                return (
+                    <div className="min-h-screen">
+                        <PublicNav />
+                        {publicView === "home" && <Home />}
+                        {publicView === "how" && <HowItWorks />}
+                        {publicView === "academic" && <AcademicContext />}
+                        {publicView === "browseCompanies" && <BrowseCompanies within="public" />}
+                        {publicView === "browseOpportunities" && <BrowseOpportunities within="public" />}
+                        {publicView === "companyDetail" && <DetailView within="public" type="company" />}
+                        {publicView === "opportunityDetail" && <DetailView within="public" type="opportunity" />}
+                        <PublicFooter />
+                    </div>
+                );
+            }
+
+            return (
+                <div className="min-h-screen">
+                    {platformView === "onboarding" ? <Onboarding /> :
+                        <PlatformShell>
+                            {platformView === "dashboard" && <Dashboard />}
+                            {platformView === "browseCompanies" && <BrowseCompanies within="platform" />}
+                            {platformView === "browseOpportunities" && <BrowseOpportunities within="platform" />}
+                            {platformView === "companyDetail" && <DetailView within="platform" type="company" />}
+                            {platformView === "opportunityDetail" && <DetailView within="platform" type="opportunity" />}
+                            {platformView === "matches" && <div><PageHeader title="All Potential Matches" subtitle="Matching" /><div className="bg-white border border-line rounded-2xl shadow-card overflow-hidden">{matches.map((m, i) => <MatchRow key={i} m={m} onView={(mm) => { setDetailMatch(mm); setPlatformView("matchDetail"); }} />)}</div></div>}
+                            {platformView === "matchDetail" && <MatchDetail />}
+                            {platformView === "messages" && <MessagesView />}
+                            {platformView === "requests" && <RequestsView />}
+                            {platformView === "postOpportunity" && <PostOpportunity />}
+                        </PlatformShell>
+                    }
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>
