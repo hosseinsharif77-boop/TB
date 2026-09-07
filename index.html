@@ -135,17 +135,30 @@
 
     const STRINGS = {
       en: {
-        nav_mechanism: "Mechanism", nav_directory: "Directory", nav_opportunities: "Opportunities", nav_research: "Research", nav_governance: "Governance", nav_enter: "Enter Prototype",
+        nav_mechanism: "Mechanism", nav_directory: "Directory", nav_opportunities: "Opportunities", nav_research: "Research", nav_about: "About Us", nav_governance: "Governance", nav_enter: "Enter Prototype",
         hero_badge: "Research Prototype", hero_title_1: "The architecture of ", hero_title_2: "cross-border", hero_title_3: " digital partnerships.", hero_desc: "An interactive proof-of-concept demonstrating how a digital B2B intermediary can facilitate discovery and initial connection between UK and GCC SMEs.", hero_btn1: "Enter Prototype", hero_btn2: "See How It Works",
         stats_uk: "UK SMEs", stats_gcc: "GCC Entities", stats_opp: "Active Opportunities",
-        mech_label: "The Mechanism", mech_title: "Three operational layers, executed sequentially.", mech_step: "Step", mech_step1_t: "Discover", mech_step1_d: "Structured capability profiles and a live opportunity board replace a generic company directory.", mech_step2_t: "Connect", mech_step2_d: "Weighted matching surfaces who is actually relevant, with a transparent breakdown.", mech_step3_t: "Collaborate", mech_step3_d: "Verification and a shared record carry the relationship from first chat toward a partnership.",
+        partner_sub: "Partners", partner_title: "Our Partners", partner_tag: "The network of companies working together across the UK and the GCC.",
+        mech_label: "The Mechanism", mech_title: "Five operational steps, executed sequentially.", mech_step: "Step", mech_step1_t: "Discover", mech_step1_d: "Structured capability profiles and a live opportunity board replace a generic company directory.", mech_step2_t: "Verify", mech_step2_d: "Verified business registration, credentials and case studies reduce uncertainty before any commitment.", mech_step3_t: "Qualify", mech_step3_d: "Weighted matching surfaces who is actually relevant, with a transparent breakdown.", mech_step4_t: "Connect", mech_step4_d: "Secure messaging and structured introductions turn a match into an initial conversation.", mech_step5_t: "Collaborate", mech_step5_d: "Verification and a shared record carry the relationship from first chat toward a partnership.",
         opp_label: "Live Network", opp_title: "Open Opportunities", opp_table_opp: "Opportunity", opp_table_region: "Region", opp_table_type: "Type", opp_table_match: "Match",
         cta_title: "Ready to explore the mechanism?", cta_desc: "Step into the prototype and see how matching works for your profile.", cta_uk_t: "Explore as UK SME", cta_uk_d: "Match with GCC opportunities", cta_gcc_t: "Explore as GCC Entity", cta_gcc_d: "Find UK technology providers",
         how_title: "The Mechanism", how_sub: "How It Works", how_logic_label: "Matching Logic", how_logic_t: "Explainable, not a black box.", how_logic_d: "Every match is a weighted comparison across five declared factors. It is a starting point for due diligence, never a guarantee of compatibility.",
         aca_title: "From Literature to Prototype.", aca_sub: "Academic Context", aca_limit_t: "Critical Limitation", aca_limit_d: "The platform does not determine genuine compatibility. The matching mechanism facilitates partner identification, not prediction. Trust, due diligence, and governance require further offline assessment.",
+        aca_p1: "This prototype applies a Weighted Multi-Criteria Partnership Matching (WMCPM) mechanism to cross-border B2B partnership formation between the UK and the GCC, drawing on alliance and internationalisation literature.",
+        aca_p2: "Rather than presenting a static directory, the platform structures capability profiles and surfaces matches with transparent score breakdowns — so users can see why an entity was suggested before they initiate contact. The system is intentionally limited: genuine compatibility still requires human due diligence.",
+        about_sub: "About", about_title: "About TechBridge.",
+        about_lead: "TechBridge is an interactive research prototype exploring how a digital B2B intermediary can help UK SMEs and GCC entities discover and qualify one another before committing to a partnership. It was built for an academic dissertation, and every company, opportunity and message in the environment is synthetic.",
+        about_prob_t: "The problem: qualification, not discovery",
+        about_prob_d: "Companies can already find potential partners through referrals, professional networks, online searches and trade events — so another directory of profiles has limited commercial value. The real difficulty is qualification: establishing whether an unfamiliar firm is legitimate, capable and suitable takes time and carries risk. Verified business registration and credentials, client reviews or case studies, compliance information and secure ways to make first contact all increase confidence when evaluating a prospective partner.",
+        about_resp_t: "What TechBridge does",
+        about_resp_d: "TechBridge responds as an intermediary rather than a directory. Structured capability profiles make a firm's expertise, history and objectives visible; a transparent weighted-matching algorithm (WMCPM) explains why a potential partner is surfaced; and verification, secure communication and initial requests support the progression Discover → Verify → Qualify → Connect.",
+        about_note_t: "A facilitator, not a guarantee",
+        about_note_d: "Digital intermediation reduces the information gap and the effort of qualifying partners, but it does not replace human relationships, local presence or due diligence. Whether a collaboration succeeds still depends on trust, communication, governance and experience between the organisations.",
+        about_steps_t: "The proposed progression",
+        about_credit_role: "Designer, idea developer & researcher", about_credit_name: "Ali Hariri",
         dir_sub: "Directory", dir_title_uk: "UK Technology Companies", dir_title_gcc: "GCC Companies",
         opp_board_sub: "Opportunity Board", opp_board_title: "Open Opportunities",
-        detail_meta: "Metadata", detail_core_cap: "Core Capabilities", detail_industries: "Industries", detail_looking_for: "Looking For", detail_part_type: "Partnership Type", detail_size: "Size", detail_verification: "Verification", detail_budget: "Budget", detail_deadline: "Deadline", detail_request_intro: "Request Intro", detail_message: "Message", detail_express_interest: "Express Interest", back: "Back",
+        detail_meta: "Metadata", detail_core_cap: "Core Capabilities", detail_industries: "Industries", detail_looking_for: "Looking For", detail_part_type: "Partnership Type", detail_size: "Size", detail_verification: "Verification", detail_history: "History Experience", detail_address: "Address", detail_rating: "Rating", detail_open_map: "Open in Google Maps", detail_budget: "Budget", detail_deadline: "Deadline", detail_request_intro: "Request Intro", detail_message: "Message", detail_express_interest: "Express Interest", back: "Back",
         dash_overview: "Overview", dash_welcome: "Welcome", dash_profile: "Profile", dash_matches: "Matches", dash_requests: "Requests", dash_top_matches: "Top Matches",
         plat_overview: "Overview", plat_entities_uk: "UK Entities", plat_entities_gcc: "GCC Entities", plat_opportunities: "Opportunities", plat_matching: "Matching", plat_requests: "Requests", plat_messages: "Messages", exit_env: "Exit Environment", signed_in: "Signed in as",
         msg_title: "Messages", msg_sub: "Network Communications", msg_none: "No conversations yet.", msg_input: "Type message...",
@@ -166,17 +179,30 @@
         footer_note: "* Conceptual academic prototype for research purposes. Not a commercial service."
       },
       ar: {
-        nav_mechanism: "الآلية", nav_directory: "الدليل", nav_opportunities: "الفرص", nav_research: "البحث", nav_governance: "الحوكمة", nav_enter: "دخول النموذج",
+        nav_mechanism: "الآلية", nav_directory: "الدليل", nav_opportunities: "الفرص", nav_research: "البحث", nav_about: "من نحن", nav_governance: "الحوكمة", nav_enter: "دخول النموذج",
         hero_badge: "نموذج بحثي", hero_title_1: "بنية ", hero_title_2: "عابرة للحدود", hero_title_3: " للشراكات الرقمية.", hero_desc: "نموذج مفاهيمي تفاعلي يوضح كيف يمكن لوسيط رقمي B2B أن يسهل الاكتشاف والتواصل الأولي بين الشركات الصغيرة والمتوسطة في المملكة المتحدة ودول الخليج.", hero_btn1: "دخول النموذج", hero_btn2: "كيف يعمل",
         stats_uk: "شركات بريطانية", stats_gcc: "كيانات خليجية", stats_opp: "فرص نشطة",
-        mech_label: "الآلية", mech_title: "ثلاث طبقات تشغيلية، تُنفذ بالتسلسل.", mech_step: "خطوة", mech_step1_t: "اكتشاف", mech_step1_d: "ملفات تعريف القدرات المنظمة ولوحة فرص مباشرة تحل محل دليل الشركات العام.", mech_step2_t: "تواصل", mech_step2_d: "المطابقة الموزونة تبرز من هو ذو صلة فعلاً، مع تفصيل شفاف.", mech_step3_t: "تعاون", mech_step3_d: "التحقق والسجل المشترك يحملان العلاقة من المحادثة الأولى نحو شراكة.",
+        partner_sub: "الشركاء", partner_title: "شركاؤنا", partner_tag: "شبكة الشركات التي تعمل معاً بين المملكة المتحدة ودول الخليج.",
+        mech_label: "الآلية", mech_title: "خمس خطوات تشغيلية، تُنفذ بالتسلسل.", mech_step: "خطوة", mech_step1_t: "اكتشاف", mech_step1_d: "ملفات تعريف القدرات المنظمة ولوحة فرص مباشرة تحل محل دليل الشركات العام.", mech_step2_t: "تحقق", mech_step2_d: "السجل التجاري الموثق والاعتمادات ودراسات الحالة تقلل عدم اليقين قبل أي التزام.", mech_step3_t: "تأهل", mech_step3_d: "المطابقة الموزونة تبرز من هو ذو صلة فعلاً، مع تفصيل شفاف.", mech_step4_t: "تواصل", mech_step4_d: "الرسائل الآمنة والمقدمات المنظمة تحول التطابق إلى محادثة أولى.", mech_step5_t: "تعاون", mech_step5_d: "التحقق والسجل المشترك يحملان العلاقة من المحادثة الأولى نحو شراكة.",
         opp_label: "الشبكة الحية", opp_title: "فرص مفتوحة", opp_table_opp: "الفرصة", opp_table_region: "المنطقة", opp_table_type: "النوع", opp_table_match: "التطابق",
         cta_title: "مستعد لاستكشاف الآلية؟", cta_desc: "ادخل إلى النموذج واكتشف كيف تعمل المطابقة لملفك التعريفي.", cta_uk_t: "استكشف كشركة بريطانية", cta_uk_d: "تطابق مع فرص الخليج", cta_gcc_t: "استكشف ككيان خليجي", cta_gcc_d: "ابحث عن مقدمي تقنية بريطانيين",
         how_title: "الآلية", how_sub: "كيف يعمل", how_logic_label: "منطق المطابقة", how_logic_t: "قابل للتفسير، ليس صندوقاً أسود.", how_logic_d: "كل تطابق هو مقارنة موزونة عبر خمسة عوامل معلنة. إنها نقطة انطلاق للعناية الواجبة، وليست ضماناً للتوافق.",
         aca_title: "من الأدبيات إلى النموذج.", aca_sub: "السياق الأكاديمي", aca_limit_t: "قيد حرج", aca_limit_d: "لا تحدد المنصة التوافق الحقيقي. تسهل آلية المطابقة تحديد الشريك، وليس التنبؤ. يتطلب الثقة والعناية الواجبة والحوكمة مزيدًا من التقييم غير المتصل بالإنترنت.",
+        aca_p1: "يطبّق هذا النموذج آلية المطابقة متعددة المعايير الموزونة (WMCPM) على تكوين الشراكات التجارية B2B العابرة للحدود بين المملكة المتحدة ودول الخليج، بالاستناد إلى أدبيات التحالفات والتدويل.",
+        aca_p2: "بدلاً من تقديم دليل ثابت، تنظّم المنصة ملفات القدرات وتُظهر المطابقات مع تفصيل شفاف للدرجات — ليتمكن المستخدم من رؤية سبب اقتراح كيان قبل بدء التواصل. النظام محدود عمداً: التوافق الحقيقي ما يزال يتطلب عناية واجبة بشرية.",
+        about_sub: "عن المنصة", about_title: "حول TechBridge.",
+        about_lead: "TechBridge هو نموذج أولي تفاعلي يستكشف كيف يمكن لوسيط رقمي B2B أن يساعد شركات المملكة المتحدة الصغيرة والمتوسطة وكيانات الخليج على اكتشاف وتأهيل بعضها البعض قبل الالتزام بشراكة. بُني لأطروحة أكاديمية، وجميع الشركات والفرص والرسائل في هذه البيئة اصطناعية.",
+        about_prob_t: "المشكلة: التأهيل لا الاكتشاف",
+        about_prob_d: "تستطيع الشركات إيجاد شركاء محتملين بالفعل عبر الإحالات والشبكات المهنية والبحث عبر الإنترنت والفعاليات التجارية — لذا فإن دليلاً إضافياً من الملفات الشخصية له قيمة تجارية محدودة. الصعوبة الحقيقية هي التأهيل: التأكد من أن الشركة غير المألوفة موثوقة وقادرة ومناسبة يتطلب وقتاً وينطوي على مخاطر. إن السجل التجاري الموثق والاعتمادات ومراجعات العملاء أو دراسات الحالة ومعلومات الامتثال وسبل آمنة لإجراء أول اتصال تزيد جميعها الثقة عند تقييم شريك محتمل.",
+        about_resp_t: "ماذا تقدم TechBridge",
+        about_resp_d: "تستجيب TechBridge بوصفها وسيطاً وليس دليلاً. ملفات القدرات المنظمة تجعل خبرة الشركة وتاريخها وأهدافها مرئية؛ وخوارزمية المطابقة الموزونة الشفافة (WMCPM) تشرح سبب ظهور شريك محتمل؛ والتحقق والتواصل الآمن والطلبات الأولية تدعم المسار: اكتشف ← تحقق ← تأهل ← تواصل.",
+        about_note_t: "ميسّر وليس ضماناً",
+        about_note_d: "الوساطة الرقمية تقلل فجوة المعلومات والجهد المبذول في تأهيل الشركاء، لكنها لا تعوّض العلاقات البشرية أو الوجود المحلي أو العناية الواجبة. نجاح التعاون ما يزال يعتمد على الثقة والتواصل والحوكمة والخبرة بين المنظمات.",
+        about_steps_t: "المسار المقترح",
+        about_credit_role: "المصمّم ومطوّر الفكرة والباحث", about_credit_name: "علي حريري",
         dir_sub: "الدليل", dir_title_uk: "شركات التقنية البريطانية", dir_title_gcc: "شركات الخليج",
         opp_board_sub: "لوحة الفرص", opp_board_title: "فرص مفتوحة",
-        detail_meta: "البيانات الوصفية", detail_core_cap: "القدرات الأساسية", detail_industries: "القطاعات", detail_looking_for: "يبحث عن", detail_part_type: "نوع الشراكة", detail_size: "الحجم", detail_verification: "التحقق", detail_budget: "الميزانية", detail_deadline: "الموعد النهائي", detail_request_intro: "طلب مقدمة", detail_message: "رسالة", detail_express_interest: "إبداء الاهتمام", back: "رجوع",
+        detail_meta: "البيانات الوصفية", detail_core_cap: "القدرات الأساسية", detail_industries: "القطاعات", detail_looking_for: "يبحث عن", detail_part_type: "نوع الشراكة", detail_size: "الحجم", detail_verification: "التحقق", detail_history: "سجل الخبرة السابقة", detail_address: "العنوان", detail_rating: "التقييم", detail_open_map: "افتح في خرائط جوجل", detail_budget: "الميزانية", detail_deadline: "الموعد النهائي", detail_request_intro: "طلب مقدمة", detail_message: "رسالة", detail_express_interest: "إبداء الاهتمام", back: "رجوع",
         dash_overview: "نظرة عامة", dash_welcome: "مرحباً", dash_profile: "الملف", dash_matches: "التطابقات", dash_requests: "الطلبات", dash_top_matches: "أفضل التطابقات",
         plat_overview: "نظرة عامة", plat_entities_uk: "الكيانات البريطانية", plat_entities_gcc: "كيانات الخليج", plat_opportunities: "الفرص", plat_matching: "المطابقة", plat_requests: "الطلبات", plat_messages: "الرسائل", exit_env: "إنهاء البيئة", signed_in: "مسجل الدخول كـ",
         msg_title: "الرسائل", msg_sub: "اتصالات الشبكة", msg_none: "لا توجد محادثات بعد.", msg_input: "اكتب رسالة...",
@@ -210,17 +236,17 @@
     const COMPANY_SIZES = { en: ["1–10","11–50","51–200","200+"], ar: ["1–10","11–50","51–200","200+"] };
 
     const UK_COMPANIES = [
-      { id:"uk1", name:{en:"TechVision UK", ar:"تك فيجن UK"}, flag:"GB", size:"11–50", capabilities:["Artificial Intelligence","Machine Learning","Data Analytics","Cloud"], industries:["Healthcare","Finance","Retail"], targetMarkets:["Saudi Arabia","UAE","Qatar"], partnershipTypes:["Strategic Partnership","Technology Partnership","Joint Venture","Reseller"], verification:{en:"Business Verified", ar:"تحقق تجاري"}, blurb:{en:"AI and analytics for regulated industries — healthcare and financial services.", ar:"ذكاء اصطناعي وتحليلات للقطاعات المنظمة - الرعاية الصحية والخدمات المالية."} },
-      { id:"uk2", name:{en:"CyberSecure UK Ltd", ar:"سايبر سيكيور UK"}, flag:"GB", size:"51–200", capabilities:["Cybersecurity"], industries:["Finance","Government"], targetMarkets:["UAE","Saudi Arabia"], partnershipTypes:["Strategic Partnership"], verification:{en:"Platform Verified", ar:"تحقق المنصة"}, blurb:{en:"Cloud security and SOC services for banking and government clients.", ar:"أمن سحابي وخدمات SOC للعملاء المصرفية والحكومية."} },
-      { id:"uk3", name:{en:"CloudForge Systems", ar:"كلاود فورج سيستمز"}, flag:"GB", size:"11–50", capabilities:["Cloud","Digital Transformation"], industries:["Logistics","Retail"], targetMarkets:["Qatar","Kuwait"], partnershipTypes:["Technology Partnership","Reseller"], verification:{en:"Business Verified", ar:"تحقق تجاري"}, blurb:{en:"Cloud migration and ERP integration for supply chain operators.", ar:"ترحيل سحابي وتكامل ERP لمشغلي سلاسل التوريد."} },
-      { id:"uk4", name:{en:"NorthStar Fintech", ar:"نورث ستار للتقنية المالية"}, flag:"GB", size:"1–10", capabilities:["FinTech","Software Development"], industries:["Finance"], targetMarkets:["Bahrain","UAE"], partnershipTypes:["Joint Venture","Strategic Partnership"], verification:{en:"Email Verified", ar:"تحقق البريد"}, blurb:{en:"Payments infrastructure and compliance tooling for challenger banks.", ar:"بنية تحتية للمدفوعات وأدوات الامتثال للبنوك الناشئة."} },
+      { id:"uk1", name:{en:"TechVision UK", ar:"تك فيجن UK"}, flag:"GB", size:"11–50", capabilities:["Artificial Intelligence","Machine Learning","Data Analytics","Cloud"], industries:["Healthcare","Finance","Retail"], targetMarkets:["Saudi Arabia","UAE","Qatar"], partnershipTypes:["Strategic Partnership","Technology Partnership","Joint Venture","Reseller"], verification:{en:"Business Verified", ar:"تحقق تجاري"}, history:{en:"12+ AI & analytics projects delivered in healthcare and finance since 2015.", ar:"أكثر من 12 مشروعاً في الذكاء الاصطناعي والتحليلات في الرعاية الصحية والتمويل منذ 2015."}, address:{en:"128 City Road, London EC1V 2NX, United Kingdom", ar:"128 شارع سيتي رود، لندن EC1V 2NX، المملكة المتحدة"}, mapQuery:"128 City Road, London EC1V 2NX", rating:4, blurb:{en:"AI and analytics for regulated industries — healthcare and financial services.", ar:"ذكاء اصطناعي وتحليلات للقطاعات المنظمة - الرعاية الصحية والخدمات المالية."} },
+      { id:"uk2", name:{en:"CyberSecure UK Ltd", ar:"سايبر سيكيور UK"}, flag:"GB", size:"51–200", capabilities:["Cybersecurity"], industries:["Finance","Government"], targetMarkets:["UAE","Saudi Arabia"], partnershipTypes:["Strategic Partnership"], verification:{en:"Platform Verified", ar:"تحقق المنصة"}, history:{en:"SOC contracts with five UK banks; ISO 27001 certified since 2019.", ar:"عقود SOC مع خمسة بنوك بريطانية؛ حاصلة على شهادة ISO 27001 منذ 2019."}, address:{en:"1 Finsbury Avenue, London EC2M 2PF, United Kingdom", ar:"1 أفينسبري أفينيو، لندن EC2M 2PF، المملكة المتحدة"}, mapQuery:"1 Finsbury Avenue, London EC2M 2PF", rating:5, blurb:{en:"Cloud security and SOC services for banking and government clients.", ar:"أمن سحابي وخدمات SOC للعملاء المصرفية والحكومية."} },
+      { id:"uk3", name:{en:"CloudForge Systems", ar:"كلاود فورج سيستمز"}, flag:"GB", size:"11–50", capabilities:["Cloud","Digital Transformation"], industries:["Logistics","Retail"], targetMarkets:["Qatar","Kuwait"], partnershipTypes:["Technology Partnership","Reseller"], verification:{en:"Business Verified", ar:"تحقق تجاري"}, history:{en:"30+ cloud migrations completed for logistics and retail operators.", ar:"أكثر من 30 عملية ترحيل سحابي مكتملة لمشغلي اللوجستيات والتجزئة."}, address:{en:"5 New Street Square, London EC4A 3TW, United Kingdom", ar:"5 نيو ستريت سكوير، لندن EC4A 3TW، المملكة المتحدة"}, mapQuery:"5 New Street Square, London EC4A 3TW", rating:4, blurb:{en:"Cloud migration and ERP integration for supply chain operators.", ar:"ترحيل سحابي وتكامل ERP لمشغلي سلاسل التوريد."} },
+      { id:"uk4", name:{en:"NorthStar Fintech", ar:"نورث ستار للتقنية المالية"}, flag:"GB", size:"1–10", capabilities:["FinTech","Software Development"], industries:["Finance"], targetMarkets:["Bahrain","UAE"], partnershipTypes:["Joint Venture","Strategic Partnership"], verification:{en:"Email Verified", ar:"تحقق البريد"}, history:{en:"Two completed payment pilots with UK challenger banks.", ar:"تجربتان تجريبيتان مكتملتان للمدفوعات مع بنوك بريطانية ناشئة."}, address:{en:"20 Eastbourne Terrace, London W2 6LG, United Kingdom", ar:"20 إيستبورن تيراس، لندن W2 6LG، المملكة المتحدة"}, mapQuery:"20 Eastbourne Terrace, London W2 6LG", rating:3, blurb:{en:"Payments infrastructure and compliance tooling for challenger banks.", ar:"بنية تحتية للمدفوعات وأدوات الامتثال للبنوك الناشئة."} },
     ];
 
     const GCC_COMPANIES = [
-      { id:"gcc1", name:{en:"Al Faisal Analytics", ar:"تحليلات الفيصل"}, flag:"SA", size:"51–200", capabilities:["Artificial Intelligence","Data Analytics"], industries:["Healthcare"], partnershipTypes:["Strategic Partnership","Joint Venture"], verification:{en:"Business Verified", ar:"تحقق تجاري"}, blurb:{en:"Healthcare data platform seeking an international AI partner.", ar:"منصة بيانات للرعاية الصحية تبحث عن شريك دولي للذكاء الاصطناعي."} },
-      { id:"gcc2", name:{en:"Gulf Fintech Horizon", ar:"أفق الخليج للتقنية المالية"}, flag:"AE", size:"51–200", capabilities:["Cybersecurity","Cloud"], industries:["Finance"], partnershipTypes:["Strategic Partnership"], verification:{en:"Platform Verified", ar:"تحقق المنصة"}, blurb:{en:"Digital banking group upgrading platform security ahead of launch.", ar:"مجموعة مصرفية رقمية تقوم بترقية أمن المنصة قبل الإطلاق."} },
-      { id:"gcc3", name:{en:"Doha Logistics Group", ar:"مجموعة الدوحة اللوجستية"}, flag:"QA", size:"200+", capabilities:["Cloud","ERP/CRM"], industries:["Logistics"], partnershipTypes:["Technology Partnership"], verification:{en:"Business Verified", ar:"تحقق تجاري"}, blurb:{en:"Regional logistics operator modernising its core systems.", ar:"مشغل لوجستي إقليمي يقوم بتحديث أنظمته الأساسية."} },
-      { id:"gcc4", name:{en:"Manama Capital", ar:"عاصمة المنامة"}, flag:"BH", size:"11–50", capabilities:["FinTech"], industries:["Finance"], partnershipTypes:["Joint Venture"], verification:{en:"Email Verified", ar:"تحقق البريد"}, blurb:{en:"Investment group building a payments infrastructure JV.", ar:"مجموعة استثمارية تبني مشروعاً مشتركاً للبنية التحتية للمدفوعات."} },
+      { id:"gcc1", name:{en:"Al Faisal Analytics", ar:"تحليلات الفيصل"}, flag:"SA", size:"51–200", capabilities:["Artificial Intelligence","Data Analytics"], industries:["Healthcare"], partnershipTypes:["Strategic Partnership","Joint Venture"], verification:{en:"Business Verified", ar:"تحقق تجاري"}, history:{en:"Delivered a national health-data platform in 2022; 8 government contracts.", ar:"سلّمت منصة وطنية لبيانات الرعاية الصحية في 2022؛ و8 عقود حكومية."}, address:{en:"King Fahd Road, Al Olaya, Riyadh 12333, Saudi Arabia", ar:"طريق الملك فهد، العليا، الرياض 12333، المملكة العربية السعودية"}, mapQuery:"King Fahd Road, Riyadh, Saudi Arabia", rating:4, blurb:{en:"Healthcare data platform seeking an international AI partner.", ar:"منصة بيانات للرعاية الصحية تبحث عن شريك دولي للذكاء الاصطناعي."} },
+      { id:"gcc2", name:{en:"Gulf Fintech Horizon", ar:"أفق الخليج للتقنية المالية"}, flag:"AE", size:"51–200", capabilities:["Cybersecurity","Cloud"], industries:["Finance"], partnershipTypes:["Strategic Partnership"], verification:{en:"Platform Verified", ar:"تحقق المنصة"}, history:{en:"Launched a digital banking app serving 200k+ users across the UAE.", ar:"أطلقت تطبيقاً مصرفياً رقمياً يخدم أكثر من 200 ألف مستخدم في الإمارات."}, address:{en:"Sheikh Zayed Road, Dubai, United Arab Emirates", ar:"شارع الشيخ زايد، دبي، الإمارات العربية المتحدة"}, mapQuery:"Sheikh Zayed Road, Dubai", rating:5, blurb:{en:"Digital banking group upgrading platform security ahead of launch.", ar:"مجموعة مصرفية رقمية تقوم بترقية أمن المنصة قبل الإطلاق."} },
+      { id:"gcc3", name:{en:"Doha Logistics Group", ar:"مجموعة الدوحة اللوجستية"}, flag:"QA", size:"200+", capabilities:["Cloud","ERP/CRM"], industries:["Logistics"], partnershipTypes:["Technology Partnership"], verification:{en:"Business Verified", ar:"تحقق تجاري"}, history:{en:"Three completed ERP rollouts across four regional logistics hubs.", ar:"ثلاث عمليات نشر ERP مكتملة عبر أربعة مراكز لوجستية إقليمية."}, address:{en:"West Bay, Doha, Qatar", ar:"الخليج الغربي، الدوحة، قطر"}, mapQuery:"West Bay, Doha, Qatar", rating:4, blurb:{en:"Regional logistics operator modernising its core systems.", ar:"مشغل لوجستي إقليمي يقوم بتحديث أنظمته الأساسية."} },
+      { id:"gcc4", name:{en:"Manama Capital", ar:"عاصمة المنامة"}, flag:"BH", size:"11–50", capabilities:["FinTech"], industries:["Finance"], partnershipTypes:["Joint Venture"], verification:{en:"Email Verified", ar:"تحقق البريد"}, history:{en:"Co-invested in three fintech ventures since 2019.", ar:"شاركت في الاستثمار في ثلاثة مشاريع تقنية مالية منذ 2019."}, address:{en:"Bahrain Financial Harbour, Manama, Bahrain", ar:"مرفأ البحرين المالي، المنامة، البحرين"}, mapQuery:"Bahrain Financial Harbour, Manama", rating:3, blurb:{en:"Investment group building a payments infrastructure JV.", ar:"مجموعة استثمارية تبني مشروعاً مشتركاً للبنية التحتية للمدفوعات."} },
     ];
 
     const INITIAL_OPPORTUNITIES = [
@@ -256,16 +282,73 @@
         ghost: "text-muted hover:text-ink hover:bg-white rounded-sm transition-colors px-3 py-2 text-[11px] font-medium",
         danger: "btn-danger px-4 py-2.5 text-[11px] font-medium rounded-sm"
       } : { primary: "btn-primary", secondary: "btn-secondary", ghost: "text-muted hover:text-ink hover:bg-slate-100 rounded-lg transition-colors", danger: "btn-danger" };
-      return <button onClick={onClick} className={`${base} ${styles[variant]} ${className}`}>{children}</button>;
+      return <button type="button" onClick={onClick} className={`${base} ${styles[variant]} ${className}`}>{children}</button>;
     };
 
     const Chip = ({ label, active, onClick, t2 }) => (
-      <button onClick={onClick} className={`border transition-all duration-200 ${t2 ? 'px-3.5 py-2 text-[11px] font-mono uppercase tracking-wider rounded-sm' : 'px-4 py-2 text-sm font-medium rounded-lg'} ${active ? (t2 ? 'bg-ink text-bg border-ink' : 'bg-accent text-white border-accent') : 'bg-white text-muted border-line hover:border-faint hover:text-ink'}`}>{label}</button>
+      <button type="button" onClick={onClick} className={`border transition-all duration-200 ${t2 ? 'px-3.5 py-2 text-[11px] font-mono uppercase tracking-wider rounded-sm' : 'px-4 py-2 text-sm font-medium rounded-lg'} ${active ? (t2 ? 'bg-ink text-bg border-ink' : 'bg-accent text-white border-accent') : 'bg-white text-muted border-line hover:border-faint hover:text-ink'}`}>{label}</button>
     );
 
     const Tag = ({ children, tone = "muted", t2 }) => (
       <span className={`inline-flex items-center border ${t2 ? 'text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-sm' : 'text-xs px-2.5 py-1 rounded-md'} ${tone === 'accent' ? (t2 ? 'text-accent border-accent/30 bg-accentLight' : 'bg-accentLight text-accent border-accentLight') : (t2 ? 'text-muted border-line bg-transparent' : 'bg-slate-50 text-muted border-line')}`}>{children}</span>
     );
+
+    const StarRating = ({ value = 0 }) => (
+      <span className="inline-flex items-center gap-1.5" dir="ltr">
+        <span className="inline-flex items-center gap-0.5">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill={i <= value ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" className={i <= value ? "text-signal" : "text-faint"}>
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z" />
+            </svg>
+          ))}
+        </span>
+        <span className="text-xs font-medium text-muted">{Number(value).toFixed(1)}</span>
+      </span>
+    );
+
+    const HeaderControls = ({ setLang, isAr }) => (
+      <div className="flex gap-2 items-center">
+        {/* Language Switch */}
+        <div className="flex items-center gap-0.5 p-1 rounded-md border border-line bg-transparent">
+          <button onClick={() => setLang('en')} className={`px-2.5 py-1 text-[10px] font-mono uppercase rounded-sm transition ${isAr ? 'text-muted hover:text-ink' : 'bg-ink text-bg'}`}>EN</button>
+          <button onClick={() => setLang('ar')} className={`px-2.5 py-1 text-[10px] font-mono uppercase rounded-sm transition ${!isAr ? 'text-muted hover:text-ink' : 'bg-ink text-bg'}`}>عربي</button>
+        </div>
+      </div>
+    );
+
+    const Onboarding = ({ t, t2, isAr, lang, role, form, setForm, toggleChip, onboardStep, setOnboardStep, completeOnboarding, signOut, setLang }) => {
+      const isUK = role === "uk";
+      const steps = [t('onboard_basics'), isUK ? t('onboard_cap') : t('onboard_needs'), t('onboard_market'), t('onboard_obj')];
+      return (
+        <div className="min-h-screen flex flex-col justify-center max-w-xl mx-auto px-4 sm:px-6 py-16 sm:py-20 bg-bg relative">
+          <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 sm:px-6 pt-5">
+            <button onClick={signOut} className="p-2 text-muted hover:text-danger transition">
+              <Icon name="X" size={24} />
+            </button>
+            <HeaderControls setLang={setLang} isAr={isAr} />
+          </div>
+          <div className="text-xs font-semibold uppercase tracking-wider text-accent mb-2">{t('onboard_step')} {onboardStep} {t('onboard_of')} {steps.length}</div>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-ink mb-6 sm:mb-8">{steps[onboardStep - 1]}</h2>
+          {onboardStep === 1 && (
+            <div className="space-y-6">
+              <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">{t('onboard_entity_name')}</label><input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full bg-white border border-line rounded-lg px-4 py-3 text-base focus:border-accent focus:ring-1 focus:ring-accent outline-none transition text-ink" /></div>
+              <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">{isUK ? t('onboard_country') : t('onboard_gcc_country')}</label>{isUK ? <input value="United Kingdom" disabled className="w-full bg-slate-50 border border-line rounded-lg px-4 py-3 text-base text-muted outline-none" /> : <div className="flex flex-wrap gap-2">{GCC_COUNTRIES[lang].map((x, idx) => { const enVal = isAr ? GCC_COUNTRIES.en[idx] : x; return <Chip t2={t2} key={enVal} label={x} active={form.country === enVal} onClick={() => setForm({ ...form, country: enVal })} />; })}</div>}</div>
+              <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">{t('onboard_comp_size')}</label><div className="flex flex-wrap gap-2">{COMPANY_SIZES[lang].map((x, i) => <Chip t2={t2} key={x} label={x} active={form.size === COMPANY_SIZES.en[i]} onClick={() => setForm({ ...form, size: COMPANY_SIZES.en[i] })} />)}</div></div>
+            </div>
+          )}
+          {onboardStep === 2 && <div className={`bg-white border border-line p-6 shadow-saas ${t2 ? 'rounded-lg' : 'rounded-2xl'}`}><div className="flex flex-wrap gap-2">{CAPABILITIES[lang].map((x, i) => <Chip t2={t2} key={x} label={x} active={(form.capabilities || []).includes(CAPABILITIES.en[i])} onClick={() => toggleChip("capabilities", CAPABILITIES.en[i])} />)}</div><div className="mt-4 text-xs font-medium text-muted">{isAr ? `تم اختيار ${(form.capabilities || []).length}` : `${(form.capabilities || []).length} selected`}</div></div>}
+          {onboardStep === 3 && <div className="space-y-6"><div className={`bg-white border border-line p-6 shadow-saas ${t2 ? 'rounded-lg' : 'rounded-2xl'}`}><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-3">{t('onboard_industries')}</label><div className="flex flex-wrap gap-2">{INDUSTRIES[lang].map((x, i) => <Chip t2={t2} key={x} label={x} active={(form.industries || []).includes(INDUSTRIES.en[i])} onClick={() => toggleChip("industries", INDUSTRIES.en[i])} />)}</div><div className="mt-3 text-xs font-medium text-muted">{isAr ? `تم اختيار ${(form.industries || []).length}` : `${(form.industries || []).length} selected`}</div></div>{isUK && <div className={`bg-white border border-line p-6 shadow-saas ${t2 ? 'rounded-lg' : 'rounded-2xl'}`}><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-3">{t('onboard_target')}</label><div className="flex flex-wrap gap-2">{GCC_COUNTRIES[lang].map((x, i) => { const enVal = isAr ? GCC_COUNTRIES.en[i] : x; return <Chip t2={t2} key={enVal} label={x} active={(form.targetMarkets || []).includes(enVal)} onClick={() => toggleChip("targetMarkets", enVal)} />; })}</div><div className="mt-3 text-xs font-medium text-muted">{isAr ? `تم اختيار ${(form.targetMarkets || []).length}` : `${(form.targetMarkets || []).length} selected`}</div></div>}</div>}
+          {onboardStep === 4 && <div className={`bg-white border border-line p-6 shadow-saas ${t2 ? 'rounded-lg' : 'rounded-2xl'}`}><div className="flex flex-wrap gap-2">{PARTNERSHIP_TYPES[lang].map((x, i) => <Chip t2={t2} key={x} label={x} active={(form.partnershipTypes || []).includes(PARTNERSHIP_TYPES.en[i])} onClick={() => toggleChip("partnershipTypes", PARTNERSHIP_TYPES.en[i])} />)}</div><div className="mt-4 text-xs font-medium text-muted">{isAr ? `تم اختيار ${(form.partnershipTypes || []).length}` : `${(form.partnershipTypes || []).length} selected`}</div></div>}
+          <InfoBox title={t('info_onboard')} t2={t2}>
+            <p>{t('info_onboard_d')}</p>
+          </InfoBox>
+          <div className="flex gap-3 mt-10">
+            {onboardStep > 1 && <Btn t2={t2} variant="secondary" onClick={() => setOnboardStep(s => s - 1)}>{t('onboard_back')}</Btn>}
+            {onboardStep < 4 ? <Btn t2={t2} variant="primary" onClick={() => setOnboardStep(s => s + 1)}>{t('onboard_continue')}</Btn> : <Btn t2={t2} variant="primary" onClick={completeOnboarding}>{t('onboard_finish')}</Btn>}
+          </div>
+        </div>
+      );
+    };
 
     const SectionLabel = ({ children, t2 }) => (
       t2 ? (
@@ -359,7 +442,7 @@
         document.body.dir = isAr ? 'rtl' : 'ltr';
       }, [theme, lang]);
 
-      const toggleChip = (field, value) => setForm((f) => ({ ...f, [field]: f[field].includes(value) ? f[field].filter((v) => v !== value) : [...f[field], value] }));
+      const toggleChip = (field, value) => setForm((f) => { const arr = f[field] || []; return { ...f, [field]: arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value] }; });
       const startOnboarding = (r) => { setRole(r); setForm({ name: "", country: r === "uk" ? "United Kingdom" : "Saudi Arabia", size: "11–50", description: "", capabilities: [], industries: [], targetMarkets: [], partnershipTypes: [] }); setOnboardStep(1); setMode("platform"); setPlatformView("onboarding"); };
       const completeOnboarding = () => { const np = { id: "you", ...form, verification: isAr ? "تحقق البريد" : "Email Verified" }; setProfile(np); let m = []; if (role === "uk") { m = opportunities.map((o) => ({ kind: "opportunity", target: o, ...scoreAgainstOpportunity(np, o) })); } else { m = UK_COMPANIES.map((c) => ({ kind: "company", target: c, ...scoreAgainstCompany(np, c) })); } m.sort((a, b) => b.score - a.score); setMatches(m); setPlatformView("dashboard"); };
       const postOpportunity = (opp) => setOpportunities((prev) => [{ ...opp, id: "opp" + (prev.length + 1), postedBy: "you" }, ...prev]);
@@ -370,17 +453,6 @@
       const goOpportunityDetail = (o, from) => { setDetailOpportunity(o); from === "public" ? setPublicView("opportunityDetail") : setPlatformView("opportunityDetail"); };
       const signOut = () => { setMode("public"); setPublicView("home"); setRole(null); setProfile(null); };
 
-      // Reusable elegant toggle switch for Header
-      const HeaderControls = () => (
-        <div className="flex gap-2 items-center">
-          {/* Language Switch */}
-          <div className="flex items-center gap-0.5 p-1 rounded-md border border-line bg-transparent">
-            <button onClick={() => setLang('en')} className={`px-2.5 py-1 text-[10px] font-mono uppercase rounded-sm transition ${isAr ? 'text-muted hover:text-ink' : 'bg-ink text-bg'}`}>EN</button>
-            <button onClick={() => setLang('ar')} className={`px-2.5 py-1 text-[10px] font-mono uppercase rounded-sm transition ${!isAr ? 'text-muted hover:text-ink' : 'bg-ink text-bg'}`}>عربي</button>
-          </div>
-        </div>
-      );
-
       const PublicNav = () => {
         const [scrolled, setScrolled] = useState(false);
         const [mobileNav, setMobileNav] = useState(false);
@@ -390,22 +462,22 @@
           return () => window.removeEventListener('scroll', handleScroll);
         }, []);
         
-        const navItems = [ { id: "how", label: t('nav_mechanism') }, { id: "browseCompanies", label: t('nav_directory') }, { id: "browseOpportunities", label: t('nav_opportunities') }, { id: "academic", label: t('nav_research') } ];
+        const navItems = [ { id: "how", label: t('nav_mechanism') }, { id: "browseCompanies", label: t('nav_directory') }, { id: "browseOpportunities", label: t('nav_opportunities') }, { id: "academic", label: t('nav_research') }, { id: "about", label: t('nav_about') } ];
 
         return (
-          <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? (t2 ? 'bg-bg/90 backdrop-blur-lg border-b border-line py-3' : 'bg-white/80 backdrop-blur-lg border-b border-line py-3') : 'bg-transparent py-5'}`}>
+          <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${t2 ? 'bg-bg/95 backdrop-blur-lg border-b border-line py-4' : 'bg-white/95 backdrop-blur-lg border-b border-line py-4'} ${scrolled ? 'shadow-sm' : ''}`}>
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
               <button onClick={() => { setPublicView("home"); setMobileNav(false); }} className={`${t2 ? 'text-lg font-display font-semibold' : 'text-xl font-extrabold'} tracking-tight text-ink flex items-center gap-2.5`}>
                 <div className={`w-8 h-8 flex items-center justify-center text-xs font-mono ${t2 ? 'border border-ink rounded-sm text-ink' : 'bg-accent rounded-lg text-white'}`}>TB</div>
                 TechBridge
               </button>
-              <div className="hidden md:flex gap-6 text-[11px] font-mono uppercase tracking-wider">
+              <div className="hidden md:flex gap-5 text-xs font-mono uppercase tracking-wider">
                 {navItems.map(item => (
-                  <button key={item.id} onClick={() => setPublicView(item.id)} className={`transition-colors ${t2 ? `pb-1 border-b-2 ${publicView === item.id ? 'border-signal text-ink' : 'border-transparent text-muted hover:text-ink'}` : `px-3 py-1.5 rounded-md text-sm font-medium ${publicView === item.id ? 'bg-slate-100 text-ink' : 'text-muted hover:text-ink'}`}`}>{item.label}</button>
+                  <button key={item.id} onClick={() => setPublicView(item.id)} className={`transition-colors ${t2 ? `font-semibold pb-1.5 border-b-2 ${publicView === item.id ? 'border-signal text-ink' : 'border-transparent text-ink/60 hover:text-ink hover:border-faint'}` : `px-3 py-1.5 rounded-md text-sm font-medium ${publicView === item.id ? 'bg-slate-100 text-ink' : 'text-muted hover:text-ink'}`}`}>{item.label}</button>
                 ))}
               </div>
               <div className="flex gap-3 items-center">
-                <HeaderControls />
+                <HeaderControls setLang={setLang} isAr={isAr} />
                 <div className="hidden md:flex gap-3 items-center">
                   <button className="text-[11px] font-mono uppercase tracking-wider text-muted hover:text-ink transition-colors hidden lg:block" onClick={() => setMode("admin")}>{t('nav_governance')}</button>
                   <Btn t2={t2} variant="primary" onClick={() => startOnboarding("uk")}>{t('nav_enter')}</Btn>
@@ -473,7 +545,7 @@
                 TechBridge
               </button>
               <div className="flex items-center gap-2">
-                <HeaderControls />
+                <HeaderControls setLang={setLang} isAr={isAr} />
                 <button onClick={() => setMobileNav(v => !v)} className={`p-2 ${t2 ? 'text-bg' : 'text-ink'}`} aria-label="Menu">
                   <Icon name={mobileNav ? "X" : "Menu"} size={20} />
                 </button>
@@ -501,7 +573,7 @@
 
             <main className={`flex-1 min-h-screen ${isAr ? 'md:mr-64' : 'md:ml-64'} p-4 md:p-8`}>
               <div className="hidden md:flex justify-end items-center gap-4 mb-8 pb-4 border-b border-line">
-                <HeaderControls />
+                <HeaderControls setLang={setLang} isAr={isAr} />
               </div>
               {children}
             </main>
@@ -546,9 +618,10 @@
         }, [theme]);
 
         return (
-          <div className="pt-24 sm:pt-32">
+          <div className="pt-[73.5px]">
             <section className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center justify-center overflow-hidden">
-              <canvas id="hero-canvas"></canvas>
+              <img src="hero.png" alt="" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-white/40"></div>
               <div className="hero-fade"></div>
               <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24 text-center">
                 {t2 ? (
@@ -560,14 +633,10 @@
                         t('hero_desc')
                       )}
                     </p>
-                    <div className="inline-flex items-center gap-2.5 text-[11px] font-mono uppercase tracking-[0.14em] text-ink border border-line bg-white px-3.5 py-2 rounded-sm mb-6">
-                      <span className="w-1.5 h-1.5 rounded-full bg-signal"></span> {t('hero_badge')} &middot; Ref TB/2026 &middot; {isAr ? 'GCC' : 'UK'} <span className="dir-arrow">&#8594;</span> {isAr ? 'UK' : 'GCC'}
-                    </div>
                   </>
                 ) : (
                   <>
                     <p className="text-lg text-muted leading-relaxed mb-6 max-w-2xl mx-auto">{t('hero_desc')}</p>
-                    <div className="inline-block text-xs font-semibold uppercase tracking-wider text-accent bg-accentLight px-3 py-1 rounded-full mb-6">{t('hero_badge')}</div>
                   </>
                 )}
                 <h1 className="text-3xl sm:text-5xl md:text-7xl leading-[1.1] tracking-tight font-extrabold text-ink mb-6">
@@ -595,15 +664,34 @@
               ))}
             </section>
 
-            <section ref={ref1} className="reveal py-24">
-              <div className="max-w-7xl mx-auto px-6">
-                <div className="text-center mb-16">
+            <section className="max-w-7xl mx-auto px-6 py-16 sm:py-20">
+              <div className="text-center mb-10">
+                <SectionLabel t2={t2}>{t('partner_sub')}</SectionLabel>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">{t('partner_title')}</h2>
+                <p className="text-muted text-sm sm:text-base mt-3 max-w-xl mx-auto">{t('partner_tag')}</p>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
+                  <div key={n} className="bg-white border border-line rounded-lg p-2 sm:p-3 flex items-center justify-center h-20 sm:h-24 shadow-saas hover:border-faint transition-colors overflow-hidden">
+                    <img src={`partner${n}.png`} alt={`${t('partner_sub')} ${n}`} loading="lazy" className="max-h-full max-w-full object-contain" />
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section ref={ref1} className="reveal py-24 relative overflow-hidden">
+              <div className="absolute inset-0">
+                <img src="shake.png" alt="" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-white/80"></div>
+              </div>
+              <div className="relative z-10 max-w-7xl mx-auto px-6">
+                <div className="text-center mb-12">
                   <SectionLabel t2={t2}>{t('mech_label')}</SectionLabel>
                   <h2 className="text-2xl sm:text-4xl font-extrabold text-ink tracking-tight">{t('mech_title')}</h2>
                 </div>
-                <div className={`grid grid-cols-1 md:grid-cols-3 ${t2 ? 'border-t border-b border-line divide-y md:divide-y-0 md:divide-x divide-line' : 'gap-6'}`}>
-                  {[ { n: "01", t: t('mech_step1_t'), d: t('mech_step1_d'), icon: "Search" }, { n: "02", t: t('mech_step2_t'), d: t('mech_step2_d'), icon: "Sparkles" }, { n: "03", t: t('mech_step3_t'), d: t('mech_step3_d'), icon: "ShieldCheck" } ].map(s => (
-                    <div key={s.n} className={`p-8 md:p-10 ${!t2 ? 'bg-white border border-line rounded-2xl shadow-saas saas-card' : ''}`}>
+                <div className={`grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ${t2 ? 'border-t border-b border-line divide-y md:divide-y-0 md:divide-x divide-line' : 'gap-6'}`}>
+                  {[ { n: "01", t: t('mech_step1_t'), d: t('mech_step1_d'), icon: "Search" }, { n: "02", t: t('mech_step2_t'), d: t('mech_step2_d'), icon: "ShieldCheck" }, { n: "03", t: t('mech_step3_t'), d: t('mech_step3_d'), icon: "Radar" }, { n: "04", t: t('mech_step4_t'), d: t('mech_step4_d'), icon: "MessageSquare" }, { n: "05", t: t('mech_step5_t'), d: t('mech_step5_d'), icon: "Sparkles" } ].map(s => (
+                    <div key={s.n} className={`p-6 sm:p-8 ${!t2 ? 'bg-white border border-line rounded-2xl shadow-saas saas-card' : ''}`}>
                       {!t2 && <div className="w-12 h-12 bg-accentLight rounded-xl flex items-center justify-center text-accent mb-6"><Icon name={s.icon} size={24} /></div>}
                       <div className={`${t2 ? 'text-[11px] font-mono uppercase tracking-[0.14em] text-signal mb-6' : 'hidden'}`}>{t('mech_step')} {s.n}</div>
                       <h3 className={`text-2xl font-semibold text-ink mb-3`}>{s.t}</h3>
@@ -612,7 +700,7 @@
                   ))}
                 </div>
               </div>
-              <div className="max-w-5xl mx-auto px-6">
+              <div className="relative z-10 max-w-5xl mx-auto px-6">
                 <InfoBox title={t('info_mech')} t2={t2}>
                   <p>{t('info_mech_d')}</p>
                 </InfoBox>
@@ -672,9 +760,9 @@
       const HowItWorks = () => (
         <div className="pt-24 sm:pt-28 max-w-7xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16">
           <PageHeader t2={t2} title={t('how_title')} subtitle={t('how_sub')} />
-          <div className={`grid grid-cols-1 md:grid-cols-3 ${t2 ? 'border-t border-b border-line divide-y md:divide-y-0 md:divide-x divide-line' : 'gap-6'} mb-12`}>
-            {[ { n: "01", t: t('mech_step1_t'), d: t('mech_step1_d'), icon: "Search" }, { n: "02", t: t('mech_step2_t'), d: t('mech_step2_d'), icon: "Sparkles" }, { n: "03", t: t('mech_step3_t'), d: t('mech_step3_d'), icon: "ShieldCheck" } ].map(s => (
-              <div key={s.n} className={`p-8 md:p-10 ${!t2 ? 'bg-white border border-line rounded-2xl shadow-saas saas-card' : ''}`}>
+          <div className={`grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 ${t2 ? 'border-t border-b border-line divide-y md:divide-y-0 md:divide-x divide-line' : 'gap-6'} mb-12`}>
+            {[ { n: "01", t: t('mech_step1_t'), d: t('mech_step1_d'), icon: "Search" }, { n: "02", t: t('mech_step2_t'), d: t('mech_step2_d'), icon: "ShieldCheck" }, { n: "03", t: t('mech_step3_t'), d: t('mech_step3_d'), icon: "Radar" }, { n: "04", t: t('mech_step4_t'), d: t('mech_step4_d'), icon: "MessageSquare" }, { n: "05", t: t('mech_step5_t'), d: t('mech_step5_d'), icon: "Sparkles" } ].map(s => (
+              <div key={s.n} className={`p-6 sm:p-8 ${!t2 ? 'bg-white border border-line rounded-2xl shadow-saas saas-card' : ''}`}>
                 {!t2 && <div className="w-12 h-12 bg-accentLight rounded-xl flex items-center justify-center text-accent mb-6"><Icon name={s.icon} size={24} /></div>}
                 <div className={`${t2 ? 'text-[11px] font-mono uppercase tracking-[0.14em] text-signal mb-6' : 'hidden'}`}>{t('mech_step')} {s.n}</div>
                 <h3 className={`text-2xl font-semibold text-ink mb-3`}>{s.t}</h3>
@@ -722,6 +810,50 @@
           </div>
         </div>
       );
+
+      const AboutUs = () => {
+        const aboutSteps = isAr ? ["اكتشف", "تحقق", "تأهل", "تواصل", "تعاون"] : ["Discover", "Verify", "Qualify", "Connect", "Collaborate"];
+        return (
+          <div className="pt-24 sm:pt-28 max-w-7xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16">
+            <div className="mb-8 pb-5 border-b border-line flex flex-wrap items-baseline gap-x-2">
+              <span className="text-xs font-mono uppercase tracking-[0.14em] text-muted">{t('about_credit_role')}</span>
+              <span className="text-signal">—</span>
+              <span className="text-xs font-mono uppercase tracking-[0.14em] text-ink font-semibold">{t('about_credit_name')}</span>
+            </div>
+            <PageHeader t2={t2} title={t('about_title')} subtitle={t('about_sub')} />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12">
+              <div className="lg:col-span-8 space-y-10">
+                <p className="text-lg text-muted leading-relaxed max-w-2xl">{t('about_lead')}</p>
+                <div>
+                  <SectionLabel t2={t2}>{t('about_prob_t')}</SectionLabel>
+                  <p className="text-muted leading-relaxed max-w-2xl">{t('about_prob_d')}</p>
+                </div>
+                <div>
+                  <SectionLabel t2={t2}>{t('about_resp_t')}</SectionLabel>
+                  <p className="text-muted leading-relaxed max-w-2xl">{t('about_resp_d')}</p>
+                </div>
+                <div className={`bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-6 shadow-saas max-w-2xl`}>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-accent mb-2">{t('about_note_t')}</div>
+                  <p className="text-sm text-muted leading-relaxed">{t('about_note_d')}</p>
+                </div>
+              </div>
+              <div className="lg:col-span-4">
+                <div className={`bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-6 shadow-saas lg:sticky lg:top-24`}>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-accent mb-4">{t('about_steps_t')}</div>
+                  <ol>
+                    {aboutSteps.map((s, i) => (
+                      <li key={s} className="flex items-center gap-4 py-3 border-b border-line last:border-b-0">
+                        <span className={`w-7 h-7 flex items-center justify-center text-[10px] font-mono ${t2 ? 'border border-ink text-ink rounded-sm' : 'bg-accent text-white rounded-full'}`}>{i + 1}</span>
+                        <span className="text-sm font-semibold text-ink">{s}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      };
 
       const BrowseCompanies = ({ within = "public" }) => {
         const [side, setSide] = useState(role === "gcc" ? "uk" : role === "uk" ? "gcc" : "gcc");
@@ -826,6 +958,19 @@
                       <>
                         <div className="flex justify-between border-b border-line pb-3"><span className="text-muted">{t('detail_size')}</span><span className="text-ink font-medium">{item.size}</span></div>
                         <div className="flex justify-between border-b border-line pb-3"><span className="text-muted">{t('detail_verification')}</span><span className="text-accent font-medium">{item.verification[lang]}</span></div>
+                        {item.history && <div className="flex justify-between gap-3 border-b border-line pb-3"><span className="text-muted shrink-0">{t('detail_history')}</span><span className="text-ink font-medium text-right leading-snug">{item.history[lang]}</span></div>}
+                        {item.address && (
+                          <div className="border-b border-line pb-3">
+                            <div className="flex justify-between gap-3"><span className="text-muted shrink-0">{t('detail_address')}</span><span className="text-ink font-medium text-right leading-snug">{item.address[lang]}</span></div>
+                            {item.mapQuery && (
+                              <div className="mt-3 space-y-2">
+                                <iframe src={`https://www.google.com/maps?q=${encodeURIComponent(item.mapQuery)}&output=embed`} className="w-full h-36 rounded-md border border-line" loading="lazy" title={t('detail_address')}></iframe>
+                                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.mapQuery)}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:text-accentHover transition-colors">{t('detail_open_map')} <Icon name={isAr ? "ArrowLeft" : "ArrowRight"} size={12} /></a>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        {item.rating != null && <div className="flex justify-between items-center border-b border-line pb-3"><span className="text-muted">{t('detail_rating')}</span><StarRating value={item.rating} /></div>}
                       </>
                     ) : (
                       <>
@@ -867,40 +1012,6 @@
           </div>
         </footer>
       );
-
-      const Onboarding = () => {
-        const isUK = role === "uk";
-        const steps = [t('onboard_basics'), isUK ? t('onboard_cap') : t('onboard_needs'), t('onboard_market'), t('onboard_obj')];
-        return (
-          <div className="min-h-screen flex flex-col justify-center max-w-xl mx-auto px-4 sm:px-6 py-16 sm:py-20 bg-bg relative">
-            <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 sm:px-6 pt-5">
-              <button onClick={signOut} className="p-2 text-muted hover:text-danger transition">
-                <Icon name="X" size={24} />
-              </button>
-              <HeaderControls />
-            </div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-accent mb-2">{t('onboard_step')} {onboardStep} {t('onboard_of')} {steps.length}</div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-ink mb-6 sm:mb-8">{steps[onboardStep - 1]}</h2>
-            {onboardStep === 1 && (
-              <div className="space-y-6">
-                <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">{t('onboard_entity_name')}</label><input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full bg-white border border-line rounded-lg px-4 py-3 text-base focus:border-accent focus:ring-1 focus:ring-accent outline-none transition text-ink" /></div>
-                <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">{isUK ? t('onboard_country') : t('onboard_gcc_country')}</label>{isUK ? <input value="United Kingdom" disabled className="w-full bg-slate-50 border border-line rounded-lg px-4 py-3 text-base text-muted outline-none" /> : <div className="flex flex-wrap gap-2">{GCC_COUNTRIES[lang].map((x, idx) => { const enVal = isAr ? GCC_COUNTRIES.en[idx] : x; return <Chip t2={t2} key={enVal} label={x} active={form.country === enVal} onClick={() => setForm({ ...form, country: enVal })} />; })}</div>}</div>
-                <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">{t('onboard_comp_size')}</label><div className="flex flex-wrap gap-2">{COMPANY_SIZES[lang].map((x, i) => <Chip t2={t2} key={x} label={x} active={form.size === COMPANY_SIZES.en[i]} onClick={() => setForm({ ...form, size: COMPANY_SIZES.en[i] })} />)}</div></div>
-              </div>
-            )}
-            {onboardStep === 2 && <div className={`bg-white border border-line p-6 shadow-saas ${t2 ? 'rounded-lg' : 'rounded-2xl'}`}><div className="flex flex-wrap gap-2">{CAPABILITIES[lang].map((x, i) => <Chip t2={t2} key={x} label={x} active={form.capabilities.includes(CAPABILITIES.en[i])} onClick={() => toggleChip("capabilities", CAPABILITIES.en[i])} />)}</div></div>}
-            {onboardStep === 3 && <div className="space-y-6"><div className={`bg-white border border-line p-6 shadow-saas ${t2 ? 'rounded-lg' : 'rounded-2xl'}`}><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-3">{t('onboard_industries')}</label><div className="flex flex-wrap gap-2">{INDUSTRIES[lang].map((x, i) => <Chip t2={t2} key={x} label={x} active={form.industries.includes(INDUSTRIES.en[i])} onClick={() => toggleChip("industries", INDUSTRIES.en[i])} />)}</div></div>{isUK && <div className={`bg-white border border-line p-6 shadow-saas ${t2 ? 'rounded-lg' : 'rounded-2xl'}`}><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-3">{t('onboard_target')}</label><div className="flex flex-wrap gap-2">{GCC_COUNTRIES[lang].map((x, i) => { const enVal = isAr ? GCC_COUNTRIES.en[i] : x; return <Chip t2={t2} key={enVal} label={x} active={form.targetMarkets.includes(enVal)} onClick={() => toggleChip("targetMarkets", enVal)} />; })}</div></div>}</div>}
-            {onboardStep === 4 && <div className={`bg-white border border-line p-6 shadow-saas ${t2 ? 'rounded-lg' : 'rounded-2xl'}`}><div className="flex flex-wrap gap-2">{PARTNERSHIP_TYPES[lang].map((x, i) => <Chip t2={t2} key={x} label={x} active={form.partnershipTypes.includes(PARTNERSHIP_TYPES.en[i])} onClick={() => toggleChip("partnershipTypes", PARTNERSHIP_TYPES.en[i])} />)}</div></div>}
-            <InfoBox title={t('info_onboard')} t2={t2}>
-              <p>{t('info_onboard_d')}</p>
-            </InfoBox>
-            <div className="flex gap-3 mt-10">
-              {onboardStep > 1 && <Btn t2={t2} variant="secondary" onClick={() => setOnboardStep(s => s - 1)}>{t('onboard_back')}</Btn>}
-              {onboardStep < 4 ? <Btn t2={t2} variant="primary" onClick={() => setOnboardStep(s => s + 1)}>{t('onboard_continue')}</Btn> : <Btn t2={t2} variant="primary" onClick={completeOnboarding}>{t('onboard_finish')}</Btn>}
-            </div>
-          </div>
-        );
-      };
 
       const Dashboard = () => (
         <div>
@@ -1030,7 +1141,7 @@
         <div className="min-h-screen p-4 sm:p-8 max-w-7xl mx-auto bg-bg">
           <div className="flex justify-between items-center mb-6">
             <button onClick={() => { setMode("public"); setPublicView("home"); }} className="flex items-center gap-2 text-sm font-medium text-muted hover:text-ink transition"><Icon name={isAr ? "ArrowRight" : "ArrowLeft"} size={14}/> {t('exit_gov')}</button>
-            <HeaderControls />
+            <HeaderControls setLang={setLang} isAr={isAr} />
           </div>
           <PageHeader t2={t2} title={t('gov_title')} subtitle={t('gov_sub')} />
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
@@ -1063,6 +1174,7 @@
             {publicView === "home" && <Home />}
             {publicView === "how" && <HowItWorks />}
             {publicView === "academic" && <AcademicContext />}
+            {publicView === "about" && <AboutUs />}
             {publicView === "browseCompanies" && <BrowseCompanies within="public" />}
             {publicView === "browseOpportunities" && <BrowseOpportunities within="public" />}
             {publicView === "companyDetail" && <DetailView within="public" type="company" />}
@@ -1074,7 +1186,7 @@
 
       return (
         <div className="min-h-screen">
-          {platformView === "onboarding" ? <Onboarding /> : (
+          {platformView === "onboarding" ? <Onboarding t={t} t2={t2} isAr={isAr} lang={lang} role={role} form={form} setForm={setForm} toggleChip={toggleChip} onboardStep={onboardStep} setOnboardStep={setOnboardStep} completeOnboarding={completeOnboarding} signOut={signOut} setLang={setLang} /> : (
             <PlatformShell>
               {platformView === "dashboard" && <Dashboard />}
               {platformView === "browseCompanies" && <BrowseCompanies within="platform" />}
