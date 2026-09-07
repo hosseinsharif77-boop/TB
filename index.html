@@ -45,24 +45,8 @@
   </script>
 
   <style>
-    /* Theme 1: Modern (Indigo) */
-    :root, .theme1 {
-      --bg: 248, 250, 252;
-      --surface: 255, 255, 255;
-      --ink: 15, 23, 42;
-      --muted: 100, 116, 139;
-      --faint: 203, 213, 225;
-      --line: 226, 232, 240;
-      --accent: 79, 70, 229;
-      --accent-hover: 67, 56, 202;
-      --accent-light: 238, 242, 255;
-      --signal: 79, 70, 229; 
-      --signal-light: 238, 242, 255;
-      --danger: 220, 38, 38;
-      --danger-light: 254, 242, 242;
-    }
-    /* Theme 2: Editorial (Attached File Style) */
-    .theme2 {
+    /* Theme: Editorial (Attached File Style) */
+    :root, .theme2 {
       --bg: 234, 241, 240;
       --surface: 255, 255, 255;
       --ink: 16, 42, 56;
@@ -90,9 +74,7 @@
     body.theme2 { font-family: 'IBM Plex Sans', sans-serif; }
     body.lang-ar.theme2 { font-family: 'Tajawal', sans-serif; }
 
-    body.theme1 h1, body.theme1 h2, body.theme1 h3 { font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: normal; }
     body.theme2 h1, body.theme2 h2, body.theme2 h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.01em; }
-    body.lang-ar.theme1 h1, body.lang-ar.theme1 h2, body.lang-ar.theme1 h3,
     body.lang-ar.theme2 h1, body.lang-ar.theme2 h2, body.lang-ar.theme2 h3 { font-family: 'Tajawal', sans-serif; }
 
     ::-webkit-scrollbar { width: 8px; }
@@ -100,19 +82,13 @@
     ::-webkit-scrollbar-thumb { background: rgb(var(--faint)); border-radius: 4px; }
     ::selection { background: rgb(var(--accent)); color: #FFFFFF; }
 
-    body.theme1 .text-gradient { background: linear-gradient(90deg, #4F46E5 0%, #7C3AED 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     body.theme2 .text-gradient { background: linear-gradient(100deg, #1B4E8F 0%, #C1401F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-    body.theme1 .shadow-saas { box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px 0 rgba(15, 23, 42, 0.03); }
     body.theme2 .shadow-saas { box-shadow: 0 1px 2px 0 rgba(16, 42, 56, 0.04); }
 
-    body.theme1 .btn-primary { transition: all 0.2s ease; background: rgb(var(--accent)); color: #FFFFFF; box-shadow: 0 1px 2px 0 rgba(79, 70, 229, 0.3); }
-    body.theme1 .btn-primary:hover { background: rgb(var(--accent-hover)); transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3); }
     body.theme2 .btn-primary { transition: all 0.15s ease; background: rgb(var(--ink)); color: rgb(var(--bg)); }
     body.theme2 .btn-primary:hover { background: rgb(var(--accent)); }
 
-    body.theme1 .btn-secondary { transition: all 0.2s ease; background: #FFFFFF; border: 1px solid rgb(var(--faint)); color: rgb(var(--ink)); }
-    body.theme1 .btn-secondary:hover { border-color: rgb(var(--accent)); background: rgb(var(--bg)); transform: translateY(-1px); }
     body.theme2 .btn-secondary { transition: all 0.15s ease; background: transparent; border: 1px solid rgb(var(--ink)); color: rgb(var(--ink)); }
     body.theme2 .btn-secondary:hover { border-color: rgb(var(--accent)); color: rgb(var(--accent)); background: rgb(var(--accent-light)); }
 
@@ -121,15 +97,37 @@
 
     .match-bar-fill { width: 0%; transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
     .saas-card { transition: all 0.3s ease; }
-    body.theme1 .saas-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.04); }
     body.theme2 .saas-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -6px rgba(16, 42, 56, 0.16); border-color: rgb(var(--faint)); }
 
     #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-    body.theme1 .hero-fade { background: linear-gradient(to bottom, rgba(248, 250, 252, 0) 0%, rgba(248, 250, 252, 0.8) 70%, rgba(248, 250, 252, 1) 100%); position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; z-index: 1; }
     body.theme2 .hero-fade { background: linear-gradient(to bottom, rgba(234, 241, 240, 0) 0%, rgba(234, 241, 240, 0.85) 70%, rgba(234, 241, 240, 1) 100%); position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; z-index: 1; }
+
+    /* === RESPONSIVE GLOBAL === */
+    @media (max-width: 768px) {
+      .reveal { transform: translateY(12px); }
+      .match-bar-fill { height: 100%; }
+    }
+    /* Prevent horizontal overflow on mobile */
+    html, body { max-width: 100vw; overflow-x: hidden; }
+    /* Smooth scroll on mobile */
+    @media (max-width: 640px) {
+      html { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+    }
+
+    /* === RTL AUTO-FLIP (safe properties only) === */
+    [dir="rtl"] .text-left  { text-align: right !important; }
+    [dir="rtl"] .text-right { text-align: left  !important; }
+    [dir="rtl"] .ml-auto   { margin-left: 0 !important; margin-right: auto !important; }
+    [dir="rtl"] .mr-auto   { margin-right: 0 !important; margin-left: auto !important; }
+    [dir="rtl"] .left-6    { left: auto !important; right: 1.5rem !important; }
+    [dir="rtl"] .right-6   { right: auto !important; left: 1.5rem !important; }
+    [dir="rtl"] .border-l-2 { border-left: 0 !important; border-right: 2px solid currentColor !important; }
+    [dir="rtl"] .border-l   { border-left: 0 !important; border-right: 1px solid currentColor !important; }
+    /* Flip directional arrow character in RTL */
+    [dir="rtl"] .dir-arrow { display: inline-block; transform: scaleX(-1); }
   </style>
 </head>
-<body class="theme1 lang-en">
+  <body class="theme2 lang-en">
   <div id="root"></div>
 
   <script type="text/babel">
@@ -140,7 +138,7 @@
         nav_mechanism: "Mechanism", nav_directory: "Directory", nav_opportunities: "Opportunities", nav_research: "Research", nav_governance: "Governance", nav_enter: "Enter Prototype",
         hero_badge: "Research Prototype", hero_title_1: "The architecture of ", hero_title_2: "cross-border", hero_title_3: " digital partnerships.", hero_desc: "An interactive proof-of-concept demonstrating how a digital B2B intermediary can facilitate discovery and initial connection between UK and GCC SMEs.", hero_btn1: "Enter Prototype", hero_btn2: "See How It Works",
         stats_uk: "UK SMEs", stats_gcc: "GCC Entities", stats_opp: "Active Opportunities",
-        mech_label: "The Mechanism", mech_title: "Three operational layers, executed sequentially.", mech_step1_t: "Discover", mech_step1_d: "Structured capability profiles and a live opportunity board replace a generic company directory.", mech_step2_t: "Connect", mech_step2_d: "Weighted matching surfaces who is actually relevant, with a transparent breakdown.", mech_step3_t: "Collaborate", mech_step3_d: "Verification and a shared record carry the relationship from first chat toward a partnership.",
+        mech_label: "The Mechanism", mech_title: "Three operational layers, executed sequentially.", mech_step: "Step", mech_step1_t: "Discover", mech_step1_d: "Structured capability profiles and a live opportunity board replace a generic company directory.", mech_step2_t: "Connect", mech_step2_d: "Weighted matching surfaces who is actually relevant, with a transparent breakdown.", mech_step3_t: "Collaborate", mech_step3_d: "Verification and a shared record carry the relationship from first chat toward a partnership.",
         opp_label: "Live Network", opp_title: "Open Opportunities", opp_table_opp: "Opportunity", opp_table_region: "Region", opp_table_type: "Type", opp_table_match: "Match",
         cta_title: "Ready to explore the mechanism?", cta_desc: "Step into the prototype and see how matching works for your profile.", cta_uk_t: "Explore as UK SME", cta_uk_d: "Match with GCC opportunities", cta_gcc_t: "Explore as GCC Entity", cta_gcc_d: "Find UK technology providers",
         how_title: "The Mechanism", how_sub: "How It Works", how_logic_label: "Matching Logic", how_logic_t: "Explainable, not a black box.", how_logic_d: "Every match is a weighted comparison across five declared factors. It is a starting point for due diligence, never a guarantee of compatibility.",
@@ -156,13 +154,22 @@
         onboard_step: "Step", onboard_of: "of", onboard_basics: "Basics", onboard_cap: "Capabilities", onboard_needs: "Needs", onboard_market: "Market", onboard_obj: "Objective", onboard_entity_name: "Entity Name", onboard_country: "Country", onboard_gcc_country: "GCC Country", onboard_comp_size: "Company Size", onboard_industries: "Industries", onboard_target: "Target Markets", onboard_back: "Back", onboard_continue: "Continue", onboard_finish: "Finish & Match",
         match_potential: "Potential Match", match_alert: "Based on declared capabilities. Due diligence is recommended before entering a partnership.", match_send_req: "Send Request", match_req_sent: "Request Sent",
         post_title: "Post an Opportunity", post_sub: "Create", post_title_label: "Title", post_looking_for: "Looking For", post_publish: "Publish",
+        info_hero: "Research Context", info_hero_d: "This prototype demonstrates a Weighted Multi-Criteria Partnership Matching (WMCPM) algorithm for cross-border B2B intermediary platforms. The mechanism is grounded in partnership alliance literature (Koza & Lewin, 1998; Contractor & Lorange, 2002) and adapted for UK–GCC digital trade facilitation. All data is synthetic; the architecture is the research contribution.",
+        info_mech: "Operational Architecture", info_mech_d: "The system executes three sequential phases: (1) Discovery via structured capability profiles, (2) Matching via a weighted scoring algorithm across five dimensions, and (3) Verification and onboarding. This sequential design mirrors the partner selection process described in supply chain alliance literature (Dyer & Singh, 1998).",
+        info_match: "Matching Algorithm", info_match_d: "The Weighted Multi-Criteria Partnership Matching (WMCPM) algorithm scores potential partnerships across five dimensions: Technology (30%), Industry (20%), Geography (20%), Partnership Objective (20%), and Company Size (10%). Weights are derived from literature review findings on B2B partnership success factors. Scores are normalised to 0–100 and presented with full transparency to support explainability — a key requirement for academic rigour.",
+        info_opp: "Opportunity Board", info_opp_d: "The opportunity board replaces traditional static company directories with a dynamic, demand-driven interface. Opportunities are posted by GCC entities seeking specific capabilities, enabling pull-based partner discovery rather than push-based marketing — a model supported by service-dominant logic (Vargo & Lusch, 2004).",
+        info_onboard: "Entity Registration", info_onboard_d: "The onboarding flow collects structured capability profiles following a standardised schema. This structured approach reduces information asymmetry — a core barrier in international B2B matchmaking identified by Johanson & Vahlne (2009) in their Uppsala internationalisation model.",
+        info_dashboard: "Dashboard Analytics", info_dashboard_d: "The user dashboard provides a real-time overview of match scores, partnership requests, and profile completeness. The match scores are computed using the WMCPM algorithm and updated as new opportunities are posted — enabling iterative refinement of partnership discovery.",
+        info_detail: "Match Detail View", info_detail_d: "The match detail view presents a transparent breakdown of the scoring algorithm. Each dimension is visualised with a progress bar, enabling the user to understand exactly why a match was surfaced. This aligns with the explainable AI (XAI) principle (Miller, 2019) applied to partnership recommendation systems.",
+        info_msgs: "Communication Protocol", info_msgs_d: "The messaging system facilitates initial contact between matched parties. In the academic context, this represents the 'trust-building' phase of international partnership formation, where initial communication establishes the foundation for due diligence and formal agreements (Zaheer et al., 1998).",
+        info_glossary: "Research Glossary", info_glossary_d: "WMCPM: Weighted Multi-Criteria Partnership Matching — the core algorithm.\nSME: Small and Medium Enterprise.\nB2B: Business-to-Business.\nDue Diligence: Formal verification process before partnership commitment.\nCapability Profile: Structured representation of an entity's skills, industries, and target markets.\nMatch Score: Normalised output (0–100) of the WMCPM algorithm.",
         footer_note: "* Conceptual academic prototype for research purposes. Not a commercial service."
       },
       ar: {
         nav_mechanism: "الآلية", nav_directory: "الدليل", nav_opportunities: "الفرص", nav_research: "البحث", nav_governance: "الحوكمة", nav_enter: "دخول النموذج",
         hero_badge: "نموذج بحثي", hero_title_1: "بنية ", hero_title_2: "عابرة للحدود", hero_title_3: " للشراكات الرقمية.", hero_desc: "نموذج مفاهيمي تفاعلي يوضح كيف يمكن لوسيط رقمي B2B أن يسهل الاكتشاف والتواصل الأولي بين الشركات الصغيرة والمتوسطة في المملكة المتحدة ودول الخليج.", hero_btn1: "دخول النموذج", hero_btn2: "كيف يعمل",
         stats_uk: "شركات بريطانية", stats_gcc: "كيانات خليجية", stats_opp: "فرص نشطة",
-        mech_label: "الآلية", mech_title: "ثلاث طبقات تشغيلية، تُنفذ بالتسلسل.", mech_step1_t: "اكتشاف", mech_step1_d: "ملفات تعريف القدرات المنظمة ولوحة فرص مباشرة تحل محل دليل الشركات العام.", mech_step2_t: "تواصل", mech_step2_d: "المطابقة الموزونة تبرز من هو ذو صلة فعلاً، مع تفصيل شفاف.", mech_step3_t: "تعاون", mech_step3_d: "التحقق والسجل المشترك يحملان العلاقة من المحادثة الأولى نحو شراكة.",
+        mech_label: "الآلية", mech_title: "ثلاث طبقات تشغيلية، تُنفذ بالتسلسل.", mech_step: "خطوة", mech_step1_t: "اكتشاف", mech_step1_d: "ملفات تعريف القدرات المنظمة ولوحة فرص مباشرة تحل محل دليل الشركات العام.", mech_step2_t: "تواصل", mech_step2_d: "المطابقة الموزونة تبرز من هو ذو صلة فعلاً، مع تفصيل شفاف.", mech_step3_t: "تعاون", mech_step3_d: "التحقق والسجل المشترك يحملان العلاقة من المحادثة الأولى نحو شراكة.",
         opp_label: "الشبكة الحية", opp_title: "فرص مفتوحة", opp_table_opp: "الفرصة", opp_table_region: "المنطقة", opp_table_type: "النوع", opp_table_match: "التطابق",
         cta_title: "مستعد لاستكشاف الآلية؟", cta_desc: "ادخل إلى النموذج واكتشف كيف تعمل المطابقة لملفك التعريفي.", cta_uk_t: "استكشف كشركة بريطانية", cta_uk_d: "تطابق مع فرص الخليج", cta_gcc_t: "استكشف ككيان خليجي", cta_gcc_d: "ابحث عن مقدمي تقنية بريطانيين",
         how_title: "الآلية", how_sub: "كيف يعمل", how_logic_label: "منطق المطابقة", how_logic_t: "قابل للتفسير، ليس صندوقاً أسود.", how_logic_d: "كل تطابق هو مقارنة موزونة عبر خمسة عوامل معلنة. إنها نقطة انطلاق للعناية الواجبة، وليست ضماناً للتوافق.",
@@ -178,6 +185,15 @@
         onboard_step: "خطوة", onboard_of: "من", onboard_basics: "الأساسيات", onboard_cap: "القدرات", onboard_needs: "الاحتياجات", onboard_market: "السوق", onboard_obj: "الهدف", onboard_entity_name: "اسم الكيان", onboard_country: "الدولة", onboard_gcc_country: "دولة الخليج", onboard_comp_size: "حجم الشركة", onboard_industries: "القطاعات", onboard_target: "الأسواق المستهدفة", onboard_back: "رجوع", onboard_continue: "متابعة", onboard_finish: "إنهاء ومطابقة",
         match_potential: "تطابق محتمل", match_alert: "بناءً على القدرات المعلنة. يوصى بإجراء العناية الواجبة قبل الدخول في شراكة.", match_send_req: "إرسال طلب", match_req_sent: "تم إرسال الطلب",
         post_title: "نشر فرصة", post_sub: "إنشاء", post_title_label: "العنوان", post_looking_for: "يبحث عن", post_publish: "نشر",
+        info_hero: "سياق البحث", info_hero_d: "يُقدِّم هذا النموذج خوارزمية المطابقة متعددة المعايير الموزونة (WMCPM) لمنصات الوسيط التجاري B2B العابرة للحدود. تستند الآلية إلى أدبيات تحالفات الشراكات (Koza & Lewin, 1998; Contractor & Lorange, 2002) وتُكيَّف لتسهيل التجارة الرقمية بين المملكة المتحدة ودول الخليج. جميع البيانات اصطناعية؛ البنية التقنية هي المساهمة البحثية.",
+        info_mech: "البنية التشغيلية", info_mech_d: "ينفذ النظام ثلاث مراحل متتالية: (1) الاكتشاف عبر ملفات قدرات منظمة، (2) المطابقة عبر خوارزمية نقاط موزونة عبر خمسة أبعاد، و(3) التحقق والتسجيل. هذا التصميم المتسلسل يعكس عملية اختيار الشركاء في أدبيات تحالفات سلاسل الإمداد (Dyer & Singh, 1998).",
+        info_match: "خوارزمية المطابقة", info_match_d: "تخمّن خوارزمية WMCPM الشراكات المحتملة عبر خمسة أبعاد: التكنولوجيا (30%)، القطاع (20%)، الجغرافيا (20%)، هدف الشراكة (20%)، وحجم الشركة (10%). الأوزان مشتقة من مراجعة الأدبيات لعوامل نجاح شراكات B2B. تُعادل النتائج إلى 0-100 وتُعرض بشفافية كاملة لدعم القابلية للتفسير — وهي متطلب أساسي للصرامة الأكاديمية.",
+        info_opp: "لوحة الفرص", info_opp_d: "تحل لوحة Opportunities محل أدلة الشركات الثابتة التقليدية بواجهة ديناميكية مبنية على الطلب. تنشر الكيانات الخليجية الفرص باحثة عن قدرات محددة، مما يمكّن من اكتشاف الشركاء بالسحب بدلًا من الدفع — وهو نموذج مدعوم من المنطق السائد للخدمة (Vargo & Lusch, 2004).",
+        info_onboard: "تسجيل الكيانات", info_onboard_d: "تجمع عملية التسجيل ملفات قدرات منظمة وفق مخطط موحَّد. يقلل هذا النهج المنظم من عدم تناظر المعلومات — وهي عقبة أساسية في الم下车 B2B الدولي حسب نموذج Uppsala للتدويل (Johanson & Vahlne, 2009).",
+        info_dashboard: "تحليلات لوحة التحكم", info_dashboard_d: "توفر لوحة التحكم نظرة عامة في الوقت الفعلي على درجات المطابقة وطلبات الشراكة واكتمال الملف. تُحسب درجات المطابقة باستخدام خوارزمية WMCPM وتُحدَّث عند نشر فرص جديدة — مما يمكّن من التكرار والتحسين المستمر لاكتشاف الشركاء.",
+        info_detail: "عرض تفاصيل التطابق", info_detail_d: "يعرض تفاصيل التطابق تفصيلاً شفافاً لخوارزمية التصنيف. كل بُعد مُ visualization بشرائط تقدم، مما يتيح للمستخدم فهم السبب الدقيق في ظهور التطابق. يتوافق هذا مع مبدأ الذكاء الاصطناعي القابل للتفسير (XAI) (Miller, 2019) المطبق على أنظمة توصية الشراكات.",
+        info_msgs: "بروتوكول الاتصال", info_msgs_d: "يُمكّن نظام الرسائل من الاتصال الأولي بين الأطراف المتطابقة. في السياق الأكاديمي، يمثل هذا مرحلة بناء الثقة في تشكيل الشراكات الدولية، حيث يرسي الاتصال الأولي الأساس للعناية الواجبة والاتفاقيات الرسمية (Zaheer et al., 1998).",
+        info_glossary: "المصطلحات البحثية", info_glossary_d: "WMCPM: المطابقة متعددة المعايير الموزونة — الخوارزمية الأساسية.\nSME: الشركات الصغيرة والمتوسطة.\nB2B: بين الشركات.\nالعناية الواجبة: عملية التحقق الرسمية قبل الالتزام بالشراكة.\nملف القدرة: تمثيل منظوم لقدرات الكيان وقطاعاته وأسواقه المستهدفة.\nدرجة التطابق: الناتج المُعادل (0-100) من خوارزمية WMCPM.",
         footer_note: "* نموذج أكاديمي مفاهيمي لأغراض البحث. ليست خدمة تجارية."
       }
     };
@@ -223,7 +239,7 @@
 
     const Icon = ({ name, size = 18 }) => {
       const paths = {
-        ArrowRight: <path d="M5 12h14M12 5l7 7-7 7" />, ArrowLeft: <path d="M19 12H5M12 19l-7-7 7-7" />, Search: <><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></>, MessageSquare: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />, ShieldCheck: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />, Check: <path d="M20 6 9 17l-5-5" />, X: <path d="M18 6 6 18M6 6l12 12" />, Building2: <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18M6 12H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2M18 9h2a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-2M6 18h12" />, Briefcase: <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16M8 10H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-2" />, LayoutDashboard: <><rect width="7" height="9" x="3" y="3" rx="1" /><rect width="7" height="5" x="14" y="3" rx="1" /><rect width="7" height="9" x="14" y="12" rx="1" /><rect width="7" height="5" x="3" y="16" rx="1" /></>, Send: <path d="m22 2-7 20-4-9-9-4ZM22 2 11 13" />, Plus: <path d="M5 12h14M12 5v14" />, Sparkles: <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />, Radar: <><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34" /><path d="M4 6h.01" /><path d="M2.29 9.62A10 10 0 1 0 21.31 8.35" /><path d="M16.24 7.76A6 6 0 1 0 8.23 16.67" /><path d="M12 18h.01" /><path d="M17.99 11.66A6 6 0 0 1 15.77 16.67" /><circle cx="12" cy="12" r="2" /><path d="m13.41 10.59 5.66-5.66" /></>, ClipboardCheck: <><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M9 14l2 2 4-4" /></>, Globe: <><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5  0 0 0 0-20M2 12h20" /></>, LogOut: <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
+        ArrowRight: <path d="M5 12h14M12 5l7 7-7 7" />, ArrowLeft: <path d="M19 12H5M12 19l-7-7 7-7" />, Search: <><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></>, MessageSquare: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />, ShieldCheck: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />, Check: <path d="M20 6 9 17l-5-5" />, X: <path d="M18 6 6 18M6 6l12 12" />, Building2: <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18M6 12H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2M18 9h2a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-2M6 18h12" />, Briefcase: <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16M8 10H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-2" />, LayoutDashboard: <><rect width="7" height="9" x="3" y="3" rx="1" /><rect width="7" height="5" x="14" y="3" rx="1" /><rect width="7" height="9" x="14" y="12" rx="1" /><rect width="7" height="5" x="3" y="16" rx="1" /></>, Send: <path d="m22 2-7 20-4-9-9-4ZM22 2 11 13" />, Plus: <path d="M5 12h14M12 5v14" />, Sparkles: <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />, Radar: <><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34" /><path d="M4 6h.01" /><path d="M2.29 9.62A10 10 0 1 0 21.31 8.35" /><path d="M16.24 7.76A6 6 0 1 0 8.23 16.67" /><path d="M12 18h.01" /><path d="M17.99 11.66A6 6 0 0 1 15.77 16.67" /><circle cx="12" cy="12" r="2" /><path d="m13.41 10.59 5.66-5.66" /></>, ClipboardCheck: <><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M9 14l2 2 4-4" /></>, Globe: <><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5  0 0 0 0-20M2 12h20" /></>, LogOut: <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />, Menu: <path d="M3 12h18M3 6h18M3 18h18" />
       };
       return (
         <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block">
@@ -261,10 +277,34 @@
       )
     );
 
+    const InfoBox = ({ title, children, defaultOpen = false, t2 }) => {
+      const [open, setOpen] = useState(defaultOpen);
+      return (
+        <div className={`mt-6 border ${t2 ? 'border-accent/20 bg-accentLight/40' : 'border-accentLight bg-slate-50'} rounded-lg overflow-hidden transition-all duration-300`}>
+          <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between px-5 py-3.5 text-left hover:bg-accentLight/30 transition-colors">
+            <div className="flex items-center gap-2.5">
+              <div className={`w-7 h-7 flex items-center justify-center rounded-md ${t2 ? 'bg-accent/10 text-accent' : 'bg-accentLight text-accent'}`}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              </div>
+              <span className="text-sm font-semibold text-ink">{title}</span>
+            </div>
+            <svg className={`w-4 h-4 text-muted transition-transform duration-200 ${open ? 'rotate-180' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          {open && (
+            <div className="px-5 pb-5 pt-0">
+              <div className="text-sm leading-relaxed text-muted border-t border-line pt-4">
+                {children}
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    };
+
     const ManifestLine = ({ from, to, refId, note }) => (
       <div className="flex items-center gap-2.5 text-[10px] font-mono uppercase tracking-[0.12em] text-muted border-t border-b border-line py-2">
         <span className="text-ink font-medium">{from}</span>
-        <span className="text-signal">&#8594;</span>
+        <span className="text-signal dir-arrow">&#8594;</span>
         <span className="text-ink font-medium">{to}</span>
         <span className="text-faint">|</span>
         <span>{refId}</span>
@@ -275,7 +315,7 @@
     const PageHeader = ({ title, subtitle, t2 }) => (
       <div className="mb-8">
         <SectionLabel t2={t2}>{subtitle}</SectionLabel>
-        <h2 className={`text-3xl font-bold text-ink tracking-tight ${!t2 ? 'font-extrabold' : ''}`}>{title}</h2>
+        <h2 className={`text-2xl sm:text-3xl font-bold text-ink tracking-tight ${!t2 ? 'font-extrabold' : ''}`}>{title}</h2>
       </div>
     );
 
@@ -290,7 +330,7 @@
     };
 
     function App() {
-      const [theme, setTheme] = useState("theme1");
+      const [theme, setTheme] = useState("theme2");
       const [lang, setLang] = useState("en");
       const t2 = theme === "theme2";
       const t = (key) => STRINGS[lang][key] || key;
@@ -334,20 +374,16 @@
       const HeaderControls = () => (
         <div className="flex gap-2 items-center">
           {/* Language Switch */}
-          <div className={`flex items-center gap-0.5 p-1 rounded-md border border-line ${t2 ? 'bg-transparent' : 'bg-white'}`}>
+          <div className="flex items-center gap-0.5 p-1 rounded-md border border-line bg-transparent">
             <button onClick={() => setLang('en')} className={`px-2.5 py-1 text-[10px] font-mono uppercase rounded-sm transition ${isAr ? 'text-muted hover:text-ink' : 'bg-ink text-bg'}`}>EN</button>
             <button onClick={() => setLang('ar')} className={`px-2.5 py-1 text-[10px] font-mono uppercase rounded-sm transition ${!isAr ? 'text-muted hover:text-ink' : 'bg-ink text-bg'}`}>عربي</button>
-          </div>
-          {/* Theme Switch */}
-          <div className={`flex items-center gap-0.5 p-1 rounded-md border border-line ${t2 ? 'bg-transparent' : 'bg-white'}`}>
-            <button onClick={() => setTheme('theme1')} className={`px-2.5 py-1 text-[10px] font-mono uppercase rounded-sm transition ${t2 ? 'text-muted hover:text-ink' : 'bg-ink text-bg'}`}>Modern</button>
-            <button onClick={() => setTheme('theme2')} className={`px-2.5 py-1 text-[10px] font-mono uppercase rounded-sm transition ${!t2 ? 'text-muted hover:text-ink' : 'bg-ink text-bg'}`}>Editorial</button>
           </div>
         </div>
       );
 
       const PublicNav = () => {
         const [scrolled, setScrolled] = useState(false);
+        const [mobileNav, setMobileNav] = useState(false);
         useEffect(() => {
           const handleScroll = () => setScrolled(window.scrollY > 10);
           window.addEventListener('scroll', handleScroll);
@@ -359,7 +395,7 @@
         return (
           <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? (t2 ? 'bg-bg/90 backdrop-blur-lg border-b border-line py-3' : 'bg-white/80 backdrop-blur-lg border-b border-line py-3') : 'bg-transparent py-5'}`}>
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-              <button onClick={() => setPublicView("home")} className={`${t2 ? 'text-lg font-display font-semibold' : 'text-xl font-extrabold'} tracking-tight text-ink flex items-center gap-2.5`}>
+              <button onClick={() => { setPublicView("home"); setMobileNav(false); }} className={`${t2 ? 'text-lg font-display font-semibold' : 'text-xl font-extrabold'} tracking-tight text-ink flex items-center gap-2.5`}>
                 <div className={`w-8 h-8 flex items-center justify-center text-xs font-mono ${t2 ? 'border border-ink rounded-sm text-ink' : 'bg-accent rounded-lg text-white'}`}>TB</div>
                 TechBridge
               </button>
@@ -370,10 +406,26 @@
               </div>
               <div className="flex gap-3 items-center">
                 <HeaderControls />
-                <button className="text-[11px] font-mono uppercase tracking-wider text-muted hover:text-ink transition-colors hidden lg:block" onClick={() => setMode("admin")}>{t('nav_governance')}</button>
-                <Btn t2={t2} variant="primary" onClick={() => startOnboarding("uk")}>{t('nav_enter')}</Btn>
+                <div className="hidden md:flex gap-3 items-center">
+                  <button className="text-[11px] font-mono uppercase tracking-wider text-muted hover:text-ink transition-colors hidden lg:block" onClick={() => setMode("admin")}>{t('nav_governance')}</button>
+                  <Btn t2={t2} variant="primary" onClick={() => startOnboarding("uk")}>{t('nav_enter')}</Btn>
+                </div>
+                <button onClick={() => setMobileNav(v => !v)} className="md:hidden p-2 text-ink" aria-label="Menu">
+                  <Icon name={mobileNav ? "X" : "Menu"} size={20} />
+                </button>
               </div>
             </div>
+            {mobileNav && (
+              <div className="md:hidden border-t border-line shadow-xl relative z-[60] bg-white">
+                <div className="flex flex-col px-6 py-3 gap-1">
+                  {navItems.map(item => (
+                    <button key={item.id} onClick={() => { setPublicView(item.id); setMobileNav(false); }} className={`text-left py-2.5 text-sm font-medium ${publicView === item.id ? (t2 ? 'text-signal' : 'text-accent') : 'text-muted'}`}>{item.label}</button>
+                  ))}
+                  <button onClick={() => { setMode("admin"); setMobileNav(false); }} className="text-left py-2.5 text-sm font-medium text-muted">{t('nav_governance')}</button>
+                  <Btn t2={t2} variant="primary" onClick={() => { startOnboarding("uk"); setMobileNav(false); }} className="mt-2 w-full justify-center">{t('nav_enter')}</Btn>
+                </div>
+              </div>
+            )}
           </nav>
         );
       };
@@ -387,39 +439,75 @@
         { id: "messages", label: t('plat_messages'), icon: "MessageSquare" },
       ];
 
-      const PlatformShell = ({ children }) => (
-        <div className="min-h-screen flex bg-bg">
-          <aside className={`w-64 fixed h-screen p-4 flex flex-col justify-between z-40 ${t2 ? 'bg-ink' : 'bg-white border-r border-line'} ${isAr ? 'right-0' : 'left-0'}`}>
-            <div>
-              <button onClick={() => signOut()} className={`${t2 ? 'text-lg font-display font-semibold mb-8 text-bg' : 'text-xl font-extrabold mb-8 text-ink'} flex items-center gap-2.5 px-2`}>
+      const PlatformShell = ({ children }) => {
+        const [mobileNav, setMobileNav] = useState(false);
+        return (
+          <div className="min-h-screen flex flex-col md:flex-row bg-bg">
+            <aside className={`hidden md:flex w-64 fixed h-screen p-4 flex-col justify-between z-40 ${t2 ? 'bg-ink' : `bg-white border-line ${isAr ? 'border-l' : 'border-r'}`} ${isAr ? 'right-0' : 'left-0'}`}>
+              <div>
+                <button onClick={() => signOut()} className={`${t2 ? 'text-lg font-display font-semibold mb-8 text-bg' : 'text-xl font-extrabold mb-8 text-ink'} flex items-center gap-2.5 px-2`}>
+                  <div className={`w-8 h-8 flex items-center justify-center text-xs font-mono ${t2 ? 'border border-bg/40 rounded-sm text-bg' : 'bg-accent rounded-lg text-white'}`}>TB</div>
+                  TechBridge
+                </button>
+                {profile && <div className={`text-xs font-medium mb-6 p-3 ${t2 ? 'border border-bg/15 rounded-sm bg-bg/5' : 'border border-line rounded-lg bg-bg'}`}>
+                  <div className={`text-[10px] uppercase tracking-wider mb-1 ${t2 ? 'text-bg/50' : 'text-muted'}`}>{t('signed_in')}</div>
+                  <div className={`font-medium ${t2 ? 'text-bg' : 'text-ink'}`}>{profile.name || (isAr ? "الكيان الخاص بك" : "Your Entity")}</div>
+                  <div className={`text-[11px] font-mono uppercase tracking-wider mt-1 ${t2 ? 'text-signal' : 'text-accent'}`}>{role === "uk" ? (isAr ? "شركة بريطانية" : "UK SME") : (isAr ? "كيان خليجي" : "GCC Entity")}</div>
+                </div>}
+                <nav className="flex flex-col gap-1">
+                  {PLATFORM_NAV.map((item) => (
+                    <button key={item.id} onClick={() => setPlatformView(item.id)} className={`flex items-center gap-2.5 px-3 py-2.5 text-sm font-medium rounded-sm transition-all duration-200 ${platformView === item.id ? 'bg-accent text-white' : (t2 ? 'text-bg/60 hover:text-bg hover:bg-white/5' : 'text-muted hover:text-ink hover:bg-slate-50')}`}>
+                      <Icon name={item.icon} size={16} /> {item.label}
+                    </button>
+                  ))}
+                </nav>
+              </div>
+              <button onClick={signOut} className={`flex items-center gap-2 text-sm transition px-3 py-2.5 rounded-sm border border-transparent ${t2 ? 'text-bg/60 hover:text-signal hover:bg-white/5' : 'text-danger hover:bg-dangerLight hover:border-line rounded-lg'}`}>
+                <Icon name="LogOut" size={14}/> {t('exit_env')}
+              </button>
+            </aside>
+
+            <header className={`md:hidden sticky top-0 z-50 flex items-center justify-between p-4 border-b border-line ${t2 ? 'bg-ink' : 'bg-white'}`}>
+              <button onClick={() => signOut()} className={`flex items-center gap-2 font-semibold ${t2 ? 'text-bg' : 'text-ink'}`}>
                 <div className={`w-8 h-8 flex items-center justify-center text-xs font-mono ${t2 ? 'border border-bg/40 rounded-sm text-bg' : 'bg-accent rounded-lg text-white'}`}>TB</div>
                 TechBridge
               </button>
-              {profile && <div className={`text-xs font-medium mb-6 p-3 ${t2 ? 'border border-bg/15 rounded-sm bg-bg/5' : 'border border-line rounded-lg bg-bg'}`}>
-                <div className={`text-[10px] uppercase tracking-wider mb-1 ${t2 ? 'text-bg/50' : 'text-muted'}`}>{t('signed_in')}</div>
-                <div className={`font-medium ${t2 ? 'text-bg' : 'text-ink'}`}>{profile.name || (isAr ? "الكيان الخاص بك" : "Your Entity")}</div>
-                <div className={`text-[11px] font-mono uppercase tracking-wider mt-1 ${t2 ? 'text-signal' : 'text-accent'}`}>{role === "uk" ? (isAr ? "شركة بريطانية" : "UK SME") : (isAr ? "كيان خليجي" : "GCC Entity")}</div>
-              </div>}
-              <nav className="flex flex-col gap-1">
-                {PLATFORM_NAV.map((item) => (
-                  <button key={item.id} onClick={() => setPlatformView(item.id)} className={`flex items-center gap-2.5 px-3 py-2.5 text-sm font-medium rounded-sm transition-all duration-200 ${platformView === item.id ? 'bg-accent text-white' : (t2 ? 'text-bg/60 hover:text-bg hover:bg-white/5' : 'text-muted hover:text-ink hover:bg-slate-50')}`}>
-                    <Icon name={item.icon} size={16} /> {item.label}
-                  </button>
-                ))}
-              </nav>
-            </div>
-            <button onClick={signOut} className={`flex items-center gap-2 text-sm transition px-3 py-2.5 rounded-sm border border-transparent ${t2 ? 'text-bg/60 hover:text-signal hover:bg-white/5' : 'text-danger hover:bg-dangerLight hover:border-line rounded-lg'}`}>
-              <Icon name="LogOut" size={14}/> {t('exit_env')}
-            </button>
-          </aside>
-          <main className={`flex-1 ${isAr ? 'mr-64' : 'ml-64'} p-8 min-h-screen`}>
-            <div className="flex justify-end items-center gap-4 mb-8 pb-4 border-b border-line">
-              <HeaderControls />
-            </div>
-            {children}
-          </main>
-        </div>
-      );
+              <div className="flex items-center gap-2">
+                <HeaderControls />
+                <button onClick={() => setMobileNav(v => !v)} className={`p-2 ${t2 ? 'text-bg' : 'text-ink'}`} aria-label="Menu">
+                  <Icon name={mobileNav ? "X" : "Menu"} size={20} />
+                </button>
+              </div>
+            </header>
+
+            {mobileNav && (
+              <div className={`md:hidden border-b border-line ${t2 ? 'bg-ink text-bg' : 'bg-white'}`}>
+                {profile && <div className={`text-xs font-medium p-4 border-b ${t2 ? 'border-bg/15' : 'border-line'}`}>
+                  <div className={`text-[10px] uppercase tracking-wider mb-1 ${t2 ? 'text-bg/50' : 'text-muted'}`}>{t('signed_in')}</div>
+                  <div className={`font-medium ${t2 ? 'text-bg' : 'text-ink'}`}>{profile.name || (isAr ? "الكيان الخاص بك" : "Your Entity")}</div>
+                </div>}
+                <nav className="flex flex-col">
+                  {PLATFORM_NAV.map((item) => (
+                    <button key={item.id} onClick={() => { setPlatformView(item.id); setMobileNav(false); }} className={`flex items-center gap-2.5 px-4 py-3 text-sm font-medium border-b ${t2 ? 'border-bg/10 text-bg/80 hover:text-bg' : 'border-line text-muted hover:text-ink'}`}>
+                      <Icon name={item.icon} size={16} /> {item.label}
+                    </button>
+                  ))}
+                </nav>
+                <button onClick={() => { signOut(); setMobileNav(false); }} className={`flex items-center gap-2 px-4 py-3 text-sm ${t2 ? 'text-signal' : 'text-danger'}`}>
+                  <Icon name="LogOut" size={14}/> {t('exit_env')}
+                </button>
+              </div>
+            )}
+
+            <main className={`flex-1 min-h-screen ${isAr ? 'md:mr-64' : 'md:ml-64'} p-4 md:p-8`}>
+              <div className="hidden md:flex justify-end items-center gap-4 mb-8 pb-4 border-b border-line">
+                <HeaderControls />
+              </div>
+              {children}
+            </main>
+          </div>
+        );
+      };
 
       const Home = () => {
         const ref1 = useReveal(); const ref2 = useReveal(); const ref3 = useReveal();
@@ -458,33 +546,50 @@
         }, [theme]);
 
         return (
-          <div className="pt-32">
-            <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+          <div className="pt-24 sm:pt-32">
+            <section className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center justify-center overflow-hidden">
               <canvas id="hero-canvas"></canvas>
               <div className="hero-fade"></div>
-              <div className="relative z-10 max-w-5xl mx-auto px-6 pb-24 text-center">
+              <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24 text-center">
                 {t2 ? (
-                  <div className="inline-flex items-center gap-2.5 text-[11px] font-mono uppercase tracking-[0.14em] text-ink border border-line bg-white px-3.5 py-2 rounded-sm mb-6">
-                    <span className="w-1.5 h-1.5 rounded-full bg-signal"></span> {t('hero_badge')} &middot; Ref TB/2026 &middot; UK &#8594; GCC
-                  </div>
+                  <>
+                    <p className="text-xl text-muted leading-relaxed mb-6 max-w-2xl mx-auto">
+                      {lang === 'en' ? (
+                        <>An <strong className="text-ink font-semibold">interactive proof-of-concept</strong> demonstrating how a <strong className="text-ink font-semibold">digital B2B intermediary</strong> can facilitate <strong className="text-ink font-semibold">discovery</strong> and <strong className="text-ink font-semibold">initial connection</strong> between <strong className="text-ink font-semibold">UK</strong> and <strong className="text-ink font-semibold">GCC SMEs</strong>.</>
+                      ) : (
+                        t('hero_desc')
+                      )}
+                    </p>
+                    <div className="inline-flex items-center gap-2.5 text-[11px] font-mono uppercase tracking-[0.14em] text-ink border border-line bg-white px-3.5 py-2 rounded-sm mb-6">
+                      <span className="w-1.5 h-1.5 rounded-full bg-signal"></span> {t('hero_badge')} &middot; Ref TB/2026 &middot; {isAr ? 'GCC' : 'UK'} <span className="dir-arrow">&#8594;</span> {isAr ? 'UK' : 'GCC'}
+                    </div>
+                  </>
                 ) : (
-                  <div className="inline-block text-xs font-semibold uppercase tracking-wider text-accent bg-accentLight px-3 py-1 rounded-full mb-6">{t('hero_badge')}</div>
+                  <>
+                    <p className="text-lg text-muted leading-relaxed mb-6 max-w-2xl mx-auto">{t('hero_desc')}</p>
+                    <div className="inline-block text-xs font-semibold uppercase tracking-wider text-accent bg-accentLight px-3 py-1 rounded-full mb-6">{t('hero_badge')}</div>
+                  </>
                 )}
-                <h1 className="text-5xl md:text-7xl leading-[1.1] tracking-tight font-extrabold text-ink mb-6">
+                <h1 className="text-3xl sm:text-5xl md:text-7xl leading-[1.1] tracking-tight font-extrabold text-ink mb-6">
                   {t('hero_title_1')}<span className="text-gradient">{t('hero_title_2')}</span>{t('hero_title_3')}
                 </h1>
-                <p className="text-lg text-muted leading-relaxed mt-6 mb-10 max-w-2xl mx-auto">{t('hero_desc')}</p>
-                <div className="flex flex-wrap gap-3 justify-center">
+                <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center">
                   <Btn t2={t2} variant="primary" onClick={() => startOnboarding("uk")} className="px-6 py-3 text-base">{t('hero_btn1')} <Icon name={isAr ? "ArrowLeft" : "ArrowRight"} size={16}/></Btn>
                   <Btn t2={t2} variant="secondary" onClick={() => setPublicView("how")} className="px-6 py-3 text-base">{t('hero_btn2')}</Btn>
                 </div>
               </div>
             </section>
 
-            <section className={`max-w-5xl mx-auto px-6 py-${t2 ? '10' : '12'} grid grid-cols-3 ${t2 ? 'divide-x divide-line border-y border-line' : 'gap-8 border-y border-line'}`}>
+            <div className="max-w-4xl mx-auto px-6 mt-8">
+              <InfoBox title={t('info_hero')} defaultOpen={true} t2={t2}>
+                <p>{t('info_hero_d')}</p>
+              </InfoBox>
+            </div>
+
+            <section className={`max-w-5xl mx-auto px-6 py-${t2 ? '10' : '12'} grid grid-cols-1 sm:grid-cols-3 ${t2 ? 'divide-y sm:divide-y-0 sm:divide-x divide-line border-y border-line' : 'gap-8 border-y border-line'}`}>
               {[ { val: "24+", label: t('stats_uk') }, { val: "18+", label: t('stats_gcc') }, { val: "12", label: t('stats_opp') } ].map(s => (
-                <div key={s.label} className="text-center px-4">
-                  <div className={`text-4xl mb-1 ${t2 ? 'font-mono font-semibold' : 'font-extrabold'} text-ink`}>{s.val}</div>
+                <div key={s.label} className="text-center px-4 py-4 sm:py-0">
+                  <div className={`text-3xl sm:text-4xl mb-1 ${t2 ? 'font-mono font-semibold' : 'font-extrabold'} text-ink`}>{s.val}</div>
                   <div className={`text-muted ${t2 ? 'text-[11px] font-mono uppercase tracking-wider' : 'text-sm'}`}>{s.label}</div>
                 </div>
               ))}
@@ -494,18 +599,23 @@
               <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center mb-16">
                   <SectionLabel t2={t2}>{t('mech_label')}</SectionLabel>
-                  <h2 className="text-4xl font-extrabold text-ink tracking-tight">{t('mech_title')}</h2>
+                  <h2 className="text-2xl sm:text-4xl font-extrabold text-ink tracking-tight">{t('mech_title')}</h2>
                 </div>
                 <div className={`grid grid-cols-1 md:grid-cols-3 ${t2 ? 'border-t border-b border-line divide-y md:divide-y-0 md:divide-x divide-line' : 'gap-6'}`}>
                   {[ { n: "01", t: t('mech_step1_t'), d: t('mech_step1_d'), icon: "Search" }, { n: "02", t: t('mech_step2_t'), d: t('mech_step2_d'), icon: "Sparkles" }, { n: "03", t: t('mech_step3_t'), d: t('mech_step3_d'), icon: "ShieldCheck" } ].map(s => (
                     <div key={s.n} className={`p-8 md:p-10 ${!t2 ? 'bg-white border border-line rounded-2xl shadow-saas saas-card' : ''}`}>
                       {!t2 && <div className="w-12 h-12 bg-accentLight rounded-xl flex items-center justify-center text-accent mb-6"><Icon name={s.icon} size={24} /></div>}
-                      <div className={`${t2 ? 'text-[11px] font-mono uppercase tracking-[0.14em] text-signal mb-6' : 'hidden'}`}>Step {s.n}</div>
+                      <div className={`${t2 ? 'text-[11px] font-mono uppercase tracking-[0.14em] text-signal mb-6' : 'hidden'}`}>{t('mech_step')} {s.n}</div>
                       <h3 className={`text-2xl font-semibold text-ink mb-3`}>{s.t}</h3>
                       <p className="text-base text-muted leading-relaxed">{s.d}</p>
                     </div>
                   ))}
                 </div>
+              </div>
+              <div className="max-w-5xl mx-auto px-6">
+                <InfoBox title={t('info_mech')} t2={t2}>
+                  <p>{t('info_mech_d')}</p>
+                </InfoBox>
               </div>
             </section>
 
@@ -513,30 +623,35 @@
               <div className="max-w-5xl mx-auto px-6">
                 <div className="text-center mb-12">
                   <SectionLabel t2={t2}>{t('opp_label')}</SectionLabel>
-                  <h2 className="text-4xl font-extrabold text-ink tracking-tight">{t('opp_title')}</h2>
+                  <h2 className="text-2xl sm:text-4xl font-extrabold text-ink tracking-tight">{t('opp_title')}</h2>
                 </div>
                 <div className={`bg-bg border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} shadow-saas overflow-hidden`}>
-                  <div className="grid grid-cols-12 border-b border-line bg-white py-3 px-4 text-xs font-semibold text-muted uppercase tracking-wider">
+                  <div className="hidden md:grid grid-cols-12 border-b border-line bg-white py-3 px-4 text-xs font-semibold text-muted uppercase tracking-wider">
                     <div className="col-span-6">{t('opp_table_opp')}</div>
                     <div className="col-span-2">{t('opp_table_region')}</div>
                     <div className="col-span-2">{t('opp_table_type')}</div>
                     <div className="col-span-2 text-right">{t('opp_table_match')}</div>
                   </div>
                   {INITIAL_OPPORTUNITIES.slice(0,4).map((o, i) => (
-                    <div key={o.id} className="grid grid-cols-12 border-b border-line last:border-0 py-4 px-4 hover:bg-slate-50 transition-colors cursor-pointer items-center" onClick={() => goOpportunityDetail(o, "public")}>
-                      <div className="col-span-6 text-sm font-medium text-ink">{o.title[lang]}</div>
-                      <div className="col-span-2 text-sm text-muted">{o.flag} {translateArr(o.country, GCC_COUNTRIES)}</div>
-                      <div className="col-span-2 text-sm text-muted">{translateArr(o.partnershipType, PARTNERSHIP_TYPES)}</div>
-                      <div className="col-span-2 text-sm text-right"><span className={`${t2 ? 'bg-signalLight text-signal rounded-sm font-mono' : 'bg-accentLight text-accent rounded-md'} px-2 py-1 text-xs font-semibold`}>{Math.floor(Math.random() * 15) + 80}%</span></div>
+                    <div key={o.id} className="flex flex-col md:grid md:grid-cols-12 border-b border-line last:border-0 py-4 px-4 hover:bg-slate-50 transition-colors cursor-pointer md:items-center gap-1 md:gap-0" onClick={() => goOpportunityDetail(o, "public")}>
+                      <div className="md:col-span-6 text-sm font-medium text-ink">{o.title[lang]}</div>
+                      <div className="md:col-span-2 text-sm text-muted">{o.flag} {translateArr(o.country, GCC_COUNTRIES)}</div>
+                      <div className="md:col-span-2 text-sm text-muted">{translateArr(o.partnershipType, PARTNERSHIP_TYPES)}</div>
+                      <div className="md:col-span-2 text-sm md:text-right mt-1 md:mt-0"><span className={`${t2 ? 'bg-signalLight text-signal rounded-sm font-mono' : 'bg-accentLight text-accent rounded-md'} px-2 py-1 text-xs font-semibold`}>{Math.floor(Math.random() * 15) + 80}%</span></div>
                     </div>
                   ))}
                 </div>
+              </div>
+              <div className="max-w-5xl mx-auto px-6">
+                <InfoBox title={t('info_opp')} t2={t2}>
+                  <p>{t('info_opp_d')}</p>
+                </InfoBox>
               </div>
             </section>
 
             <section ref={ref3} className="reveal py-24">
               <div className="max-w-4xl mx-auto px-6 text-center">
-                <h2 className="text-4xl font-extrabold text-ink mb-4">{t('cta_title')}</h2>
+                <h2 className="text-2xl sm:text-4xl font-extrabold text-ink mb-4">{t('cta_title')}</h2>
                 <p className="text-lg text-muted mb-8">{t('cta_desc')}</p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <div className="text-left">
@@ -555,25 +670,25 @@
       };
 
       const HowItWorks = () => (
-        <div className="pt-40 max-w-7xl mx-auto px-6 pb-20">
+        <div className="pt-24 sm:pt-28 max-w-7xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16">
           <PageHeader t2={t2} title={t('how_title')} subtitle={t('how_sub')} />
           <div className={`grid grid-cols-1 md:grid-cols-3 ${t2 ? 'border-t border-b border-line divide-y md:divide-y-0 md:divide-x divide-line' : 'gap-6'} mb-12`}>
             {[ { n: "01", t: t('mech_step1_t'), d: t('mech_step1_d'), icon: "Search" }, { n: "02", t: t('mech_step2_t'), d: t('mech_step2_d'), icon: "Sparkles" }, { n: "03", t: t('mech_step3_t'), d: t('mech_step3_d'), icon: "ShieldCheck" } ].map(s => (
               <div key={s.n} className={`p-8 md:p-10 ${!t2 ? 'bg-white border border-line rounded-2xl shadow-saas saas-card' : ''}`}>
                 {!t2 && <div className="w-12 h-12 bg-accentLight rounded-xl flex items-center justify-center text-accent mb-6"><Icon name={s.icon} size={24} /></div>}
-                <div className={`${t2 ? 'text-[11px] font-mono uppercase tracking-[0.14em] text-signal mb-6' : 'hidden'}`}>Step {s.n}</div>
+                <div className={`${t2 ? 'text-[11px] font-mono uppercase tracking-[0.14em] text-signal mb-6' : 'hidden'}`}>{t('mech_step')} {s.n}</div>
                 <h3 className={`text-2xl font-semibold text-ink mb-3`}>{s.t}</h3>
                 <p className="text-base text-muted leading-relaxed">{s.d}</p>
               </div>
             ))}
           </div>
-          <div className="mt-16 grid grid-cols-12 gap-8">
-            <div className="col-span-12 md:col-span-5">
+          <div className="mt-16 grid grid-cols-1 sm:grid-cols-12 gap-6 sm:gap-8">
+            <div className="col-span-1 sm:col-span-5">
               <SectionLabel t2={t2}>{t('how_logic_label')}</SectionLabel>
-              <h3 className="text-3xl font-bold text-ink mb-4">{t('how_logic_t')}</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold text-ink mb-4">{t('how_logic_t')}</h3>
               <p className="text-muted">{t('how_logic_d')}</p>
             </div>
-            <div className={`col-span-12 md:col-span-6 md:col-start-7 bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-6 shadow-saas`}>
+            <div className={`col-span-1 sm:col-span-6 sm:col-start-7 bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-6 shadow-saas`}>
               {MATCH_WEIGHTS.map(w => (
                 <div key={w.label[lang]} className="flex justify-between items-center py-4 border-b border-line last:border-0">
                   <span className="text-base font-medium text-ink">{w.label[lang]}</span>
@@ -582,20 +697,25 @@
               ))}
             </div>
           </div>
+          <div className="max-w-7xl mx-auto px-6 mt-8">
+            <InfoBox title={t('info_match')} t2={t2}>
+              <p>{t('info_match_d')}</p>
+            </InfoBox>
+          </div>
         </div>
       );
 
       const AcademicContext = () => (
-        <div className="pt-40 max-w-7xl mx-auto px-6 pb-20">
+        <div className="pt-24 sm:pt-28 max-w-7xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16">
           <PageHeader t2={t2} title={t('aca_title')} subtitle={t('aca_sub')} />
-          <div className="grid grid-cols-12 gap-12">
-            <div className="col-span-12 md:col-span-8">
+          <div className="grid grid-cols-1 sm:grid-cols-12 gap-8 sm:gap-12">
+            <div className="col-span-1 sm:col-span-8">
               <div className="space-y-6 text-muted leading-relaxed max-w-2xl text-lg">
                 <p>{t('aca_p1')}</p>
                 <p>{t('aca_p2')}</p>
               </div>
             </div>
-            <div className={`col-span-12 md:col-span-4 bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-6 shadow-saas`}>
+            <div className={`col-span-1 sm:col-span-4 bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-6 shadow-saas`}>
               <div className="text-xs font-semibold uppercase tracking-wider text-accent mb-3">{t('aca_limit_t')}</div>
               <p className="text-sm text-muted">{t('aca_limit_d')}</p>
             </div>
@@ -607,8 +727,8 @@
         const [side, setSide] = useState(role === "gcc" ? "uk" : role === "uk" ? "gcc" : "gcc");
         const list = side === "uk" ? UK_COMPANIES : GCC_COMPANIES;
         return (
-          <div className={`${within === "public" ? "pt-40 max-w-7xl mx-auto px-6 pb-20" : ""}`}>
-            <div className="flex justify-between items-center mb-8">
+          <div className={`${within === "public" ? "pt-24 sm:pt-28 max-w-7xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16" : ""}`}>
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
               <PageHeader t2={t2} title={side === "uk" ? t('dir_title_uk') : t('dir_title_gcc')} subtitle={t('dir_sub')} />
               <div className={`flex gap-1 p-1 ${t2 ? 'bg-white border border-line rounded-sm' : 'bg-slate-100 rounded-lg'}`}>
                 <button onClick={() => setSide("gcc")} className={`${t2 ? 'px-4 py-2 text-[11px] font-mono uppercase tracking-wider rounded-sm' : 'px-4 py-2 text-sm font-medium rounded-md'} transition ${side === "gcc" ? (t2 ? 'bg-ink text-bg' : 'bg-white text-ink shadow-sm') : 'text-muted'}`}>GCC</button>
@@ -644,7 +764,7 @@
       };
 
       const BrowseOpportunities = ({ within = "public" }) => (
-        <div className={`${within === "public" ? "pt-40 max-w-7xl mx-auto px-6 pb-20" : ""}`}>
+        <div className={`${within === "public" ? "pt-24 sm:pt-28 max-w-7xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16" : ""}`}>
           <PageHeader t2={t2} title={t('opp_board_title')} subtitle={t('opp_board_sub')} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {opportunities.map((o, i) => (
@@ -671,19 +791,19 @@
         const item = type === "company" ? detailCompany : detailOpportunity;
         if (!item) return null;
         return (
-          <div className={`${within === "public" ? "pt-40 max-w-7xl mx-auto px-6 pb-20" : ""}`}>
+          <div className={`${within === "public" ? "pt-24 sm:pt-28 max-w-7xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16" : ""}`}>
             <button onClick={() => within === "public" ? setPublicView(type === "company" ? "browseCompanies" : "browseOpportunities") : setPlatformView(type === "company" ? "browseCompanies" : "browseOpportunities")} className="flex items-center gap-2 text-sm font-medium text-muted hover:text-ink mb-6 transition">
               <Icon name={isAr ? "ArrowRight" : "ArrowLeft"} size={14}/> {t('back')}
             </button>
-            <div className="grid grid-cols-12 gap-8">
-              <div className="col-span-12 md:col-span-8">
+            <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 sm:gap-8">
+              <div className="col-span-1 sm:col-span-8">
                 <div className={`bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-8 shadow-saas`}>
                   {t2 ? (
                     <ManifestLine from={item.flag || "GB"} to={type === "company" ? (item.flag === "GB" ? "GCC" : "UK") : "UK"} refId={`TB-${item.id.toUpperCase()}`} note={type === "company" ? item.verification[lang] : translateArr(item.partnershipType, PARTNERSHIP_TYPES)} />
                   ) : (
                     <div className="text-xs font-semibold uppercase tracking-wider text-accent mb-3">{item.flag} {translateArr(item.country, GCC_COUNTRIES) || "United Kingdom"}</div>
                   )}
-                  <h1 className={`text-4xl font-bold text-ink mt-5 mb-4 ${!t2 ? 'font-extrabold' : ''}`}>{item.name ? item.name[lang] : item.title[lang]}</h1>
+                  <h1 className={`text-2xl sm:text-4xl font-bold text-ink mt-5 mb-4 ${!t2 ? 'font-extrabold' : ''}`}>{item.name ? item.name[lang] : item.title[lang]}</h1>
                   <p className="text-lg text-muted leading-relaxed mb-8">{item.blurb ? item.blurb[lang] : item.description[lang]}</p>
                   {type === "company" ? (
                     <div className="space-y-6 border-t border-line pt-6">
@@ -698,7 +818,7 @@
                   )}
                 </div>
               </div>
-              <div className="col-span-12 md:col-span-4">
+              <div className="col-span-1 sm:col-span-4">
                 <div className={`bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-6 shadow-saas sticky top-32`}>
                   <div className="text-xs font-semibold uppercase tracking-wider text-muted mb-4">{t('detail_meta')}</div>
                   <div className="space-y-3 text-sm">
@@ -733,12 +853,17 @@
 
       const PublicFooter = () => (
         <footer className="border-t border-line bg-white py-10">
-          <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-between gap-4 items-center">
-            <div>
-              <div className="text-xl font-extrabold text-ink">TechBridge</div>
-              <p className="text-xs text-muted mt-1">{t('footer_note')}</p>
+          <div className="max-w-7xl mx-auto px-6">
+            <InfoBox title={t('info_glossary')} t2={t2}>
+              <pre className="text-xs leading-relaxed whitespace-pre-wrap font-sans">{t('info_glossary_d')}</pre>
+            </InfoBox>
+            <div className="flex flex-wrap justify-between gap-4 items-center mt-6">
+              <div>
+                <div className="text-xl font-extrabold text-ink">TechBridge</div>
+                <p className="text-xs text-muted mt-1">{t('footer_note')}</p>
+              </div>
+              <button onClick={() => setMode("admin")} className="text-sm font-medium text-muted hover:text-ink transition">{isAr ? '← ' : ''}{t('nav_governance')}{!isAr ? ' →' : ''}</button>
             </div>
-            <button onClick={() => setMode("admin")} className="text-sm font-medium text-muted hover:text-ink transition">{t('nav_governance')} →</button>
           </div>
         </footer>
       );
@@ -747,23 +872,28 @@
         const isUK = role === "uk";
         const steps = [t('onboard_basics'), isUK ? t('onboard_cap') : t('onboard_needs'), t('onboard_market'), t('onboard_obj')];
         return (
-          <div className="min-h-screen flex flex-col justify-center max-w-xl mx-auto px-6 py-20 bg-bg relative">
-            <div className="absolute top-6 right-6"><HeaderControls /></div>
-            <button onClick={signOut} className="absolute top-6 left-6 p-2 text-muted hover:text-danger transition">
-              <Icon name="X" size={24} />
-            </button>
+          <div className="min-h-screen flex flex-col justify-center max-w-xl mx-auto px-4 sm:px-6 py-16 sm:py-20 bg-bg relative">
+            <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 sm:px-6 pt-5">
+              <button onClick={signOut} className="p-2 text-muted hover:text-danger transition">
+                <Icon name="X" size={24} />
+              </button>
+              <HeaderControls />
+            </div>
             <div className="text-xs font-semibold uppercase tracking-wider text-accent mb-2">{t('onboard_step')} {onboardStep} {t('onboard_of')} {steps.length}</div>
-            <h2 className="text-4xl font-extrabold text-ink mb-8">{steps[onboardStep - 1]}</h2>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-ink mb-6 sm:mb-8">{steps[onboardStep - 1]}</h2>
             {onboardStep === 1 && (
               <div className="space-y-6">
                 <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">{t('onboard_entity_name')}</label><input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full bg-white border border-line rounded-lg px-4 py-3 text-base focus:border-accent focus:ring-1 focus:ring-accent outline-none transition text-ink" /></div>
-                <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">{isUK ? t('onboard_country') : t('onboard_gcc_country')}</label>{isUK ? <input value="United Kingdom" disabled className="w-full bg-slate-50 border border-line rounded-lg px-4 py-3 text-base text-muted outline-none" /> : <div className="flex flex-wrap gap-2">{GCC_COUNTRIES[lang].map(x => <Chip t2={t2} key={x} label={x} active={form.country === GCC_COUNTRIES.en[GCC_COUNTRIES.ar.indexOf(x)]} onClick={() => setForm({ ...form, country: GCC_COUNTRIES.en[GCC_COUNTRIES.ar.indexOf(x)] })} />)}</div>}</div>
+                <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">{isUK ? t('onboard_country') : t('onboard_gcc_country')}</label>{isUK ? <input value="United Kingdom" disabled className="w-full bg-slate-50 border border-line rounded-lg px-4 py-3 text-base text-muted outline-none" /> : <div className="flex flex-wrap gap-2">{GCC_COUNTRIES[lang].map((x, idx) => { const enVal = isAr ? GCC_COUNTRIES.en[idx] : x; return <Chip t2={t2} key={enVal} label={x} active={form.country === enVal} onClick={() => setForm({ ...form, country: enVal })} />; })}</div>}</div>
                 <div><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-2">{t('onboard_comp_size')}</label><div className="flex flex-wrap gap-2">{COMPANY_SIZES[lang].map((x, i) => <Chip t2={t2} key={x} label={x} active={form.size === COMPANY_SIZES.en[i]} onClick={() => setForm({ ...form, size: COMPANY_SIZES.en[i] })} />)}</div></div>
               </div>
             )}
             {onboardStep === 2 && <div className={`bg-white border border-line p-6 shadow-saas ${t2 ? 'rounded-lg' : 'rounded-2xl'}`}><div className="flex flex-wrap gap-2">{CAPABILITIES[lang].map((x, i) => <Chip t2={t2} key={x} label={x} active={form.capabilities.includes(CAPABILITIES.en[i])} onClick={() => toggleChip("capabilities", CAPABILITIES.en[i])} />)}</div></div>}
-            {onboardStep === 3 && <div className="space-y-6"><div className={`bg-white border border-line p-6 shadow-saas ${t2 ? 'rounded-lg' : 'rounded-2xl'}`}><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-3">{t('onboard_industries')}</label><div className="flex flex-wrap gap-2">{INDUSTRIES[lang].map((x, i) => <Chip t2={t2} key={x} label={x} active={form.industries.includes(INDUSTRIES.en[i])} onClick={() => toggleChip("industries", INDUSTRIES.en[i])} />)}</div></div>{isUK && <div className={`bg-white border border-line p-6 shadow-saas ${t2 ? 'rounded-lg' : 'rounded-2xl'}`}><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-3">{t('onboard_target')}</label><div className="flex flex-wrap gap-2">{GCC_COUNTRIES[lang].map((x, i) => <Chip t2={t2} key={x} label={x} active={form.targetMarkets.includes(GCC_COUNTRIES.en[i])} onClick={() => toggleChip("targetMarkets", GCC_COUNTRIES.en[i])} />)}</div></div>}</div>}
+            {onboardStep === 3 && <div className="space-y-6"><div className={`bg-white border border-line p-6 shadow-saas ${t2 ? 'rounded-lg' : 'rounded-2xl'}`}><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-3">{t('onboard_industries')}</label><div className="flex flex-wrap gap-2">{INDUSTRIES[lang].map((x, i) => <Chip t2={t2} key={x} label={x} active={form.industries.includes(INDUSTRIES.en[i])} onClick={() => toggleChip("industries", INDUSTRIES.en[i])} />)}</div></div>{isUK && <div className={`bg-white border border-line p-6 shadow-saas ${t2 ? 'rounded-lg' : 'rounded-2xl'}`}><label className="text-xs font-semibold uppercase tracking-wider text-muted block mb-3">{t('onboard_target')}</label><div className="flex flex-wrap gap-2">{GCC_COUNTRIES[lang].map((x, i) => { const enVal = isAr ? GCC_COUNTRIES.en[i] : x; return <Chip t2={t2} key={enVal} label={x} active={form.targetMarkets.includes(enVal)} onClick={() => toggleChip("targetMarkets", enVal)} />; })}</div></div>}</div>}
             {onboardStep === 4 && <div className={`bg-white border border-line p-6 shadow-saas ${t2 ? 'rounded-lg' : 'rounded-2xl'}`}><div className="flex flex-wrap gap-2">{PARTNERSHIP_TYPES[lang].map((x, i) => <Chip t2={t2} key={x} label={x} active={form.partnershipTypes.includes(PARTNERSHIP_TYPES.en[i])} onClick={() => toggleChip("partnershipTypes", PARTNERSHIP_TYPES.en[i])} />)}</div></div>}
+            <InfoBox title={t('info_onboard')} t2={t2}>
+              <p>{t('info_onboard_d')}</p>
+            </InfoBox>
             <div className="flex gap-3 mt-10">
               {onboardStep > 1 && <Btn t2={t2} variant="secondary" onClick={() => setOnboardStep(s => s - 1)}>{t('onboard_back')}</Btn>}
               {onboardStep < 4 ? <Btn t2={t2} variant="primary" onClick={() => setOnboardStep(s => s + 1)}>{t('onboard_continue')}</Btn> : <Btn t2={t2} variant="primary" onClick={completeOnboarding}>{t('onboard_finish')}</Btn>}
@@ -775,7 +905,7 @@
       const Dashboard = () => (
         <div>
           <PageHeader t2={t2} title={`${t('dash_welcome')}, ${profile?.name || (isAr ? "الكيان" : "Entity")}`} subtitle={t('dash_overview')} />
-          <div className="grid grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
             <div className={`bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-6 shadow-saas`}><div className="text-[11px] font-mono uppercase tracking-wider text-muted mb-2">{t('dash_profile')}</div><div className={`text-4xl ${t2 ? 'font-mono font-semibold' : 'font-extrabold'} text-ink`}>{Math.min(100, 40 + form.capabilities.length * 6 + form.industries.length * 4)}%</div></div>
             <div className={`bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-6 shadow-saas`}><div className="text-[11px] font-mono uppercase tracking-wider text-muted mb-2">{t('dash_matches')}</div><div className={`text-4xl ${t2 ? 'font-mono font-semibold' : 'font-extrabold'} ${t2 ? 'text-signal' : 'text-accent'}`}>{matches.length}</div></div>
             <div className={`bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-6 shadow-saas`}><div className="text-[11px] font-mono uppercase tracking-wider text-muted mb-2">{t('dash_requests')}</div><div className={`text-4xl ${t2 ? 'font-mono font-semibold' : 'font-extrabold'} text-ink`}>{requests.length}</div></div>
@@ -784,6 +914,9 @@
             <div className="p-6 border-b border-line"><h3 className="text-xl font-bold text-ink">{t('dash_top_matches')}</h3></div>
             <div>{matches.slice(0, 3).map((m, i) => <MatchRow key={i} m={m} onView={(mm) => { setDetailMatch(mm); setPlatformView("matchDetail"); }} />)}</div>
           </div>
+          <InfoBox title={t('info_dashboard')} t2={t2}>
+            <p>{t('info_dashboard_d')}</p>
+          </InfoBox>
         </div>
       );
 
@@ -806,9 +939,9 @@
             <button onClick={() => setPlatformView("matches")} className="flex items-center gap-2 text-sm font-medium text-muted hover:text-ink mb-6 transition"><Icon name={isAr ? "ArrowRight" : "ArrowLeft"} size={14}/> {t('back')}</button>
             <div className={`bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-8 shadow-saas mb-6`}>
               <div className="text-xs font-semibold uppercase tracking-wider text-muted mb-3">{m.target.flag} {translateArr(m.target.country, GCC_COUNTRIES)}</div>
-              <div className="flex justify-between items-end mb-8 border-b border-line pb-6">
-                <h1 className="text-3xl font-bold text-ink">{name}</h1>
-                <div className="text-right"><div className={`text-5xl font-mono font-semibold ${t2 ? 'text-signal' : 'text-accent'}`}>{m.score}%</div><div className="text-[11px] font-mono uppercase tracking-wider text-muted mt-1">{t('match_potential')}</div></div>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end mb-8 border-b border-line pb-6 gap-4">
+                <h1 className="text-2xl sm:text-3xl font-bold text-ink">{name}</h1>
+                <div className="text-left sm:text-right"><div className={`text-4xl sm:text-5xl font-mono font-semibold ${t2 ? 'text-signal' : 'text-accent'}`}>{m.score}%</div><div className="text-[11px] font-mono uppercase tracking-wider text-muted mt-1">{t('match_potential')}</div></div>
               </div>
               <div className="space-y-5">
                 {Object.entries(m.breakdown).map(([k, v]) => (
@@ -827,6 +960,9 @@
               <Btn t2={t2} variant="primary" onClick={() => sendRequest(name, "partnership")}>{requests.some(r => r.withName === name) ? t('match_req_sent') : t('match_send_req')}</Btn>
               <Btn t2={t2} variant="secondary" onClick={() => openThread(name)}>{t('detail_message')}</Btn>
             </div>
+            <InfoBox title={t('info_detail')} t2={t2}>
+              <p>{t('info_detail_d')}</p>
+            </InfoBox>
           </div>
         );
       };
@@ -837,14 +973,17 @@
         return (
           <div>
             <PageHeader t2={t2} title={t('msg_title')} subtitle={t('msg_sub')} />
+            <InfoBox title={t('info_msgs')} t2={t2}>
+              <p>{t('info_msgs_d')}</p>
+            </InfoBox>
             {names.length === 0 ? <div className={`bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-8 text-center text-muted`}>{t('msg_none')}</div> : (
-              <div className={`grid grid-cols-3 gap-0 bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} shadow-saas overflow-hidden h-[60vh]`}>
-                <div className="col-span-1 border-r border-line overflow-y-auto bg-bg">
+              <div className={`grid grid-cols-1 md:grid-cols-3 gap-0 bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} shadow-saas overflow-hidden md:h-[60vh]`}>
+                <div className="col-span-1 md:col-span-1 ${isAr ? 'md:border-l' : 'md:border-r'} border-line overflow-y-auto bg-bg md:max-h-[60vh]">
                   {names.map(n => <button key={n} onClick={() => setActiveThread(n)} className={`w-full text-left px-4 py-3 border-b border-line text-sm transition ${activeThread === n ? "bg-white text-accent font-medium border-l-2 border-l-accent" : "text-muted hover:bg-slate-50"}`}>{n}</button>)}
                 </div>
-                <div className="col-span-2 flex flex-col">
-                  <div className="flex-1 p-6 space-y-4 overflow-y-auto bg-white">
-                    {(threads[activeThread] || []).map((msg, i) => <div key={i} className={`max-w-md p-3 rounded-xl text-sm ${msg.from === "you" ? "ml-auto bg-accent text-white" : "bg-bg text-ink border border-line"}`}>{msg.text}</div>)}
+                <div className="col-span-2 md:col-span-2 flex flex-col">
+                  <div className="flex-1 p-4 sm:p-6 space-y-4 overflow-y-auto bg-white min-h-[30vh] sm:min-h-0">
+                    {(threads[activeThread] || []).map((msg, i) => <div key={i} className={`max-w-[85%] sm:max-w-md p-3 rounded-xl text-sm ${msg.from === "you" ? "ml-auto bg-accent text-white" : "bg-bg text-ink border border-line"}`}>{msg.text}</div>)}
                   </div>
                   <div className="p-3 border-t border-line flex gap-2 bg-white">
                     <input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder={t('msg_input')} className="flex-1 bg-bg border border-line rounded-lg px-4 py-2 text-sm outline-none focus:border-accent text-ink" />
@@ -888,13 +1027,13 @@
       };
 
       const GovernanceView = () => (
-        <div className="min-h-screen p-8 max-w-7xl mx-auto bg-bg">
+        <div className="min-h-screen p-4 sm:p-8 max-w-7xl mx-auto bg-bg">
           <div className="flex justify-between items-center mb-6">
             <button onClick={() => { setMode("public"); setPublicView("home"); }} className="flex items-center gap-2 text-sm font-medium text-muted hover:text-ink transition"><Icon name={isAr ? "ArrowRight" : "ArrowLeft"} size={14}/> {t('exit_gov')}</button>
             <HeaderControls />
           </div>
           <PageHeader t2={t2} title={t('gov_title')} subtitle={t('gov_sub')} />
-          <div className="grid grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
             <div className={`bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-6 shadow-saas`}><div className="text-[11px] font-mono uppercase tracking-wider text-muted mb-2">{t('gov_pending_comp')}</div><div className={`text-4xl ${t2 ? 'font-mono font-semibold' : 'font-extrabold'} text-ink`}>{pendingCompanies.length}</div></div>
             <div className={`bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-6 shadow-saas`}><div className="text-[11px] font-mono uppercase tracking-wider text-muted mb-2">{t('gov_pending_opp')}</div><div className={`text-4xl ${t2 ? 'font-mono font-semibold' : 'font-extrabold'} text-ink`}>{pendingOpportunities.length}</div></div>
             <div className={`bg-white border border-line ${t2 ? 'rounded-lg' : 'rounded-2xl'} p-6 shadow-saas`}><div className="text-[11px] font-mono uppercase tracking-wider text-muted mb-2">{t('gov_live')}</div><div className={`text-4xl ${t2 ? 'font-mono font-semibold' : 'font-extrabold'} text-ink`}>{UK_COMPANIES.length + GCC_COMPANIES.length}</div></div>
